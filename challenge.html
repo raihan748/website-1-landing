@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHALLENGE.HTML - NEXUS CTF STAGE 1</title>
+
+  <!-- STAGE 1 META HINT FOR CTF PARTICIPANTS -->
+  <meta name="nexus-cipher-class" content="vault-node-88">
+  <meta name="author" content="RAIHAN 9B">
+  <meta name="system-build" content="v4.0.88-PRO">
+
+  <style>
+    /* 
+      ==========================================================================
+      [NEXUS STAGE 1 CORE STYLESHEET - NEO BRUTALISM THEME]
+      ==========================================================================
+      Notice: This stylesheet contains security layer classes, layout grids,
+      and hidden DOM nodes for the CTF decryption process.
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700;800&family=Plus+Jakarta+Sans:wght@700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap');
+
+    :root {
+      --bg-dark: #0a0c14;
+      --card-bg: #141724;
+      --border-black: #000000;
+      --yellow-pop: #ffe600;
+      --pink-pop: #ff007a;
+      --cyan-pop: #00f0ff;
+      --green-pop: #00ff66;
+      --purple-pop: #a855f7;
+      --text-light: #ffffff;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-heading);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: 35px 35px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ctf-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .neo-box {
+      background: var(--card-bg);
+      border: 4px solid var(--border-black);
+      border-radius: 18px;
+      padding: 36px;
+      box-shadow: 9px 9px 0px var(--cyan-pop);
+      margin-bottom: 24px;
+    }
+
+    .neo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .status-badge {
+      background: var(--yellow-pop);
+      color: #000;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      border: 3px solid #000;
+      border-radius: 8px;
+      box-shadow: 3px 3px 0px #000;
+    }
+
+    .main-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: #fff;
+      text-shadow: 3px 3px 0px var(--pink-pop);
+    }
+
+    .sub-title {
+      font-family: var(--font-mono);
+      color: #a1a1aa;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    /* Terminal Console Display */
+    .terminal-window {
+      background: #000;
+      border: 3px solid #000;
+      border-radius: 12px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.6);
+      margin-bottom: 24px;
+    }
+
+    .terminal-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed #222;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #000;
+    }
+
+    .dot.r { background: var(--pink-pop); }
+    .dot.y { background: var(--yellow-pop); }
+    .dot.g { background: var(--green-pop); }
+
+    .code-block {
+      color: var(--cyan-pop);
+      line-height: 1.6;
+    }
+
+    .comment-text {
+      color: #71717a;
+    }
+
+    .highlight-text {
+      color: var(--yellow-pop);
+      font-weight: 700;
+    }
+
+    /* Step Checklist Neo Brutalism */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .step-card {
+      background: #090b12;
+      border: 3px solid #000;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      box-shadow: 3px 3px 0px var(--purple-pop);
+    }
+
+    .step-num {
+      color: var(--pink-pop);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    /* Footer Badge */
+    .raihan-footer {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .raihan-badge {
+      display: inline-block;
+      background: var(--pink-pop);
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 10px 24px;
+      border: 3px solid #000000;
+      border-radius: 50px;
+      box-shadow: 4px 4px 0px var(--yellow-pop);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* DECOY AND OBFUSCATED CSS LAYERS FOR COMPUTATIONAL OVERHEAD */
+    .decoy-layer-001 { opacity: 0.99; position: relative; }
+    .decoy-layer-002 { opacity: 0.98; position: relative; }
+    .decoy-layer-003 { opacity: 0.97; position: relative; }
+    .decoy-layer-004 { opacity: 0.96; position: relative; }
+    .decoy-layer-005 { opacity: 0.95; position: relative; }
+    .decoy-layer-006 { opacity: 0.94; position: relative; }
+    .decoy-layer-007 { opacity: 0.93; position: relative; }
+    .decoy-layer-008 { opacity: 0.92; position: relative; }
+    .decoy-layer-009 { opacity: 0.91; position: relative; }
+    .decoy-layer-010 { opacity: 0.90; position: relative; }
+    .decoy-layer-011 { opacity: 0.89; position: relative; }
+    .decoy-layer-012 { opacity: 0.88; position: relative; }
+    .decoy-layer-013 { opacity: 0.87; position: relative; }
+    .decoy-layer-014 { opacity: 0.86; position: relative; }
+    .decoy-layer-015 { opacity: 0.85; position: relative; }
+
+    /* REAL TARGET CLASS DISCOVERABLE IN STEP 1 & STEP 2 */
+    .vault-node-88 {
+      display: none;
+      visibility: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    =================================================================================
+    ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗    ██████╗████████╗██xFFFF╗
+    ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝   ██╔════╝╚══██╔══╝██╔════╝
+    ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗   ██║        ██║   █████╗  
+    ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║   ██║        ██║   ██╔══╝  
+    ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║   ╚██████╗   ██║   ██║     
+    ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    ╚═════╝   ╚═╝   ╚═╝     
+    =================================================================================
+    [STAGE 1 CIPHER FILE - DECRYPTION SYSTEM v4.0]
+    AUTHOR: RAIHAN 9B
+    
+    ---------------------------------------------------------------------------------
+    [SOLVING GUIDE: 6 SIMPLE LOGICAL STEPS]
+    ---------------------------------------------------------------------------------
+    STEP 1: Check HTML Head Meta Tags -> Find name="nexus-cipher-class" content!
+    STEP 2: Inspect DOM elements for the CSS class found in Step 1 (class="vault-node-88").
+    STEP 3: Read data attributes: data-part-1 (Base64), data-part-2 (Hex), data-part-3 (Base64).
+    STEP 4: Decode all 3 fragments:
+            - data-part-1 Base64 "TzE="     --> "O1"
+            - data-part-2 Hex    "32303236" --> "2026"
+            - data-part-3 Base64 "LU5FWFVTCg==" --> "-NEXUS"
+    STEP 5: Combine into Master Token: "O1-2026-NEXUS"
+    STEP 6: Open Developer Console (F12) and execute: solveVaultPass('O1-2026-NEXUS')
+            -> Console will print Website 2 Gateway URL & Access Key!
+    ---------------------------------------------------------------------------------
+    =================================================================================
+  -->
+
+  <!-- DECOY DOM STRUCTURES TO EXTEND CONTEXT & TESTING TIME FOR AI AGENTS -->
+  <div class="decoy-layer-001" id="node-alpha-1">
+    <span data-fake-token="998127391"></span>
+    <span data-fake-hash="e10adc3949ba59abbe56e057f20f883e"></span>
+  </div>
+  <div class="decoy-layer-002" id="node-alpha-2">
+    <span data-fake-token="110293847"></span>
+    <span data-fake-hash="c4ca4238a0b923820dcc509a6f75849b"></span>
+  </div>
+  <div class="decoy-layer-003" id="node-alpha-3">
+    <span data-fake-token="554637281"></span>
+    <span data-fake-hash="c81e728d9d4c2f636f067f89cc14862c"></span>
+  </div>
+  <div class="decoy-layer-004" id="node-alpha-4">
+    <span data-fake-token="883746251"></span>
+  </div>
+  <div class="decoy-layer-005" id="node-alpha-5">
+    <span data-fake-token="774839201"></span>
+  </div>
+  <div class="decoy-layer-006" id="node-alpha-6">
+    <span data-fake-token="664738291"></span>
+  </div>
+
+  <!-- TARGET HIDDEN CIPHER VAULT NODE (STEP 2) -->
+  <div class="vault-node-88" 
+       data-part-1="TzE=" 
+       data-part-2="32303236" 
+       data-part-3="LU5FWFVTCg==">
+    <!-- SECRET CIPHER FRAGMENTS INSIDE DATA ATTRIBUTES -->
+  </div>
+
+  <main class="ctf-container">
+    <div class="neo-box">
+      <div class="neo-header">
+        <span class="status-badge">NEXUS CTF v4.0</span>
+        <span class="status-badge" style="background: var(--pink-pop); color:#fff;">STAGE 1 ACTIVE</span>
+      </div>
+
+      <h1 class="main-title">STAGE 1 TERMINAL VAULT</h1>
+      <p class="sub-title">
+        Berkas ini berisi enkripsi 6-langkah. Buka Inspect Element (F12) & baca komentar header file ini untuk memulai!
+      </p>
+
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <div class="dot r"></div>
+          <div class="dot y"></div>
+          <div class="dot g"></div>
+        </div>
+        <div class="code-block">
+          <span class="comment-text">// [NEXUS TERMINAL INITIALIZED]</span><br>
+          <span class="highlight-text">> STATUS:</span> Awaiting decryption sequence...<br>
+          <span class="highlight-text">> HINT 1:</span> Inspect <code>&lt;head&gt;</code> meta tag / HTML comments.<br>
+          <span class="highlight-text">> HINT 2:</span> Execute <code>solveVaultPass('TOKEN')</code> in Console (F12) after decoding!
+        </div>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">STEP 1</div>
+          <div>Cek Meta Tag di Header</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 2</div>
+          <div>Cari Element <code>.vault-node-88</code></div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 3</div>
+          <div>Ekstrak <code>data-part-1..3</code></div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 4</div>
+          <div>Decode Base64 & Hex String</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 5</div>
+          <div>Gabungkan Token Tersebut</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">STEP 6</div>
+          <div>Jalankan di Console (F12)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER CENTER: MADE BY RAIHAN, 9B -->
+    <footer class="raihan-footer">
+      <div class="raihan-badge">
+        🚀 Made by RAIHAN, 9B
+      </div>
+    </footer>
+  </main>
+
+  <!-- OBFUSCATED & EXPANDED DECOY SCRIPT BLOCKS (EXTENDS CONTEXT SIZE TO ~800 LINES) -->
+  <script>
+    /* DECOY LOGIC LAYER 01 */
+    (function() {
+      const _d1 = "DECOY_HASH_88123";
+      const _d2 = "FAKE_PASS_991823";
+      function _dummyCheck(a) { return a === _d1; }
+    })();
+
+    /* DECOY LOGIC LAYER 02 */
+    (function() {
+      const _arr = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+      const _mapped = _arr.map(x => x * 2);
+    })();
+  </script>
+
+  <!-- DECOY BUFFER FILLERS TO REACH ~800 LINES TOTAL -->
+  <!-- FILLER BLOCK 01 -->
+  <!--
+    [DECOY BUFFER DUMP 01]
+    Lorem ipsum security audit system buffer allocation check.
+    00000000  50 4b 03 04 14 00 08 00  08 00 93 72 6a 58 00 00  |PK.........rjX..|
+    00000010  00 00 00 00 00 00 00 00  00 00 0b 00 00 00 73 61  |..............sa|
+    00000020  6d 70 6c 65 2e 74 78 74  ed c1 01 0d 00 00 00 02  |mple.txt........|
+    00000030  a0 04 69 4d 7e e2 b9 d0  3f a1 eb 02 50 4b 07 08  |..iM~...?...PK..|
+    00000040  a8 aa a1 aa a1 aa a1 aa  a1 aa a1 aa a1 aa a1 aa  |................|
+    00000050  50 4b 03 04 14 00 08 00  08 00 93 72 6a 58 00 00  |PK.........rjX..|
+    00000060  00 00 00 00 00 00 00 00  00 00 0b 00 00 00 73 61  |..............sa|
+    00000070  6d 70 6c 65 2e 74 78 74  ed c1 01 0d 00 00 00 02  |mple.txt........|
+    00000080  a0 04 69 4d 7e e2 b9 d0  3f a1 eb 02 50 4b 07 08  |..iM~...?...PK..|
+  -->
+
+  <!-- FILLER BLOCK 02 -->
+  <!--
+    [DECOY BUFFER DUMP 02]
+    00000090  11 22 33 44 55 66 77 88  99 aa bb cc dd ee ff 00  |."3DUfw.........|
+    000000a0  aa bb cc dd ee ff 00 11  22 33 44 55 66 77 88 99  |........"3DUfw..|
+    000000b0  50 4b 03 04 14 00 08 00  08 00 93 72 6a 58 00 00  |PK.........rjX..|
+    000000c0  00 00 00 00 00 00 00 00  00 00 0b 00 00 00 73 61  |..............sa|
+    000000d0  6d 70 6c 65 2e 74 78 74  ed c1 01 0d 00 00 00 02  |mple.txt........|
+    000000e0  a0 04 69 4d 7e e2 b9 d0  3f a1 eb 02 50 4b 07 08  |..iM~...?...PK..|
+  -->
+
+  <!-- FILLER BLOCK 03 -->
+  <!--
+    [SECURITY MATRIX MAPPING TABLE - DECOY METRICS]
+    MAP_001: 0x8F91A2 -> ACTIVE
+    MAP_002: 0x9B12C3 -> IDLE
+    MAP_003: 0xA1B2C3 -> STANDBY
+    MAP_004: 0xC4D5E6 -> ENCRYPTED
+    MAP_005: 0x7E8F90 -> RECOVERED
+    MAP_006: 0x1A2B3C -> FAILED
+    MAP_007: 0x4D5E6F -> VALIDATED
+    MAP_008: 0x7A8B9C -> SECURED
+    MAP_009: 0x010203 -> DEPLOYED
+    MAP_010: 0x040506 -> TERMINATED
+    MAP_011: 0x070809 -> PENDING
+    MAP_012: 0x0A0B0C -> QUEUED
+    MAP_013: 0x0D0E0F -> AUDITED
+    MAP_014: 0x101112 -> COMPLETED
+    MAP_015: 0x131415 -> READY
+  -->
+
+  <!-- FILLER BLOCK 04 (REPEATED STRUCTURAL EXPANSION) -->
+  <!--
+    =================================================================================
+    SYSTEM LOG MATRIX EXPANSION FOR SECURITY AUDIT TRAIL:
+    01. AUDIT CHECK AT NODE 001 - PASS
+    02. AUDIT CHECK AT NODE 002 - PASS
+    03. AUDIT CHECK AT NODE 003 - PASS
+    04. AUDIT CHECK AT NODE 004 - PASS
+    05. AUDIT CHECK AT NODE 005 - PASS
+    06. AUDIT CHECK AT NODE 006 - PASS
+    07. AUDIT CHECK AT NODE 007 - PASS
+    08. AUDIT CHECK AT NODE 008 - PASS
+    09. AUDIT CHECK AT NODE 009 - PASS
+    10. AUDIT CHECK AT NODE 010 - PASS
+    11. AUDIT CHECK AT NODE 011 - PASS
+    12. AUDIT CHECK AT NODE 012 - PASS
+    13. AUDIT CHECK AT NODE 013 - PASS
+    14. AUDIT CHECK AT NODE 014 - PASS
+    15. AUDIT CHECK AT NODE 015 - PASS
+    16. AUDIT CHECK AT NODE 016 - PASS
+    17. AUDIT CHECK AT NODE 017 - PASS
+    18. AUDIT CHECK AT NODE 018 - PASS
+    19. AUDIT CHECK AT NODE 019 - PASS
+    20. AUDIT CHECK AT NODE 020 - PASS
+    21. AUDIT CHECK AT NODE 021 - PASS
+    22. AUDIT CHECK AT NODE 022 - PASS
+    23. AUDIT CHECK AT NODE 023 - PASS
+    24. AUDIT CHECK AT NODE 024 - PASS
+    25. AUDIT CHECK AT NODE 025 - PASS
+    26. AUDIT CHECK AT NODE 026 - PASS
+    27. AUDIT CHECK AT NODE 027 - PASS
+    28. AUDIT CHECK AT NODE 028 - PASS
+    29. AUDIT CHECK AT NODE 029 - PASS
+    30. AUDIT CHECK AT NODE 030 - PASS
+    =================================================================================
+  -->
+
+  <!-- FILLER BLOCK 05 (EXPANDING CONTEXT LINES) -->
+  <!--
+    LINE_PADDING_001: //////////////////////////////////////////////////
+    LINE_PADDING_002: //////////////////////////////////////////////////
+    LINE_PADDING_003: //////////////////////////////////////////////////
+    LINE_PADDING_004: //////////////////////////////////////////////////
+    LINE_PADDING_005: //////////////////////////////////////////////////
+    LINE_PADDING_006: //////////////////////////////////////////////////
+    LINE_PADDING_007: //////////////////////////////////////////////////
+    LINE_PADDING_008: //////////////////////////////////////////////////
+    LINE_PADDING_009: //////////////////////////////////////////////////
+    LINE_PADDING_010: //////////////////////////////////////////////////
+    LINE_PADDING_011: //////////////////////////////////////////////////
+    LINE_PADDING_012: //////////////////////////////////////////////////
+    LINE_PADDING_013: //////////////////////////////////////////////////
+    LINE_PADDING_014: //////////////////////////////////////////////////
+    LINE_PADDING_015: //////////////////////////////////////////////////
+    LINE_PADDING_016: //////////////////////////////////////////////////
+    LINE_PADDING_017: //////////////////////////////////////////////////
+    LINE_PADDING_018: //////////////////////////////////////////////////
+    LINE_PADDING_019: //////////////////////////////////////////////////
+    LINE_PADDING_020: //////////////////////////////////////////////////
+    LINE_PADDING_021: //////////////////////////////////////////////////
+    LINE_PADDING_022: //////////////////////////////////////////////////
+    LINE_PADDING_023: //////////////////////////////////////////////////
+    LINE_PADDING_024: //////////////////////////////////////////////////
+    LINE_PADDING_025: //////////////////////////////////////////////////
+    LINE_PADDING_026: //////////////////////////////////////////////////
+    LINE_PADDING_027: //////////////////////////////////////////////////
+    LINE_PADDING_028: //////////////////////////////////////////////////
+    LINE_PADDING_029: //////////////////////////////////////////////////
+    LINE_PADDING_030: //////////////////////////////////////////////////
+    LINE_PADDING_031: //////////////////////////////////////////////////
+    LINE_PADDING_032: //////////////////////////////////////////////////
+    LINE_PADDING_033: //////////////////////////////////////////////////
+    LINE_PADDING_034: //////////////////////////////////////////////////
+    LINE_PADDING_035: //////////////////////////////////////////////////
+    LINE_PADDING_036: //////////////////////////////////////////////////
+    LINE_PADDING_037: //////////////////////////////////////////////////
+    LINE_PADDING_038: //////////////////////////////////////////////////
+    LINE_PADDING_039: //////////////////////////////////////////////////
+    LINE_PADDING_040: //////////////////////////////////////////////////
+  -->
+
+  <!-- FILLER BLOCK 06 -->
+  <!--
+    SYSTEM_DIAGNOSTIC_LOG_DUMP:
+    0x0001 : CORE_INIT_SUCCESS
+    0x0002 : MEMORY_ALLOCATION_OK
+    0x0003 : CIPHER_ENGINE_ONLINE
+    0x0004 : DECOY_LAYERS_ACTIVE
+    0x0005 : INSPECT_ELEMENT_LISTENER_ATTACHED
+    0x0006 : STAGE_1_META_CONFIGURED
+    0x0007 : STAGE_2_GATEWAY_TARGET_BOUND
+    0x0008 : CONSOLE_EXEC_HANDLER_READY
+    0x0009 : CTF_SYSTEM_ARMED
+    0x000A : AUTHOR_RAIHAN_9B_VERIFIED
+    0x000B : INTEGRITY_CHECK_PASS
+    0x000C : CHECKSUM_OK
+  -->
+
+  <!-- FILLER BLOCK 07 -->
+  <!--
+    CIPHER MATRIX DATA STRUCTURE:
+    +-----------------------------------------------------------------------+
+    | INDEX | FRAGMENT VALUE | ENCODING TYPE | TARGET LAYER                 |
+    +-----------------------------------------------------------------------+
+    | 01    | TzE=           | BASE64        | data-part-1                  |
+    | 02    | 32303236       | HEX           | data-part-2                  |
+    | 03    | LU5FWFVTCg==   | BASE64        | data-part-3                  |
+    +-----------------------------------------------------------------------+
+  -->
+
+  <!-- FILLER BLOCK 08 -->
+  <!--
+    LINE_PADDING_041: //////////////////////////////////////////////////
+    LINE_PADDING_042: //////////////////////////////////////////////////
+    LINE_PADDING_043: //////////////////////////////////////////////////
+    LINE_PADDING_044: //////////////////////////////////////////////////
+    LINE_PADDING_045: //////////////////////////////////////////////////
+    LINE_PADDING_046: //////////////////////////////////////////////////
+    LINE_PADDING_047: //////////////////////////////////////////////////
+    LINE_PADDING_048: //////////////////////////////////////////////////
+    LINE_PADDING_049: //////////////////////////////////////////////////
+    LINE_PADDING_050: //////////////////////////////////////////////////
+    LINE_PADDING_051: //////////////////////////////////////////////////
+    LINE_PADDING_052: //////////////////////////////////////////////////
+    LINE_PADDING_053: //////////////////////////////////////////////////
+    LINE_PADDING_054: //////////////////////////////////////////////////
+    LINE_PADDING_055: //////////////////////////////////////////////////
+    LINE_PADDING_056: //////////////////////////////////////////////////
+    LINE_PADDING_057: //////////////////////////////////////////////////
+    LINE_PADDING_058: //////////////////////////////////////////////////
+    LINE_PADDING_059: //////////////////////////////////////////////////
+    LINE_PADDING_060: //////////////////////////////////////////////////
+    LINE_PADDING_061: //////////////////////////////////////////////////
+    LINE_PADDING_062: //////////////////////////////////////////////////
+    LINE_PADDING_063: //////////////////////////////////////////////////
+    LINE_PADDING_064: //////////////////////////////////////////////////
+    LINE_PADDING_065: //////////////////////////////////////////////////
+    LINE_PADDING_066: //////////////////////////////////////////////////
+    LINE_PADDING_067: //////////////////////////////////////////////////
+    LINE_PADDING_068: //////////////////////////////////////////////////
+    LINE_PADDING_069: //////////////////////////////////////////////////
+    LINE_PADDING_070: //////////////////////////////////////////////////
+  -->
+
+  <!-- FILLER BLOCK 09 -->
+  <!--
+    00000100  a1 b2 c3 d4 e5 f6 07 08  09 10 11 12 13 14 15 16  |................|
+    00000110  17 18 19 1a 1b 1c 1d 1e  1f 20 21 22 23 24 25 26  |......... !"#$%&|
+    00000120  27 28 29 2a 2b 2c 2d 2e  2f 30 31 32 33 34 35 36  |'()*+,-./0123456|
+    00000130  37 38 39 3a 3b 3c 3d 3e  3f 40 41 42 43 44 45 46  |789:;<=>?@ABCDEF|
+    00000140  47 48 49 4a 4b 4c 4d 4e  4f 50 51 52 53 54 55 56  |GHIJKLMNOPQRSTUV|
+    00000150  57 58 59 5a 5b 5c 5d 5e  5f 60 61 62 63 64 65 66  |WXYZ[\]^_`abcdef|
+    00000160  67 68 69 6a 6b 6c 6d 6e  6f 70 71 72 73 74 75 76  |ghijklmnopqrstuv|
+    00000170  77 78 79 7a 7b 7c 7d 7e  7f 80 81 82 83 84 85 86  |wxyz{|}~........|
+  -->
+
+  <!-- FILLER BLOCK 10 -->
+  <!--
+    LINE_PADDING_071: //////////////////////////////////////////////////
+    LINE_PADDING_072: //////////////////////////////////////////////////
+    LINE_PADDING_073: //////////////////////////////////////////////////
+    LINE_PADDING_074: //////////////////////////////////////////////////
+    LINE_PADDING_075: //////////////////////////////////////////////////
+    LINE_PADDING_076: //////////////////////////////////////////////////
+    LINE_PADDING_077: //////////////////////////////////////////////////
+    LINE_PADDING_078: //////////////////////////////////////////////////
+    LINE_PADDING_079: //////////////////////////////////////////////////
+    LINE_PADDING_080: //////////////////////////////////////////////////
+    LINE_PADDING_081: //////////////////////////////////////////////////
+    LINE_PADDING_082: //////////////////////////////////////////////////
+    LINE_PADDING_083: //////////////////////////////////////////////////
+    LINE_PADDING_084: //////////////////////////////////////////////////
+    LINE_PADDING_085: //////////////////////////////////////////////////
+    LINE_PADDING_086: //////////////////////////////////////////////////
+    LINE_PADDING_087: //////////////////////////////////////////////////
+    LINE_PADDING_088: //////////////////////////////////////////////////
+    LINE_PADDING_089: //////////////////////////////////////////////////
+    LINE_PADDING_090: //////////////////////////////////////////////////
+    LINE_PADDING_091: //////////////////////////////////////////////////
+    LINE_PADDING_092: //////////////////////////////////////////////////
+    LINE_PADDING_093: //////////////////////////////////////////////////
+    LINE_PADDING_094: //////////////////////////////////////////////////
+    LINE_PADDING_095: //////////////////////////////////////////////////
+    LINE_PADDING_096: //////////////////////////////////////////////////
+    LINE_PADDING_097: //////////////////////////////////////////////////
+    LINE_PADDING_098: //////////////////////////////////////////////////
+    LINE_PADDING_099: //////////////////////////////////////////////////
+    LINE_PADDING_100: //////////////////////////////////////////////////
+  -->
+
+  <!-- FILLER BLOCK 11 -->
+  <!--
+    SYSTEM MEMORY DUMP CONTINUATION:
+    [ADDR 0x00A10]: 00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF
+    [ADDR 0x00A20]: FF EE DD CC BB AA 99 88 77 66 55 44 33 22 11 00
+    [ADDR 0x00A30]: 12 34 56 78 9A BC DE F0 0F E1 D2 C3 B4 A5 96 87
+    [ADDR 0x00A40]: 98 76 54 32 10 FE DC BA AB CD EF 01 23 45 67 89
+    [ADDR 0x00A50]: 11 33 55 77 99 BB DD FF 00 22 44 66 88 AA CC EE
+    [ADDR 0x00A60]: 99 88 77 66 55 44 33 22 11 00 FF EE DD CC BB AA
+    [ADDR 0x00A70]: AA BB CC DD EE FF 00 11 22 33 44 55 66 77 88 99
+    [ADDR 0x00A80]: 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF 00
+    [ADDR 0x00A90]: 00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF
+    [ADDR 0x00AA0]: FF EE DD CC BB AA 99 88 77 66 55 44 33 22 11 00
+  -->
+
+  <!-- FILLER BLOCK 12 -->
+  <!--
+    LINE_PADDING_101: //////////////////////////////////////////////////
+    LINE_PADDING_102: //////////////////////////////////////////////////
+    LINE_PADDING_103: //////////////////////////////////////////////////
+    LINE_PADDING_104: //////////////////////////////////////////////////
+    LINE_PADDING_105: //////////////////////////////////////////////////
+    LINE_PADDING_106: //////////////////////////////////////////////////
+    LINE_PADDING_107: //////////////////////////////////////////////////
+    LINE_PADDING_108: //////////////////////////////////////////////////
+    LINE_PADDING_109: //////////////////////////////////////////////////
+    LINE_PADDING_110: //////////////////////////////////////////////////
+    LINE_PADDING_111: //////////////////////////////////////////////////
+    LINE_PADDING_112: //////////////////////////////////////////////////
+    LINE_PADDING_113: //////////////////////////////////////////////////
+    LINE_PADDING_114: //////////////////////////////////////////////////
+    LINE_PADDING_115: //////////////////////////////////////////////////
+    LINE_PADDING_116: //////////////////////////////////////////////////
+    LINE_PADDING_117: //////////////////////////////////////////////////
+    LINE_PADDING_118: //////////////////////////////////////////////////
+    LINE_PADDING_119: //////////////////////////////////////////////////
+    LINE_PADDING_120: //////////////////////////////////////////////////
+    LINE_PADDING_121: //////////////////////////////////////////////////
+    LINE_PADDING_122: //////////////////////////////////////////////////
+    LINE_PADDING_123: //////////////////////////////////////////////////
+    LINE_PADDING_124: //////////////////////////////////////////////////
+    LINE_PADDING_125: //////////////////////////////////////////////////
+    LINE_PADDING_126: //////////////////////////////////////////////////
+    LINE_PADDING_127: //////////////////////////////////////////////////
+    LINE_PADDING_128: //////////////////////////////////////////////////
+    LINE_PADDING_129: //////////////////////////////////////////////////
+    LINE_PADDING_130: //////////////////////////////////////////////////
+    LINE_PADDING_131: //////////////////////////////////////////////////
+    LINE_PADDING_132: //////////////////////////////////////////////////
+    LINE_PADDING_133: //////////////////////////////////////////////////
+    LINE_PADDING_134: //////////////////////////////////////////////////
+    LINE_PADDING_135: //////////////////////////////////////////////////
+    LINE_PADDING_136: //////////////////////////////////////////////////
+  -->
+
+  <!-- FILLER BLOCK 13 -->
+  <!--
+    [SECURITY PROTOCOL AUDIT CONTINUATION]
+    AUDIT_ITEM_101: VALIDATED
+    AUDIT_ITEM_102: VALIDATED
+    AUDIT_ITEM_103: VALIDATED
+    AUDIT_ITEM_104: VALIDATED
+    AUDIT_ITEM_105: VALIDATED
+    AUDIT_ITEM_106: VALIDATED
+    AUDIT_ITEM_107: VALIDATED
+    AUDIT_ITEM_108: VALIDATED
+    AUDIT_ITEM_109: VALIDATED
+    AUDIT_ITEM_110: VALIDATED
+    AUDIT_ITEM_111: VALIDATED
+    AUDIT_ITEM_112: VALIDATED
+    AUDIT_ITEM_113: VALIDATED
+    AUDIT_ITEM_114: VALIDATED
+    AUDIT_ITEM_115: VALIDATED
+    AUDIT_ITEM_116: VALIDATED
+    AUDIT_ITEM_117: VALIDATED
+    AUDIT_ITEM_118: VALIDATED
+    AUDIT_ITEM_119: VALIDATED
+    AUDIT_ITEM_120: VALIDATED
+    AUDIT_ITEM_121: VALIDATED
+    AUDIT_ITEM_122: VALIDATED
+    AUDIT_ITEM_123: VALIDATED
+    AUDIT_ITEM_124: VALIDATED
+    AUDIT_ITEM_125: VALIDATED
+  -->
+
+  <!-- FILLER BLOCK 14 -->
+  <!--
+    LINE_PADDING_137: //////////////////////////////////////////////////
+    LINE_PADDING_138: //////////////////////////////////////////////////
+    LINE_PADDING_139: //////////////////////////////////////////////////
+    LINE_PADDING_140: //////////////////////////////////////////////////
+    LINE_PADDING_141: //////////////////////////////////////////////////
+    LINE_PADDING_142: //////////////////////////////////////////////////
+    LINE_PADDING_143: //////////////////////////////////////////////////
+    LINE_PADDING_144: //////////////////////////////////////////////////
+    LINE_PADDING_145: //////////////////////////////////////////////////
+    LINE_PADDING_146: //////////////////////////////////////////////////
+    LINE_PADDING_147: //////////////////////////////////////////////////
+    LINE_PADDING_148: //////////////////////////////////////////////////
+    LINE_PADDING_149: //////////////////////////////////////////////////
+    LINE_PADDING_150: //////////////////////////////////////////////////
+    LINE_PADDING_151: //////////////////////////////////////////////////
+    LINE_PADDING_152: //////////////////////////////////////////////////
+    LINE_PADDING_153: //////////////////////////////////////////////////
+    LINE_PADDING_154: //////////////////////////////////////////////////
+    LINE_PADDING_155: //////////////////////////////////////////////////
+    LINE_PADDING_156: //////////////////////////////////////////////////
+    LINE_PADDING_157: //////////////////////////////////////////////////
+    LINE_PADDING_158: //////////////////////////////////////////////////
+    LINE_PADDING_159: //////////////////////////////////////////////////
+    LINE_PADDING_160: //////////////////////////////////////////////////
+    LINE_PADDING_161: //////////////////////////////////////////////////
+    LINE_PADDING_162: //////////////////////////////////////////////////
+    LINE_PADDING_163: //////////////////////////////////////////////////
+    LINE_PADDING_164: //////////////////////////////////////////////////
+    LINE_PADDING_165: //////////////////////////////////////////////////
+    LINE_PADDING_166: //////////////////////////////////////////////////
+    LINE_PADDING_167: //////////////////////////////////////////////////
+    LINE_PADDING_168: //////////////////////////////////////////////////
+    LINE_PADDING_169: //////////////////////////////////////////////////
+    LINE_PADDING_170: //////////////////////////////////////////////////
+    LINE_PADDING_171: //////////////////////////////////////////////////
+    LINE_PADDING_172: //////////////////////////////////////////////////
+    LINE_PADDING_173: //////////////////////////////////////////////////
+    LINE_PADDING_174: //////////////////////////////////////////////////
+    LINE_PADDING_175: //////////////////////////////////////////////////
+  -->
+
+  <!-- REAL JAVASCRIPT CONSOLE SOLVER FUNCTION (STEP 5 & 6) -->
+  <script>
+    /**
+     * =========================================================================
+     * NEXUS STAGE 1 SOLVER FUNCTION (STEP 5)
+     * =========================================================================
+     * Usage in Browser Developer Console (F12):
+     * solveVaultPass('O1-2026-NEXUS');
+     */
+    window.solveVaultPass = function(inputToken) {
+      console.log("%c[NEXUS STAGE 1] Verifying Master Token...", "color:#00f0ff; font-weight:bold; font-size:14px;");
+
+      const targetToken = "O1-2026-NEXUS";
+      
+      if (!inputToken || inputToken.trim().toUpperCase() !== targetToken) {
+        console.log("%c❌ TOKEN INVALID! Pastikan dekode dengan benar: O1-2026-NEXUS", "color:#ff007a; font-weight:bold;");
+        return "Access Denied.";
+      }
+
+      console.log("%c✅ TOKEN VALIDATED! STAGE 1 DECRYPTION COMPLETE!", "color:#00ff66; font-weight:bold; font-size:14px;");
+      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
+      console.log("%c🔗 WEBSITE 2 GATEWAY URL:", "color:#ffe600; font-weight:bold;");
+      console.log("%chttps://github.com/raihan748/website-2-gateway", "color:#00f0ff; font-weight:bold; font-size:16px; text-decoration:underline;");
+      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
+      console.log("%c💡 HINT STAGE 2: Buka Inspect Element di Website 2 & olah kata demi kata!", "color:#ffffff; font-weight:bold;");
+
+      return "Stage 1 Solved! Check Console output for Website 2 link.";
+    };
+
+    console.log("%c[NEXUS CTF] Challenge loaded. Author: RAIHAN 9B.", "color:#ffe600; font-weight:bold;");
+    console.log("%cRun solveVaultPass('TOKEN') in this Console once you assemble the token from DOM data attributes!", "color:#00f0ff;");
+  </script>
+</body>
+</html>

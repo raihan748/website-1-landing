@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700;800&family=Plus+Jakarta+Sans:wght@700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap');
+
+:root {
+  --bg-main: #0d0f17;
+  --card-bg: #161925;
+  --neo-border: #000000;
+  --yellow-pop: #ffe600;
+  --pink-pop: #ff007a;
+  --cyan-pop: #00f0ff;
+  --green-pop: #00ff66;
+  --purple-pop: #a855f7;
+  --text-main: #ffffff;
+  --text-dark: #000000;
+  --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.landing-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 620px;
+  margin: auto;
+}
+
+.neo-card {
+  background: var(--card-bg);
+  border: 4px solid var(--neo-border);
+  border-radius: 20px;
+  padding: 44px 32px;
+  box-shadow: 10px 10px 0px var(--yellow-pop);
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neo-card:hover {
+  box-shadow: 12px 12px 0px var(--cyan-pop);
+}
+
+.badge-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.neo-badge {
+  background: var(--pink-pop);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border: 3px solid var(--neo-border);
+  border-radius: 8px;
+  box-shadow: 3px 3px 0px #000;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.neo-badge.green {
+  background: var(--green-pop);
+  color: var(--text-dark);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 14px;
+  text-shadow: 4px 4px 0px var(--pink-pop);
+}
+
+.hero-desc {
+  font-family: var(--font-mono);
+  color: #a1a1aa;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.rules-box {
+  background: #000000;
+  border: 3px solid var(--neo-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.rules-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--yellow-pop);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.rules-list {
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #d4d4d8;
+}
+
+.rules-list li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 22px;
+  background: var(--yellow-pop);
+  color: var(--text-dark);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 4px solid var(--neo-border);
+  border-radius: 14px;
+  text-decoration: none;
+  box-shadow: 7px 7px 0px #000;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0px var(--pink-pop);
+  background: var(--cyan-pop);
+}
+
+.download-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0px #000;
+}
+
+.raihan-footer {
+  margin-top: 36px;
+  text-align: center;
+  z-index: 10;
+}
+
+.raihan-badge {
+  display: inline-block;
+  background: var(--pink-pop);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 10px 24px;
+  border: 3px solid #000000;
+  border-radius: 50px;
+  box-shadow: 4px 4px 0px var(--yellow-pop);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
