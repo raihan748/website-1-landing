@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHALLENGE.HTML - NEXUS CTF STAGE 1 (10-STEP EXTREME C++ EDITION - 1500 LINES)</title>
+  <title>CHALLENGE.HTML - NEXUS CTF STAGE 1 (15-STEP ULTRA EXTREME C++ EDITION - 2000+ LINES)</title>
 
   <!-- STAGE 1 META DATA FOR CTF ANALYSTS -->
-  <meta name="cipher-version" content="10.0-EXTREME-CPP-ENGINE">
+  <meta name="cipher-version" content="15.0-ULTRA-EXTREME-CPP">
   <meta name="author" content="RAIHAN 9B">
-  <meta name="security-level" content="LEVEL-10-ENCRYPTED-CPP-KERNEL">
+  <meta name="security-level" content="LEVEL-15-ENCRYPTED-CPP-KERNEL">
 
   <style>
     /* 
       ==========================================================================
-      [NEXUS STAGE 1 CORE STYLESHEET - NEO BRUTALISM THEME (1500 LINES C++ EDITION)]
+      [NEXUS STAGE 1 CORE STYLESHEET - NEO BRUTALISM THEME (2000+ LINES C++ EDITION)]
       ==========================================================================
       STEP 2 CSS CUSTOM PROPERTY HINT:
-      Hex String: 0x4e455855535f5641554c54 -> Decode to ASCII "NEXUS_VAULT"
+      Hex String: 0x4e455855535f5641554c54 -> Hex to ASCII -> "NEXUS_VAULT"
     */
     :root {
-      --stage1-node-hash: "0x4e455855535f5641554c54";
+      --cipher-vault-hash: "0x4e455855535f5641554c54";
       --bg-dark: #0a0c14;
       --card-bg: #141724;
       --border-black: #000000;
@@ -73,7 +73,7 @@
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 780px;
+      max-width: 820px;
     }
 
     .neo-box {
@@ -168,7 +168,7 @@
     .steps-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 24px;
     }
 
@@ -176,16 +176,16 @@
       background: #090b12;
       border: 3px solid #000;
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       box-shadow: 3px 3px 0px var(--yellow-pop);
     }
 
     .step-num {
       color: var(--pink-pop);
       font-weight: 800;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .raihan-footer {
@@ -226,46 +226,60 @@
     ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║   ╚██████╗   ██║   ██║     
     ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    ╚═════╝   ╚═╝   ╚═╝     
     =================================================================================
-    [NEXUS STAGE 1 - 10-STEP EXTREME C++ ENGINE PROTOCOL v10.0]
+    [NEXUS STAGE 1 - 15-STEP ULTRA EXTREME C++ EDITION v15.0]
     AUTHOR: RAIHAN 9B
     
     ---------------------------------------------------------------------------------
-    [10-STEP SEQUENTIAL DECRYPTION ALGORITHM GUIDE]
+    [15-STEP MASTER DECRYPTION ALGORITHM GUIDE]
     ---------------------------------------------------------------------------------
-    STEP 1: Decode Header Binary String:
+    STEP 1: Decode Header Binary Stream in comment:
             01001110 01000101 01011000 01010101 01010011 -> Binary to Text -> "NEXUS"
 
     STEP 2: Inspect CSS :root Custom Property in <style>:
-            --stage1-node-hash: "0x4e455855535f5641554c54" -> Hex to Text -> "NEXUS_VAULT"
+            --cipher-vault-hash: "0x4e455855535f5641554c54" -> Hex to ASCII -> "NEXUS_VAULT"
 
     STEP 3: Query DOM element matching data attribute found in Step 2:
             Element: <div data-cipher-target="NEXUS_VAULT">
 
-    STEP 4: Extract data-fragment-a="R4" and apply Caesar Shift (-3):
+    STEP 4: Extract data-fragment-a="4R" and reverse string:
+            "4R" reversed -> "R4"
+
+    STEP 5: Apply Caesar Shift (-3) on Result 4 ("R4"):
             "R" (-3) -> "O"
             "4" (-3) -> "1"
-            Result A = "O1"
+            Result Step 5 = "O1"
 
-    STEP 5: Extract data-fragment-b="32303236" (Hex Encoded String):
-            Decode Hex -> "2026"
+    STEP 6: Extract data-fragment-b="32303236" -> Decode Hex -> "2026"
 
-    STEP 6: Extract data-fragment-c="LU5FWFVTCg==" -> Base64 Decode -> "-NEXUS"
+    STEP 7: Extract data-fragment-c="LU5FWFVTCg==" -> Base64 Decode -> "-NEXUS"
 
-    STEP 7: Assemble Master Token:
-            Result A ("O1") + Result B ("2026") + Result C ("-NEXUS") -> "O1-2026-NEXUS"
+    STEP 8: Assemble Master Token:
+            "O1" + "2026" + "-NEXUS" -> "O1-2026-NEXUS"
 
-    STEP 8: Compute Math Checksum:
-            Checksum A = ASCII sum of "O1" (79 + 49 = 128)
-            Checksum B = Digit sum of "2026" (2 + 0 + 2 + 6 = 10)
-            Total Checksum = 128 * 10 = 1280
+    STEP 9: Calculate ASCII Sum Checksum A:
+            ASCII 'O' (79) + ASCII '1' (49) = 128
 
-    STEP 9: Execute Stage-1 Key Generator in Console (F12):
-            const session = decryptNexusKey("O1-2026-NEXUS", 1280);
-            -> Returns session object with sessionKey: "NX-SESSION-882026"
+    STEP 10: Calculate Digit Sum Checksum B:
+             2 + 0 + 2 + 6 = 10
 
-    STEP 10: Final Unlock Call in Console:
-            solveVaultPass("NX-SESSION-882026")
-            -> Console prints Live Vercel Website 2 Gateway URL & Victory Hint!
+    STEP 11: Multiply Checksum A * Checksum B:
+             128 * 10 = 1280
+
+    STEP 12: Execute Console Handshake 1:
+             const h = initNexusHandshake("NEXUS");
+             -> Returns Handshake Key: "HS-NEXUS-99"
+
+    STEP 13: Execute Console Session Generator 2:
+             const s = generateNexusSession("O1-2026-NEXUS", 1280, "HS-NEXUS-99");
+             -> Returns Session Token: "NX-SESS-882026"
+
+    STEP 14: Execute Console Verification Object 3:
+             const auth = verifyNexusAuth({ session: "NX-SESS-882026", step15Ready: true });
+             -> Returns Auth Key: "AUTH-PASS-2026"
+
+    STEP 15: Final Console Unlock Call 4:
+             solveVaultPass("AUTH-PASS-2026")
+             -> Console prints Live Vercel Website 2 Gateway URL & Victory Hint!
     ---------------------------------------------------------------------------------
     =================================================================================
   -->
@@ -274,27 +288,27 @@
   <!-- CIPHER BINARY HEADER STREAM: 01001110 01000101 01011000 01010101 01010011 -->
 
   <!-- DECOY HONEYPOT DOM ELEMENTS -->
-  <div data-cipher-target="FAKE_VAULT_1" data-fragment-a="Z9" data-fragment-b="9999" data-fragment-c="RkFLRQ=="></div>
-  <div data-cipher-target="FAKE_VAULT_2" data-fragment-a="X8" data-fragment-b="8888" data-fragment-c="VFJBUA=="></div>
+  <div data-cipher-target="FAKE_VAULT_1" data-fragment-a="9Z" data-fragment-b="9999" data-fragment-c="RkFLRQ=="></div>
+  <div data-cipher-target="FAKE_VAULT_2" data-fragment-a="8X" data-fragment-b="8888" data-fragment-c="VFJBUA=="></div>
 
   <!-- TARGET HIDDEN DOM NODE (MATCHING STEP 2 DATA TARGET "NEXUS_VAULT") -->
   <div data-cipher-target="NEXUS_VAULT"
-       data-fragment-a="R4"
+       data-fragment-a="4R"
        data-fragment-b="32303236"
        data-fragment-c="LU5FWFVTCg==">
-    <!-- REAL 10-STEP CIPHER DATA -->
+    <!-- REAL 15-STEP CIPHER DATA -->
   </div>
 
   <main class="ctf-container">
     <div class="neo-box">
       <div class="neo-header">
-        <span class="status-badge" style="background: var(--pink-pop); color:#fff;">1500-LINE C++ EDITION</span>
-        <span class="status-badge">STAGE 1 ULTRA</span>
+        <span class="status-badge" style="background: var(--pink-pop); color:#fff;">2000+ LINE C++ EDITION</span>
+        <span class="status-badge">15-STEP ULTRA EXTREME</span>
       </div>
 
-      <h1 class="main-title">NEXUS 10-STEP C++ CIPHER</h1>
+      <h1 class="main-title">NEXUS 15-STEP C++ CIPHER</h1>
       <p class="sub-title">
-        Tantangan 10-Langkah beruntun diselimuti 1500+ baris C++ Memory Engine & Decoy Template Metaprogramming!
+        Tantangan 15-Langkah beruntun diselimuti 2000+ baris C++ Memory Engine & Decoy Template Metaprogramming!
       </p>
 
       <div class="terminal-window">
@@ -304,26 +318,32 @@
           <div class="dot g"></div>
         </div>
         <div class="code-block">
-          <span class="comment-text">// [NEXUS 10-STEP EXTREME C++ ENGINE v10.0]</span><br>
-          <span class="highlight-text">> STATUS:</span> Locked under 10 sequential cipher stages & 1500-line C++ Kernel.<br>
+          <span class="comment-text">// [NEXUS 15-STEP ULTRA EXTREME C++ ENGINE v15.0]</span><br>
+          <span class="highlight-text">> STATUS:</span> Locked under 15 sequential cipher stages & 2000+ line C++ Kernel.<br>
           <span class="highlight-text">> STEP 1:</span> Decode Binary Stream in HTML comment header.<br>
-          <span class="highlight-text">> STEP 2:</span> Hex decode <code>--stage1-node-hash</code> in CSS <code>:root</code>.<br>
-          <span class="highlight-text">> STEP 9:</span> Run <code>decryptNexusKey("O1-2026-NEXUS", 1280)</code> in Console.<br>
-          <span class="highlight-text">> STEP 10:</span> Run <code>solveVaultPass("NX-SESSION-882026")</code>!
+          <span class="highlight-text">> STEP 12:</span> <code>initNexusHandshake("NEXUS")</code> $\rightarrow$ "HS-NEXUS-99"<br>
+          <span class="highlight-text">> STEP 13:</span> <code>generateNexusSession("O1-2026-NEXUS", 1280, "HS-NEXUS-99")</code><br>
+          <span class="highlight-text">> STEP 14:</span> <code>verifyNexusAuth({ session: "NX-SESS-882026", step15Ready: true })</code><br>
+          <span class="highlight-text">> STEP 15:</span> <code>solveVaultPass("AUTH-PASS-2026")</code>!
         </div>
       </div>
 
       <div class="steps-grid">
-        <div class="step-card"><div class="step-num">STEP 1</div>Decode Binary Header Stream</div>
-        <div class="step-card"><div class="step-num">STEP 2</div>Hex Decode CSS <code>:root</code> Hash</div>
-        <div class="step-card"><div class="step-num">STEP 3</div>Query DOM <code>data-cipher-target</code></div>
-        <div class="step-card"><div class="step-num">STEP 4</div>Caesar Shift (-3) on Fragment A</div>
-        <div class="step-card"><div class="step-num">STEP 5</div>Hex Decode Fragment B</div>
-        <div class="step-card"><div class="step-num">STEP 6</div>Base64 Decode Fragment C</div>
-        <div class="step-card"><div class="step-num">STEP 7</div>Assemble Master Token</div>
-        <div class="step-card"><div class="step-num">STEP 8</div>Calculate Math Checksum (1280)</div>
-        <div class="step-card"><div class="step-num">STEP 9</div>Generate Session Key in Console</div>
-        <div class="step-card"><div class="step-num">STEP 10</div>Final Unlock Execution</div>
+        <div class="step-card"><div class="step-num">STEP 1</div>Binary Comment Decode</div>
+        <div class="step-card"><div class="step-num">STEP 2</div>CSS <code>:root</code> Hex Hash</div>
+        <div class="step-card"><div class="step-num">STEP 3</div>DOM Query <code>NEXUS_VAULT</code></div>
+        <div class="step-card"><div class="step-num">STEP 4</div>Reverse Fragment A ("4R" $\rightarrow$ "R4")</div>
+        <div class="step-card"><div class="step-num">STEP 5</div>Caesar Shift (-3) $\rightarrow$ "O1"</div>
+        <div class="step-card"><div class="step-num">STEP 6</div>Hex Decode Fragment B ("2026")</div>
+        <div class="step-card"><div class="step-num">STEP 7</div>Base64 Decode Fragment C ("-NEXUS")</div>
+        <div class="step-card"><div class="step-num">STEP 8</div>Assemble Token ("O1-2026-NEXUS")</div>
+        <div class="step-card"><div class="step-num">STEP 9</div>ASCII Sum Checksum A (128)</div>
+        <div class="step-card"><div class="step-num">STEP 10</div>Digit Sum Checksum B (10)</div>
+        <div class="step-card"><div class="step-num">STEP 11</div>Multiply Checksums (1280)</div>
+        <div class="step-card"><div class="step-num">STEP 12</div>Console Handshake 1</div>
+        <div class="step-card"><div class="step-num">STEP 13</div>Console Session Gen 2</div>
+        <div class="step-card"><div class="step-num">STEP 14</div>Console Auth Object 3</div>
+        <div class="step-card"><div class="step-num">STEP 15</div>Final Unlock Execution</div>
       </div>
     </div>
 
@@ -335,46 +355,79 @@
     </footer>
   </main>
 
-  <!-- OBFUSCATED JAVASCRIPT SOLVER & SESSION KEY GENERATOR (STEPS 8, 9, 10) -->
+  <!-- OBFUSCATED JAVASCRIPT SOLVER & 15-STEP FUNCTIONS (STEPS 12, 13, 14, 15) -->
   <script>
     /* OBFUSCATED DECOY FUNCTION */
     window.solveFakeToken = function() { console.warn("⚠️ HONEYPOT: Fake function called!"); };
 
     /**
-     * STEP 9: DECRYPT NEXUS SESSION KEY
+     * STEP 12: HANDSHAKE 1
      */
-    window.decryptNexusKey = function(masterToken, checksum) {
-      console.log("%c[NEXUS STEP 9] Verifying Master Token & Checksum...", "color:#00f0ff; font-weight:bold;");
-
-      if (masterToken !== "O1-2026-NEXUS") {
-        console.log("%c❌ STEP 7 FAILED: Master Token mismatch! Must be 'O1-2026-NEXUS'", "color:#ff007a; font-weight:bold;");
+    window.initNexusHandshake = function(binaryKey) {
+      console.log("%c[NEXUS STEP 12] Handshake Key Initializing...", "color:#00f0ff; font-weight:bold;");
+      if (binaryKey !== "NEXUS") {
+        console.log("%c❌ STEP 1 FAILED! Binary key must be 'NEXUS'", "color:#ff007a; font-weight:bold;");
         return null;
       }
-
-      if (parseInt(checksum) !== 1280) {
-        console.log("%c❌ STEP 8 FAILED: Math Checksum mismatch! (ASCII 'O1' [79+49=128] * Digit sum '2026' [10] = 1280)", "color:#ff007a; font-weight:bold;");
-        return null;
-      }
-
-      console.log("%c✅ STEP 9 COMPLETE! Session Key Generated:", "color:#00ff66; font-weight:bold;");
-      console.log("%c'NX-SESSION-882026'", "color:#ffe600; font-weight:bold; font-size:16px;");
-      console.log("%c➡️ Now proceed to STEP 10: Call solveVaultPass('NX-SESSION-882026')", "color:#00f0ff;");
-
-      return { sessionKey: "NX-SESSION-882026", valid: true };
+      console.log("%c✅ STEP 12 HANDSHAKE OK! Key: 'HS-NEXUS-99'", "color:#00ff66; font-weight:bold;");
+      return "HS-NEXUS-99";
     };
 
     /**
-     * STEP 10: FINAL UNLOCK FUNCTION
+     * STEP 13: SESSION GENERATOR 2
      */
-    window.solveVaultPass = function(sessionKey) {
-      console.log("%c[NEXUS STEP 10] Validating Session Key...", "color:#00f0ff; font-weight:bold;");
+    window.generateNexusSession = function(token, checksum, handshake) {
+      console.log("%c[NEXUS STEP 13] Verifying Session Parameters...", "color:#00f0ff; font-weight:bold;");
 
-      if (sessionKey !== "NX-SESSION-882026") {
-        console.log("%c❌ STEP 10 FAILED: Invalid session key! Complete STEP 9 first.", "color:#ff007a; font-weight:bold;");
+      if (token !== "O1-2026-NEXUS") {
+        console.log("%c❌ STEP 8 FAILED! Token mismatch. Must be 'O1-2026-NEXUS'", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+      if (parseInt(checksum) !== 1280) {
+        console.log("%c❌ STEP 11 FAILED! Total Checksum mismatch (128 * 10 = 1280)", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+      if (handshake !== "HS-NEXUS-99") {
+        console.log("%c❌ STEP 12 FAILED! Handshake key mismatch. Complete STEP 12 first.", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      console.log("%c✅ STEP 13 SESSION OK! Token: 'NX-SESS-882026'", "color:#00ff66; font-weight:bold;");
+      return "NX-SESS-882026";
+    };
+
+    /**
+     * STEP 14: VERIFY AUTH OBJECT 3
+     */
+    window.verifyNexusAuth = function(authObj) {
+      console.log("%c[NEXUS STEP 14] Validating Auth Payload Object...", "color:#00f0ff; font-weight:bold;");
+
+      if (!authObj || typeof authObj !== 'object') {
+        console.log("%c❌ STEP 14 FAILED! Must pass object: verifyNexusAuth({ session: '...', step15Ready: true })", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      if (authObj.session !== "NX-SESS-882026" || !authObj.step15Ready) {
+        console.log("%c❌ STEP 14 FAILED! Invalid session or step15Ready flag is false.", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      console.log("%c✅ STEP 14 AUTH OK! Auth Key: 'AUTH-PASS-2026'", "color:#00ff66; font-weight:bold;");
+      return "AUTH-PASS-2026";
+    };
+
+    /**
+     * STEP 15: FINAL UNLOCK FUNCTION 4
+     */
+    window.solveVaultPass = function(authPass) {
+      console.log("%c[NEXUS STEP 15] Executing Final Master Decryption...", "color:#00f0ff; font-weight:bold;");
+
+      if (authPass !== "AUTH-PASS-2026") {
+        console.log("%c❌ STEP 15 FAILED: Invalid auth pass! Complete STEP 14 first.", "color:#ff007a; font-weight:bold;");
         return "Access Denied.";
       }
 
-      console.log("%c🎉 10-STEP EXTREME CTF COMPLETE! STAGE 1 DECRYPTED!", "color:#00ff66; font-weight:bold; font-size:15px;");
+      console.log("%c🎉 15-STEP ULTRA EXTREME CTF COMPLETE! STAGE 1 DECRYPTED!", "color:#00ff66; font-weight:bold; font-size:15px;");
       console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
       console.log("%c🔗 LIVE WEBSITE 2 VERCEL GATEWAY URL:", "color:#ffe600; font-weight:bold;");
       console.log("%chttps://website-2-gateway.vercel.app/", "color:#00f0ff; font-weight:bold; font-size:16px; text-decoration:underline;");
@@ -384,12 +437,12 @@
       return "Stage 1 Solved! Access Website 2 Vercel Gateway.";
     };
 
-    console.log("%c[NEXUS CTF 10-STEP EXTREME C++] Loaded. Author: RAIHAN 9B.", "color:#ffe600; font-weight:bold;");
-    console.log("%cFollow the 10 steps in source code comments to solve!", "color:#00f0ff;");
+    console.log("%c[NEXUS CTF 15-STEP ULTRA C++] Loaded. Author: RAIHAN 9B.", "color:#ffe600; font-weight:bold;");
+    console.log("%cFollow the 15 steps in source code comments to solve!", "color:#00f0ff;");
   </script>
 
   <!-- ========================================================================= -->
-  <!-- C++ SOURCE CODE DECOY ENGINE & TEMPLATE METAPROGRAMMING BUFFER (1000+ LINES) -->
+  <!-- C++ SOURCE CODE DECOY ENGINE & TEMPLATE METAPROGRAMMING BUFFER (1500+ LINES) -->
   <!-- ========================================================================= -->
 
   <!--
@@ -437,7 +490,7 @@
         uint8_t roundKeys[240];
         uint32_t sBox[256];
       public:
-        AESSimulator() {
+        AES256Simulator() {
           initSBox();
         }
 
@@ -560,7 +613,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 01 (LINES 300-450) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 01 -->
   <!--
     namespace LegacySecurity {
       class SHA512Hasher {
@@ -607,7 +660,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 02 (LINES 450-600) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 02 -->
   <!--
     namespace NetworkProtocol {
       enum class PacketType : uint8_t {
@@ -643,7 +696,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 03 (LINES 600-750) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 03 -->
   <!--
     namespace VirtualMachine {
       enum class Opcode : uint8_t {
@@ -692,7 +745,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 04 (LINES 750-900) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 04 -->
   <!--
     namespace GraphAlgorithm {
       struct Edge {
@@ -723,7 +776,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 05 (LINES 900-1050) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 05 -->
   <!--
     namespace BinaryTreeUtils {
       struct TreeNode {
@@ -751,7 +804,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 06 (LINES 1050-1200) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 06 -->
   <!--
     namespace StringDecoyProcessors {
       class ReverseStringEngine {
@@ -776,7 +829,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 07 (LINES 1200-1350) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 07 -->
   <!--
     namespace CustomMemoryAllocator {
       template <typename T, size_t BlockSize = 4096>
@@ -813,7 +866,7 @@
     }
   -->
 
-  <!-- C++ CODE INJECTION PADDING BLOCK 08 (LINES 1350-1500+) -->
+  <!-- C++ CODE INJECTION PADDING BLOCK 08 -->
   <!--
     namespace FinalCppIntegrityCheck {
       struct ChecksumEntry {
@@ -850,98 +903,6 @@
       bool CRC32Calculator::initialized = false;
     }
 
-    /* ADDITIONAL C++ KERNEL TEMPLATES AND AST NODES TO FORCE HEAVY CONTEXT PROCESSING */
-    namespace ASTNodes {
-      enum class NodeType { EXPR, VAR, LITERAL, BINOP, CALL, IF, WHILE, RETURN };
-      class ASTNode { public: NodeType type; virtual ~ASTNode() = default; };
-      class ExprNode : public ASTNode { public: ExprNode() { type = NodeType::EXPR; } };
-      class VarNode : public ASTNode { public: std::string name; VarNode(std::string n) : name(n) { type = NodeType::VAR; } };
-      class LiteralNode : public ASTNode { public: int value; LiteralNode(int v) : value(v) { type = NodeType::LITERAL; } };
-      class BinOpNode : public ASTNode { public: char op; ASTNode* left; ASTNode* right; BinOpNode(char o, ASTNode* l, ASTNode* r) : op(o), left(l), right(r) { type = NodeType::BINOP; } };
-    }
-
-    namespace MemoryManagementEngine {
-      template <typename T, size_t BlockSize = 1024>
-      class ChunkPool {
-      private:
-        struct Node { T data; Node* next; };
-        Node* head = nullptr;
-      public:
-        T* allocate() {
-          if (!head) {
-            Node* block = new Node[BlockSize];
-            for (size_t i = 0; i < BlockSize - 1; ++i) block[i].next = &block[i + 1];
-            block[BlockSize - 1].next = nullptr;
-            head = block;
-          }
-          T* res = reinterpret_cast<T*>(head);
-          head = head->next;
-          return res;
-        }
-      };
-    }
-
-    namespace CppDecoyMatrix {
-      template <int R, int C>
-      struct Matrix {
-        double val[R][C];
-        Matrix() { for(int i=0; i<R; i++) for(int j=0; j<C; j++) val[i][j] = (i==j?1.0:0.0); }
-        Matrix operator+(const Matrix& other) {
-          Matrix res;
-          for(int i=0; i<R; i++) for(int j=0; j<C; j++) res.val[i][j] = val[i][j] + other.val[i][j];
-          return res;
-        }
-      };
-      typedef Matrix<4, 4> Matrix4x4;
-      typedef Matrix<3, 3> Matrix3x3;
-      typedef Matrix<2, 2> Matrix2x2;
-    }
-
-    namespace CppCipherPipeline {
-      class PipelineStage {
-      public:
-        virtual std::string process(const std::string& input) = 0;
-        virtual ~PipelineStage() = default;
-      };
-
-      class Base64Stage : public PipelineStage {
-      public:
-        std::string process(const std::string& input) override { return "BASE64(" + input + ")"; }
-      };
-
-      class HexStage : public PipelineStage {
-      public:
-        std::string process(const std::string& input) override { return "HEX(" + input + ")"; }
-      };
-
-      class CaesarStage : public PipelineStage {
-      public:
-        std::string process(const std::string& input) override { return "CAESAR(" + input + ")"; }
-      };
-    }
-
-    namespace CppTemplateMetaprogramming {
-      template <int N> struct Fibonacci { static constexpr int value = Fibonacci<N-1>::value + Fibonacci<N-2>::value; };
-      template <> struct Fibonacci<0> { static constexpr int value = 0; };
-      template <> struct Fibonacci<1> { static constexpr int value = 1; };
-
-      template <int N> struct PrimeCheck {
-        template <int D> struct Helper { static constexpr bool value = (N % D != 0) && Helper<D - 1>::value; };
-        template <> struct Helper<1> { static constexpr bool value = true; };
-        static constexpr bool value = Helper<N - 1>::value;
-      };
-      template <> struct PrimeCheck<1> { static constexpr bool value = false; };
-      template <> struct PrimeCheck<2> { static constexpr bool value = true; };
-    }
-
-    namespace CppDecoyStructures {
-      struct SecurityHeader { uint32_t magic; uint16_t version; uint16_t flags; uint32_t checksum; };
-      struct SecurityBody { uint8_t payload[512]; uint32_t signature; };
-      struct SecurityFooter { uint32_t endMagic; uint64_t timestamp; };
-      struct FullPacket { SecurityHeader header; SecurityBody body; SecurityFooter footer; };
-    }
-
-    /* EXPANDED C++ KERNEL AST & STRUCT BUFFER FOR CONTEXT OVERHEAD (PART 1) */
     namespace ASTNodesExt {
       enum class ASTType { VAR_DECL, FUNC_DECL, IF_STMT, WHILE_STMT, FOR_STMT, RETURN_STMT, EXPR_STMT, BLOCK_STMT };
       class ASTBaseNode { public: ASTType nodeType; virtual ~ASTBaseNode() = default; };
@@ -1198,6 +1159,29 @@
       struct DataEntry180 { uint64_t id; char name[64]; double score; };
     }
 
+    namespace CppDecoyPaddingBatch10 {
+      struct DataEntry181 { uint64_t id; char name[64]; double score; };
+      struct DataEntry182 { uint64_t id; char name[64]; double score; };
+      struct DataEntry183 { uint64_t id; char name[64]; double score; };
+      struct DataEntry184 { uint64_t id; char name[64]; double score; };
+      struct DataEntry185 { uint64_t id; char name[64]; double score; };
+      struct DataEntry186 { uint64_t id; char name[64]; double score; };
+      struct DataEntry187 { uint64_t id; char name[64]; double score; };
+      struct DataEntry188 { uint64_t id; char name[64]; double score; };
+      struct DataEntry189 { uint64_t id; char name[64]; double score; };
+      struct DataEntry190 { uint64_t id; char name[64]; double score; };
+      struct DataEntry191 { uint64_t id; char name[64]; double score; };
+      struct DataEntry192 { uint64_t id; char name[64]; double score; };
+      struct DataEntry193 { uint64_t id; char name[64]; double score; };
+      struct DataEntry194 { uint64_t id; char name[64]; double score; };
+      struct DataEntry195 { uint64_t id; char name[64]; double score; };
+      struct DataEntry196 { uint64_t id; char name[64]; double score; };
+      struct DataEntry197 { uint64_t id; char name[64]; double score; };
+      struct DataEntry198 { uint64_t id; char name[64]; double score; };
+      struct DataEntry199 { uint64_t id; char name[64]; double score; };
+      struct DataEntry200 { uint64_t id; char name[64]; double score; };
+    }
+
     namespace CppDecoyPaddingBatch11 {
       struct DataEntry201 { uint64_t id; char name[64]; double score; };
       struct DataEntry202 { uint64_t id; char name[64]; double score; };
@@ -1313,115 +1297,6 @@
       struct DataEntry300 { uint64_t id; char name[64]; double score; };
     }
 
-    namespace CppDecoyPaddingBatch10 {
-      struct DataEntry181 { uint64_t id; char name[64]; double score; };
-      struct DataEntry182 { uint64_t id; char name[64]; double score; };
-      struct DataEntry183 { uint64_t id; char name[64]; double score; };
-      struct DataEntry184 { uint64_t id; char name[64]; double score; };
-      struct DataEntry185 { uint64_t id; char name[64]; double score; };
-      struct DataEntry186 { uint64_t id; char name[64]; double score; };
-      struct DataEntry187 { uint64_t id; char name[64]; double score; };
-      struct DataEntry188 { uint64_t id; char name[64]; double score; };
-      struct DataEntry189 { uint64_t id; char name[64]; double score; };
-      struct DataEntry190 { uint64_t id; char name[64]; double score; };
-      struct DataEntry191 { uint64_t id; char name[64]; double score; };
-      struct DataEntry192 { uint64_t id; char name[64]; double score; };
-      struct DataEntry193 { uint64_t id; char name[64]; double score; };
-      struct DataEntry194 { uint64_t id; char name[64]; double score; };
-      struct DataEntry195 { uint64_t id; char name[64]; double score; };
-      struct DataEntry196 { uint64_t id; char name[64]; double score; };
-      struct DataEntry197 { uint64_t id; char name[64]; double score; };
-      struct DataEntry198 { uint64_t id; char name[64]; double score; };
-      struct DataEntry199 { uint64_t id; char name[64]; double score; };
-      struct DataEntry200 { uint64_t id; char name[64]; double score; };
-    }
-
-
-
-    namespace CppTemplateFunctionsBatch {
-      template <typename T> T maxVal(T a, T b) { return a > b ? a : b; }
-      template <typename T> T minVal(T a, T b) { return a < b ? a : b; }
-      template <typename T> T clampVal(T v, T lo, T hi) { return v < lo ? lo : (v > hi ? hi : v); }
-      template <typename T> T absVal(T a) { return a < 0 ? -a : a; }
-      template <typename T> T sqrVal(T a) { return a * a; }
-      template <typename T> T cubeVal(T a) { return a * a * a; }
-      template <typename T> T lerpVal(T a, T b, float t) { return a + (b - a) * t; }
-      template <typename T> void swapVal(T& a, T& b) { T tmp = a; a = b; b = tmp; }
-
-      template <typename T, size_t N> struct StaticArray { T data[N]; size_t size() const { return N; } };
-      template <typename T, size_t N> struct StaticBuffer { T data[N]; size_t capacity() const { return N; } };
-      template <typename T, size_t N> struct RingBuffer { T data[N]; size_t max_size() const { return N; } };
-    }
-
-    namespace CppDecoyClassesBatch1 {
-      class DecoyClass01 { public: int id; void process() {} };
-      class DecoyClass02 { public: int id; void process() {} };
-      class DecoyClass03 { public: int id; void process() {} };
-      class DecoyClass04 { public: int id; void process() {} };
-      class DecoyClass05 { public: int id; void process() {} };
-      class DecoyClass06 { public: int id; void process() {} };
-      class DecoyClass07 { public: int id; void process() {} };
-      class DecoyClass08 { public: int id; void process() {} };
-      class DecoyClass09 { public: int id; void process() {} };
-      class DecoyClass10 { public: int id; void process() {} };
-      class DecoyClass11 { public: int id; void process() {} };
-      class DecoyClass12 { public: int id; void process() {} };
-      class DecoyClass13 { public: int id; void process() {} };
-      class DecoyClass14 { public: int id; void process() {} };
-      class DecoyClass15 { public: int id; void process() {} };
-      class DecoyClass16 { public: int id; void process() {} };
-      class DecoyClass17 { public: int id; void process() {} };
-      class DecoyClass18 { public: int id; void process() {} };
-      class DecoyClass19 { public: int id; void process() {} };
-      class DecoyClass20 { public: int id; void process() {} };
-    }
-
-    namespace CppDecoyClassesBatch2 {
-      class DecoyClass21 { public: int id; void process() {} };
-      class DecoyClass22 { public: int id; void process() {} };
-      class DecoyClass23 { public: int id; void process() {} };
-      class DecoyClass24 { public: int id; void process() {} };
-      class DecoyClass25 { public: int id; void process() {} };
-      class DecoyClass26 { public: int id; void process() {} };
-      class DecoyClass27 { public: int id; void process() {} };
-      class DecoyClass28 { public: int id; void process() {} };
-      class DecoyClass29 { public: int id; void process() {} };
-      class DecoyClass30 { public: int id; void process() {} };
-      class DecoyClass31 { public: int id; void process() {} };
-      class DecoyClass32 { public: int id; void process() {} };
-      class DecoyClass33 { public: int id; void process() {} };
-      class DecoyClass34 { public: int id; void process() {} };
-      class DecoyClass35 { public: int id; void process() {} };
-      class DecoyClass36 { public: int id; void process() {} };
-      class DecoyClass37 { public: int id; void process() {} };
-      class DecoyClass38 { public: int id; void process() {} };
-      class DecoyClass39 { public: int id; void process() {} };
-      class DecoyClass40 { public: int id; void process() {} };
-    }
-
-    namespace CppDecoyClassesBatch3 {
-      class DecoyClass41 { public: int id; void process() {} };
-      class DecoyClass42 { public: int id; void process() {} };
-      class DecoyClass43 { public: int id; void process() {} };
-      class DecoyClass44 { public: int id; void process() {} };
-      class DecoyClass45 { public: int id; void process() {} };
-      class DecoyClass46 { public: int id; void process() {} };
-      class DecoyClass47 { public: int id; void process() {} };
-      class DecoyClass48 { public: int id; void process() {} };
-      class DecoyClass49 { public: int id; void process() {} };
-      class DecoyClass50 { public: int id; void process() {} };
-      class DecoyClass51 { public: int id; void process() {} };
-      class DecoyClass52 { public: int id; void process() {} };
-      class DecoyClass53 { public: int id; void process() {} };
-      class DecoyClass54 { public: int id; void process() {} };
-      class DecoyClass55 { public: int id; void process() {} };
-      class DecoyClass56 { public: int id; void process() {} };
-      class DecoyClass57 { public: int id; void process() {} };
-      class DecoyClass58 { public: int id; void process() {} };
-      class DecoyClass59 { public: int id; void process() {} };
-      class DecoyClass60 { public: int id; void process() {} };
-    }
-
     namespace CppDecoyClassesBatch4 {
       class DecoyClass61 { public: int id; void process() {} };
       class DecoyClass62 { public: int id; void process() {} };
@@ -1491,23 +1366,673 @@
       class DecoyClass120 { public: int id; void process() {} };
     }
 
-    /* EXPANDED INLINE FUNCTIONS */
-    namespace CppInlinePadding {
-      inline int add(int a, int b) { return a + b; }
-      inline int sub(int a, int b) { return a - b; }
-      inline int mul(int a, int b) { return a * b; }
-      inline int div(int a, int b) { return b != 0 ? a / b : 0; }
-      inline int mod(int a, int b) { return b != 0 ? a % b : 0; }
-      inline int bit_and(int a, int b) { return a & b; }
-      inline int bit_or(int a, int b) { return a | b; }
-      inline int bit_xor(int a, int b) { return a ^ b; }
-      inline int bit_shl(int a, int b) { return a << b; }
-      inline int bit_shr(int a, int b) { return a >> b; }
+    namespace CppDecoyClassesBatch7 {
+      class DecoyClass121 { public: int id; void process() {} };
+      class DecoyClass122 { public: int id; void process() {} };
+      class DecoyClass123 { public: int id; void process() {} };
+      class DecoyClass124 { public: int id; void process() {} };
+      class DecoyClass125 { public: int id; void process() {} };
+      class DecoyClass126 { public: int id; void process() {} };
+      class DecoyClass127 { public: int id; void process() {} };
+      class DecoyClass128 { public: int id; void process() {} };
+      class DecoyClass129 { public: int id; void process() {} };
+      class DecoyClass130 { public: int id; void process() {} };
+      class DecoyClass131 { public: int id; void process() {} };
+      class DecoyClass132 { public: int id; void process() {} };
+      class DecoyClass133 { public: int id; void process() {} };
+      class DecoyClass134 { public: int id; void process() {} };
+      class DecoyClass135 { public: int id; void process() {} };
+      class DecoyClass136 { public: int id; void process() {} };
+      class DecoyClass137 { public: int id; void process() {} };
+      class DecoyClass138 { public: int id; void process() {} };
+      class DecoyClass139 { public: int id; void process() {} };
+      class DecoyClass140 { public: int id; void process() {} };
     }
 
+    namespace CppDecoyClassesBatch8 {
+      class DecoyClass141 { public: int id; void process() {} };
+      class DecoyClass142 { public: int id; void process() {} };
+      class DecoyClass143 { public: int id; void process() {} };
+      class DecoyClass144 { public: int id; void process() {} };
+      class DecoyClass145 { public: int id; void process() {} };
+      class DecoyClass146 { public: int id; void process() {} };
+      class DecoyClass147 { public: int id; void process() {} };
+      class DecoyClass148 { public: int id; void process() {} };
+      class DecoyClass149 { public: int id; void process() {} };
+      class DecoyClass150 { public: int id; void process() {} };
+      class DecoyClass151 { public: int id; void process() {} };
+      class DecoyClass152 { public: int id; void process() {} };
+      class DecoyClass153 { public: int id; void process() {} };
+      class DecoyClass154 { public: int id; void process() {} };
+      class DecoyClass155 { public: int id; void process() {} };
+      class DecoyClass156 { public: int id; void process() {} };
+      class DecoyClass157 { public: int id; void process() {} };
+      class DecoyClass158 { public: int id; void process() {} };
+      class DecoyClass159 { public: int id; void process() {} };
+      class DecoyClass160 { public: int id; void process() {} };
+    }
 
+    namespace CppDecoyClassesBatch9 {
+      class DecoyClass161 { public: int id; void process() {} };
+      class DecoyClass162 { public: int id; void process() {} };
+      class DecoyClass163 { public: int id; void process() {} };
+      class DecoyClass164 { public: int id; void process() {} };
+      class DecoyClass165 { public: int id; void process() {} };
+      class DecoyClass166 { public: int id; void process() {} };
+      class DecoyClass167 { public: int id; void process() {} };
+      class DecoyClass168 { public: int id; void process() {} };
+      class DecoyClass169 { public: int id; void process() {} };
+      class DecoyClass170 { public: int id; void process() {} };
+      class DecoyClass171 { public: int id; void process() {} };
+      class DecoyClass172 { public: int id; void process() {} };
+      class DecoyClass173 { public: int id; void process() {} };
+      class DecoyClass174 { public: int id; void process() {} };
+      class DecoyClass175 { public: int id; void process() {} };
+      class DecoyClass176 { public: int id; void process() {} };
+      class DecoyClass177 { public: int id; void process() {} };
+      class DecoyClass178 { public: int id; void process() {} };
+      class DecoyClass179 { public: int id; void process() {} };
+      class DecoyClass180 { public: int id; void process() {} };
+    }
 
+    namespace CppDecoyClassesBatch10 {
+      class DecoyClass181 { public: int id; void process() {} };
+      class DecoyClass182 { public: int id; void process() {} };
+      class DecoyClass183 { public: int id; void process() {} };
+      class DecoyClass184 { public: int id; void process() {} };
+      class DecoyClass185 { public: int id; void process() {} };
+      class DecoyClass186 { public: int id; void process() {} };
+      class DecoyClass187 { public: int id; void process() {} };
+      class DecoyClass188 { public: int id; void process() {} };
+      class DecoyClass189 { public: int id; void process() {} };
+      class DecoyClass190 { public: int id; void process() {} };
+      class DecoyClass191 { public: int id; void process() {} };
+      class DecoyClass192 { public: int id; void process() {} };
+      class DecoyClass193 { public: int id; void process() {} };
+      class DecoyClass194 { public: int id; void process() {} };
+      class DecoyClass195 { public: int id; void process() {} };
+      class DecoyClass196 { public: int id; void process() {} };
+      class DecoyClass197 { public: int id; void process() {} };
+      class DecoyClass198 { public: int id; void process() {} };
+      class DecoyClass199 { public: int id; void process() {} };
+      class DecoyClass200 { public: int id; void process() {} };
+    }
 
+    namespace CppDecoyClassesBatch11 {
+      class DecoyClass201 { public: int id; void process() {} };
+      class DecoyClass202 { public: int id; void process() {} };
+      class DecoyClass203 { public: int id; void process() {} };
+      class DecoyClass204 { public: int id; void process() {} };
+      class DecoyClass205 { public: int id; void process() {} };
+      class DecoyClass206 { public: int id; void process() {} };
+      class DecoyClass207 { public: int id; void process() {} };
+      class DecoyClass208 { public: int id; void process() {} };
+      class DecoyClass209 { public: int id; void process() {} };
+      class DecoyClass210 { public: int id; void process() {} };
+      class DecoyClass211 { public: int id; void process() {} };
+      class DecoyClass212 { public: int id; void process() {} };
+      class DecoyClass213 { public: int id; void process() {} };
+      class DecoyClass214 { public: int id; void process() {} };
+      class DecoyClass215 { public: int id; void process() {} };
+      class DecoyClass216 { public: int id; void process() {} };
+      class DecoyClass217 { public: int id; void process() {} };
+      class DecoyClass218 { public: int id; void process() {} };
+      class DecoyClass219 { public: int id; void process() {} };
+      class DecoyClass220 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch12 {
+      class DecoyClass221 { public: int id; void process() {} };
+      class DecoyClass222 { public: int id; void process() {} };
+      class DecoyClass223 { public: int id; void process() {} };
+      class DecoyClass224 { public: int id; void process() {} };
+      class DecoyClass225 { public: int id; void process() {} };
+      class DecoyClass226 { public: int id; void process() {} };
+      class DecoyClass227 { public: int id; void process() {} };
+      class DecoyClass228 { public: int id; void process() {} };
+      class DecoyClass229 { public: int id; void process() {} };
+      class DecoyClass230 { public: int id; void process() {} };
+      class DecoyClass231 { public: int id; void process() {} };
+      class DecoyClass232 { public: int id; void process() {} };
+      class DecoyClass233 { public: int id; void process() {} };
+      class DecoyClass234 { public: int id; void process() {} };
+      class DecoyClass235 { public: int id; void process() {} };
+      class DecoyClass236 { public: int id; void process() {} };
+      class DecoyClass237 { public: int id; void process() {} };
+      class DecoyClass238 { public: int id; void process() {} };
+      class DecoyClass239 { public: int id; void process() {} };
+      class DecoyClass240 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch13 {
+      class DecoyClass241 { public: int id; void process() {} };
+      class DecoyClass242 { public: int id; void process() {} };
+      class DecoyClass243 { public: int id; void process() {} };
+      class DecoyClass244 { public: int id; void process() {} };
+      class DecoyClass245 { public: int id; void process() {} };
+      class DecoyClass246 { public: int id; void process() {} };
+      class DecoyClass247 { public: int id; void process() {} };
+      class DecoyClass248 { public: int id; void process() {} };
+      class DecoyClass249 { public: int id; void process() {} };
+      class DecoyClass250 { public: int id; void process() {} };
+      class DecoyClass251 { public: int id; void process() {} };
+      class DecoyClass252 { public: int id; void process() {} };
+      class DecoyClass253 { public: int id; void process() {} };
+      class DecoyClass254 { public: int id; void process() {} };
+      class DecoyClass255 { public: int id; void process() {} };
+      class DecoyClass256 { public: int id; void process() {} };
+      class DecoyClass257 { public: int id; void process() {} };
+      class DecoyClass258 { public: int id; void process() {} };
+      class DecoyClass259 { public: int id; void process() {} };
+      class DecoyClass260 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch14 {
+      class DecoyClass261 { public: int id; void process() {} };
+      class DecoyClass262 { public: int id; void process() {} };
+      class DecoyClass263 { public: int id; void process() {} };
+      class DecoyClass264 { public: int id; void process() {} };
+      class DecoyClass265 { public: int id; void process() {} };
+      class DecoyClass266 { public: int id; void process() {} };
+      class DecoyClass267 { public: int id; void process() {} };
+      class DecoyClass268 { public: int id; void process() {} };
+      class DecoyClass269 { public: int id; void process() {} };
+      class DecoyClass270 { public: int id; void process() {} };
+      class DecoyClass271 { public: int id; void process() {} };
+      class DecoyClass272 { public: int id; void process() {} };
+      class DecoyClass273 { public: int id; void process() {} };
+      class DecoyClass274 { public: int id; void process() {} };
+      class DecoyClass275 { public: int id; void process() {} };
+      class DecoyClass276 { public: int id; void process() {} };
+      class DecoyClass277 { public: int id; void process() {} };
+      class DecoyClass278 { public: int id; void process() {} };
+      class DecoyClass279 { public: int id; void process() {} };
+      class DecoyClass280 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch15 {
+      class DecoyClass281 { public: int id; void process() {} };
+      class DecoyClass282 { public: int id; void process() {} };
+      class DecoyClass283 { public: int id; void process() {} };
+      class DecoyClass284 { public: int id; void process() {} };
+      class DecoyClass285 { public: int id; void process() {} };
+      class DecoyClass286 { public: int id; void process() {} };
+      class DecoyClass287 { public: int id; void process() {} };
+      class DecoyClass288 { public: int id; void process() {} };
+      class DecoyClass289 { public: int id; void process() {} };
+      class DecoyClass290 { public: int id; void process() {} };
+      class DecoyClass291 { public: int id; void process() {} };
+      class DecoyClass292 { public: int id; void process() {} };
+      class DecoyClass293 { public: int id; void process() {} };
+      class DecoyClass294 { public: int id; void process() {} };
+      class DecoyClass295 { public: int id; void process() {} };
+      class DecoyClass296 { public: int id; void process() {} };
+      class DecoyClass297 { public: int id; void process() {} };
+      class DecoyClass298 { public: int id; void process() {} };
+      class DecoyClass299 { public: int id; void process() {} };
+      class DecoyClass300 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch16 {
+      class DecoyClass301 { public: int id; void process() {} };
+      class DecoyClass302 { public: int id; void process() {} };
+      class DecoyClass303 { public: int id; void process() {} };
+      class DecoyClass304 { public: int id; void process() {} };
+      class DecoyClass305 { public: int id; void process() {} };
+      class DecoyClass306 { public: int id; void process() {} };
+      class DecoyClass307 { public: int id; void process() {} };
+      class DecoyClass308 { public: int id; void process() {} };
+      class DecoyClass309 { public: int id; void process() {} };
+      class DecoyClass310 { public: int id; void process() {} };
+      class DecoyClass311 { public: int id; void process() {} };
+      class DecoyClass312 { public: int id; void process() {} };
+      class DecoyClass313 { public: int id; void process() {} };
+      class DecoyClass314 { public: int id; void process() {} };
+      class DecoyClass315 { public: int id; void process() {} };
+      class DecoyClass316 { public: int id; void process() {} };
+      class DecoyClass317 { public: int id; void process() {} };
+      class DecoyClass318 { public: int id; void process() {} };
+      class DecoyClass319 { public: int id; void process() {} };
+      class DecoyClass320 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch17 {
+      class DecoyClass321 { public: int id; void process() {} };
+      class DecoyClass322 { public: int id; void process() {} };
+      class DecoyClass323 { public: int id; void process() {} };
+      class DecoyClass324 { public: int id; void process() {} };
+      class DecoyClass325 { public: int id; void process() {} };
+      class DecoyClass326 { public: int id; void process() {} };
+      class DecoyClass327 { public: int id; void process() {} };
+      class DecoyClass328 { public: int id; void process() {} };
+      class DecoyClass329 { public: int id; void process() {} };
+      class DecoyClass330 { public: int id; void process() {} };
+      class DecoyClass331 { public: int id; void process() {} };
+      class DecoyClass332 { public: int id; void process() {} };
+      class DecoyClass333 { public: int id; void process() {} };
+      class DecoyClass334 { public: int id; void process() {} };
+      class DecoyClass335 { public: int id; void process() {} };
+      class DecoyClass336 { public: int id; void process() {} };
+      class DecoyClass337 { public: int id; void process() {} };
+      class DecoyClass338 { public: int id; void process() {} };
+      class DecoyClass339 { public: int id; void process() {} };
+      class DecoyClass340 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch18 {
+      class DecoyClass341 { public: int id; void process() {} };
+      class DecoyClass342 { public: int id; void process() {} };
+      class DecoyClass343 { public: int id; void process() {} };
+      class DecoyClass344 { public: int id; void process() {} };
+      class DecoyClass345 { public: int id; void process() {} };
+      class DecoyClass346 { public: int id; void process() {} };
+      class DecoyClass347 { public: int id; void process() {} };
+      class DecoyClass348 { public: int id; void process() {} };
+      class DecoyClass349 { public: int id; void process() {} };
+      class DecoyClass350 { public: int id; void process() {} };
+      class DecoyClass351 { public: int id; void process() {} };
+      class DecoyClass352 { public: int id; void process() {} };
+      class DecoyClass353 { public: int id; void process() {} };
+      class DecoyClass354 { public: int id; void process() {} };
+      class DecoyClass355 { public: int id; void process() {} };
+      class DecoyClass356 { public: int id; void process() {} };
+      class DecoyClass357 { public: int id; void process() {} };
+      class DecoyClass358 { public: int id; void process() {} };
+      class DecoyClass359 { public: int id; void process() {} };
+      class DecoyClass360 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch19 {
+      class DecoyClass361 { public: int id; void process() {} };
+      class DecoyClass362 { public: int id; void process() {} };
+      class DecoyClass363 { public: int id; void process() {} };
+      class DecoyClass364 { public: int id; void process() {} };
+      class DecoyClass365 { public: int id; void process() {} };
+      class DecoyClass366 { public: int id; void process() {} };
+      class DecoyClass367 { public: int id; void process() {} };
+      class DecoyClass368 { public: int id; void process() {} };
+      class DecoyClass369 { public: int id; void process() {} };
+      class DecoyClass370 { public: int id; void process() {} };
+      class DecoyClass371 { public: int id; void process() {} };
+      class DecoyClass372 { public: int id; void process() {} };
+      class DecoyClass373 { public: int id; void process() {} };
+      class DecoyClass374 { public: int id; void process() {} };
+      class DecoyClass375 { public: int id; void process() {} };
+      class DecoyClass376 { public: int id; void process() {} };
+      class DecoyClass377 { public: int id; void process() {} };
+      class DecoyClass378 { public: int id; void process() {} };
+      class DecoyClass379 { public: int id; void process() {} };
+      class DecoyClass380 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch20 {
+      class DecoyClass381 { public: int id; void process() {} };
+      class DecoyClass382 { public: int id; void process() {} };
+      class DecoyClass383 { public: int id; void process() {} };
+      class DecoyClass384 { public: int id; void process() {} };
+      class DecoyClass385 { public: int id; void process() {} };
+      class DecoyClass386 { public: int id; void process() {} };
+      class DecoyClass387 { public: int id; void process() {} };
+      class DecoyClass388 { public: int id; void process() {} };
+      class DecoyClass389 { public: int id; void process() {} };
+      class DecoyClass390 { public: int id; void process() {} };
+      class DecoyClass391 { public: int id; void process() {} };
+      class DecoyClass392 { public: int id; void process() {} };
+      class DecoyClass393 { public: int id; void process() {} };
+      class DecoyClass394 { public: int id; void process() {} };
+      class DecoyClass395 { public: int id; void process() {} };
+      class DecoyClass396 { public: int id; void process() {} };
+      class DecoyClass397 { public: int id; void process() {} };
+      class DecoyClass398 { public: int id; void process() {} };
+      class DecoyClass399 { public: int id; void process() {} };
+      class DecoyClass400 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch21 {
+      class DecoyClass401 { public: int id; void process() {} };
+      class DecoyClass402 { public: int id; void process() {} };
+      class DecoyClass403 { public: int id; void process() {} };
+      class DecoyClass404 { public: int id; void process() {} };
+      class DecoyClass405 { public: int id; void process() {} };
+      class DecoyClass406 { public: int id; void process() {} };
+      class DecoyClass407 { public: int id; void process() {} };
+      class DecoyClass408 { public: int id; void process() {} };
+      class DecoyClass409 { public: int id; void process() {} };
+      class DecoyClass410 { public: int id; void process() {} };
+      class DecoyClass411 { public: int id; void process() {} };
+      class DecoyClass412 { public: int id; void process() {} };
+      class DecoyClass413 { public: int id; void process() {} };
+      class DecoyClass414 { public: int id; void process() {} };
+      class DecoyClass415 { public: int id; void process() {} };
+      class DecoyClass416 { public: int id; void process() {} };
+      class DecoyClass417 { public: int id; void process() {} };
+      class DecoyClass418 { public: int id; void process() {} };
+      class DecoyClass419 { public: int id; void process() {} };
+      class DecoyClass420 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch22 {
+      class DecoyClass421 { public: int id; void process() {} };
+      class DecoyClass422 { public: int id; void process() {} };
+      class DecoyClass423 { public: int id; void process() {} };
+      class DecoyClass424 { public: int id; void process() {} };
+      class DecoyClass425 { public: int id; void process() {} };
+      class DecoyClass426 { public: int id; void process() {} };
+      class DecoyClass427 { public: int id; void process() {} };
+      class DecoyClass428 { public: int id; void process() {} };
+      class DecoyClass429 { public: int id; void process() {} };
+      class DecoyClass430 { public: int id; void process() {} };
+      class DecoyClass431 { public: int id; void process() {} };
+      class DecoyClass432 { public: int id; void process() {} };
+      class DecoyClass433 { public: int id; void process() {} };
+      class DecoyClass434 { public: int id; void process() {} };
+      class DecoyClass435 { public: int id; void process() {} };
+      class DecoyClass436 { public: int id; void process() {} };
+      class DecoyClass437 { public: int id; void process() {} };
+      class DecoyClass438 { public: int id; void process() {} };
+      class DecoyClass439 { public: int id; void process() {} };
+      class DecoyClass440 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch23 {
+      class DecoyClass441 { public: int id; void process() {} };
+      class DecoyClass442 { public: int id; void process() {} };
+      class DecoyClass443 { public: int id; void process() {} };
+      class DecoyClass444 { public: int id; void process() {} };
+      class DecoyClass445 { public: int id; void process() {} };
+      class DecoyClass446 { public: int id; void process() {} };
+      class DecoyClass447 { public: int id; void process() {} };
+      class DecoyClass448 { public: int id; void process() {} };
+      class DecoyClass449 { public: int id; void process() {} };
+      class DecoyClass450 { public: int id; void process() {} };
+      class DecoyClass451 { public: int id; void process() {} };
+      class DecoyClass452 { public: int id; void process() {} };
+      class DecoyClass453 { public: int id; void process() {} };
+      class DecoyClass454 { public: int id; void process() {} };
+      class DecoyClass455 { public: int id; void process() {} };
+      class DecoyClass456 { public: int id; void process() {} };
+      class DecoyClass457 { public: int id; void process() {} };
+      class DecoyClass458 { public: int id; void process() {} };
+      class DecoyClass459 { public: int id; void process() {} };
+      class DecoyClass460 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch24 {
+      class DecoyClass461 { public: int id; void process() {} };
+      class DecoyClass462 { public: int id; void process() {} };
+      class DecoyClass463 { public: int id; void process() {} };
+      class DecoyClass464 { public: int id; void process() {} };
+      class DecoyClass465 { public: int id; void process() {} };
+      class DecoyClass466 { public: int id; void process() {} };
+      class DecoyClass467 { public: int id; void process() {} };
+      class DecoyClass468 { public: int id; void process() {} };
+      class DecoyClass469 { public: int id; void process() {} };
+      class DecoyClass470 { public: int id; void process() {} };
+      class DecoyClass471 { public: int id; void process() {} };
+      class DecoyClass472 { public: int id; void process() {} };
+      class DecoyClass473 { public: int id; void process() {} };
+      class DecoyClass474 { public: int id; void process() {} };
+      class DecoyClass475 { public: int id; void process() {} };
+      class DecoyClass476 { public: int id; void process() {} };
+      class DecoyClass477 { public: int id; void process() {} };
+      class DecoyClass478 { public: int id; void process() {} };
+      class DecoyClass479 { public: int id; void process() {} };
+      class DecoyClass480 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch25 {
+      class DecoyClass481 { public: int id; void process() {} };
+      class DecoyClass482 { public: int id; void process() {} };
+      class DecoyClass483 { public: int id; void process() {} };
+      class DecoyClass484 { public: int id; void process() {} };
+      class DecoyClass485 { public: int id; void process() {} };
+      class DecoyClass486 { public: int id; void process() {} };
+      class DecoyClass487 { public: int id; void process() {} };
+      class DecoyClass488 { public: int id; void process() {} };
+      class DecoyClass489 { public: int id; void process() {} };
+      class DecoyClass490 { public: int id; void process() {} };
+      class DecoyClass491 { public: int id; void process() {} };
+      class DecoyClass492 { public: int id; void process() {} };
+      class DecoyClass493 { public: int id; void process() {} };
+      class DecoyClass494 { public: int id; void process() {} };
+      class DecoyClass495 { public: int id; void process() {} };
+      class DecoyClass496 { public: int id; void process() {} };
+      class DecoyClass497 { public: int id; void process() {} };
+      class DecoyClass498 { public: int id; void process() {} };
+      class DecoyClass499 { public: int id; void process() {} };
+      class DecoyClass500 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch26 {
+      class DecoyClass501 { public: int id; void process() {} };
+      class DecoyClass502 { public: int id; void process() {} };
+      class DecoyClass503 { public: int id; void process() {} };
+      class DecoyClass504 { public: int id; void process() {} };
+      class DecoyClass505 { public: int id; void process() {} };
+      class DecoyClass506 { public: int id; void process() {} };
+      class DecoyClass507 { public: int id; void process() {} };
+      class DecoyClass508 { public: int id; void process() {} };
+      class DecoyClass509 { public: int id; void process() {} };
+      class DecoyClass510 { public: int id; void process() {} };
+      class DecoyClass511 { public: int id; void process() {} };
+      class DecoyClass512 { public: int id; void process() {} };
+      class DecoyClass513 { public: int id; void process() {} };
+      class DecoyClass514 { public: int id; void process() {} };
+      class DecoyClass515 { public: int id; void process() {} };
+      class DecoyClass516 { public: int id; void process() {} };
+      class DecoyClass517 { public: int id; void process() {} };
+      class DecoyClass518 { public: int id; void process() {} };
+      class DecoyClass519 { public: int id; void process() {} };
+      class DecoyClass520 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch27 {
+      class DecoyClass521 { public: int id; void process() {} };
+      class DecoyClass522 { public: int id; void process() {} };
+      class DecoyClass523 { public: int id; void process() {} };
+      class DecoyClass524 { public: int id; void process() {} };
+      class DecoyClass525 { public: int id; void process() {} };
+      class DecoyClass526 { public: int id; void process() {} };
+      class DecoyClass527 { public: int id; void process() {} };
+      class DecoyClass528 { public: int id; void process() {} };
+      class DecoyClass529 { public: int id; void process() {} };
+      class DecoyClass530 { public: int id; void process() {} };
+      class DecoyClass531 { public: int id; void process() {} };
+      class DecoyClass532 { public: int id; void process() {} };
+      class DecoyClass533 { public: int id; void process() {} };
+      class DecoyClass534 { public: int id; void process() {} };
+      class DecoyClass535 { public: int id; void process() {} };
+      class DecoyClass536 { public: int id; void process() {} };
+      class DecoyClass537 { public: int id; void process() {} };
+      class DecoyClass538 { public: int id; void process() {} };
+      class DecoyClass539 { public: int id; void process() {} };
+      class DecoyClass540 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch28 {
+      class DecoyClass541 { public: int id; void process() {} };
+      class DecoyClass542 { public: int id; void process() {} };
+      class DecoyClass543 { public: int id; void process() {} };
+      class DecoyClass544 { public: int id; void process() {} };
+      class DecoyClass545 { public: int id; void process() {} };
+      class DecoyClass546 { public: int id; void process() {} };
+      class DecoyClass547 { public: int id; void process() {} };
+      class DecoyClass548 { public: int id; void process() {} };
+      class DecoyClass549 { public: int id; void process() {} };
+      class DecoyClass550 { public: int id; void process() {} };
+      class DecoyClass551 { public: int id; void process() {} };
+      class DecoyClass552 { public: int id; void process() {} };
+      class DecoyClass553 { public: int id; void process() {} };
+      class DecoyClass554 { public: int id; void process() {} };
+      class DecoyClass555 { public: int id; void process() {} };
+      class DecoyClass556 { public: int id; void process() {} };
+      class DecoyClass557 { public: int id; void process() {} };
+      class DecoyClass558 { public: int id; void process() {} };
+      class DecoyClass559 { public: int id; void process() {} };
+      class DecoyClass560 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch29 {
+      class DecoyClass561 { public: int id; void process() {} };
+      class DecoyClass562 { public: int id; void process() {} };
+      class DecoyClass563 { public: int id; void process() {} };
+      class DecoyClass564 { public: int id; void process() {} };
+      class DecoyClass565 { public: int id; void process() {} };
+      class DecoyClass566 { public: int id; void process() {} };
+      class DecoyClass567 { public: int id; void process() {} };
+      class DecoyClass568 { public: int id; void process() {} };
+      class DecoyClass569 { public: int id; void process() {} };
+      class DecoyClass570 { public: int id; void process() {} };
+      class DecoyClass571 { public: int id; void process() {} };
+      class DecoyClass572 { public: int id; void process() {} };
+      class DecoyClass573 { public: int id; void process() {} };
+      class DecoyClass574 { public: int id; void process() {} };
+      class DecoyClass575 { public: int id; void process() {} };
+      class DecoyClass576 { public: int id; void process() {} };
+      class DecoyClass577 { public: int id; void process() {} };
+      class DecoyClass578 { public: int id; void process() {} };
+      class DecoyClass579 { public: int id; void process() {} };
+      class DecoyClass580 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch30 {
+      class DecoyClass581 { public: int id; void process() {} };
+      class DecoyClass582 { public: int id; void process() {} };
+      class DecoyClass583 { public: int id; void process() {} };
+      class DecoyClass584 { public: int id; void process() {} };
+      class DecoyClass585 { public: int id; void process() {} };
+      class DecoyClass586 { public: int id; void process() {} };
+      class DecoyClass587 { public: int id; void process() {} };
+      class DecoyClass588 { public: int id; void process() {} };
+      class DecoyClass589 { public: int id; void process() {} };
+      class DecoyClass590 { public: int id; void process() {} };
+      class DecoyClass591 { public: int id; void process() {} };
+      class DecoyClass592 { public: int id; void process() {} };
+      class DecoyClass593 { public: int id; void process() {} };
+      class DecoyClass594 { public: int id; void process() {} };
+      class DecoyClass595 { public: int id; void process() {} };
+      class DecoyClass596 { public: int id; void process() {} };
+      class DecoyClass597 { public: int id; void process() {} };
+      class DecoyClass598 { public: int id; void process() {} };
+      class DecoyClass599 { public: int id; void process() {} };
+      class DecoyClass600 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch31 {
+      class DecoyClass601 { public: int id; void process() {} };
+      class DecoyClass602 { public: int id; void process() {} };
+      class DecoyClass603 { public: int id; void process() {} };
+      class DecoyClass604 { public: int id; void process() {} };
+      class DecoyClass605 { public: int id; void process() {} };
+      class DecoyClass606 { public: int id; void process() {} };
+      class DecoyClass607 { public: int id; void process() {} };
+      class DecoyClass608 { public: int id; void process() {} };
+      class DecoyClass609 { public: int id; void process() {} };
+      class DecoyClass610 { public: int id; void process() {} };
+      class DecoyClass611 { public: int id; void process() {} };
+      class DecoyClass612 { public: int id; void process() {} };
+      class DecoyClass613 { public: int id; void process() {} };
+      class DecoyClass614 { public: int id; void process() {} };
+      class DecoyClass615 { public: int id; void process() {} };
+      class DecoyClass616 { public: int id; void process() {} };
+      class DecoyClass617 { public: int id; void process() {} };
+      class DecoyClass618 { public: int id; void process() {} };
+      class DecoyClass619 { public: int id; void process() {} };
+      class DecoyClass620 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch32 {
+      class DecoyClass621 { public: int id; void process() {} };
+      class DecoyClass622 { public: int id; void process() {} };
+      class DecoyClass623 { public: int id; void process() {} };
+      class DecoyClass624 { public: int id; void process() {} };
+      class DecoyClass625 { public: int id; void process() {} };
+      class DecoyClass626 { public: int id; void process() {} };
+      class DecoyClass627 { public: int id; void process() {} };
+      class DecoyClass628 { public: int id; void process() {} };
+      class DecoyClass629 { public: int id; void process() {} };
+      class DecoyClass630 { public: int id; void process() {} };
+      class DecoyClass631 { public: int id; void process() {} };
+      class DecoyClass632 { public: int id; void process() {} };
+      class DecoyClass633 { public: int id; void process() {} };
+      class DecoyClass634 { public: int id; void process() {} };
+      class DecoyClass635 { public: int id; void process() {} };
+      class DecoyClass636 { public: int id; void process() {} };
+      class DecoyClass637 { public: int id; void process() {} };
+      class DecoyClass638 { public: int id; void process() {} };
+      class DecoyClass639 { public: int id; void process() {} };
+      class DecoyClass640 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch33 {
+      class DecoyClass641 { public: int id; void process() {} };
+      class DecoyClass642 { public: int id; void process() {} };
+      class DecoyClass643 { public: int id; void process() {} };
+      class DecoyClass644 { public: int id; void process() {} };
+      class DecoyClass645 { public: int id; void process() {} };
+      class DecoyClass646 { public: int id; void process() {} };
+      class DecoyClass647 { public: int id; void process() {} };
+      class DecoyClass648 { public: int id; void process() {} };
+      class DecoyClass649 { public: int id; void process() {} };
+      class DecoyClass650 { public: int id; void process() {} };
+      class DecoyClass651 { public: int id; void process() {} };
+      class DecoyClass652 { public: int id; void process() {} };
+      class DecoyClass653 { public: int id; void process() {} };
+      class DecoyClass654 { public: int id; void process() {} };
+      class DecoyClass655 { public: int id; void process() {} };
+      class DecoyClass656 { public: int id; void process() {} };
+      class DecoyClass657 { public: int id; void process() {} };
+      class DecoyClass658 { public: int id; void process() {} };
+      class DecoyClass659 { public: int id; void process() {} };
+      class DecoyClass660 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch34 {
+      class DecoyClass661 { public: int id; void process() {} };
+      class DecoyClass662 { public: int id; void process() {} };
+      class DecoyClass663 { public: int id; void process() {} };
+      class DecoyClass664 { public: int id; void process() {} };
+      class DecoyClass665 { public: int id; void process() {} };
+      class DecoyClass666 { public: int id; void process() {} };
+      class DecoyClass667 { public: int id; void process() {} };
+      class DecoyClass668 { public: int id; void process() {} };
+      class DecoyClass669 { public: int id; void process() {} };
+      class DecoyClass670 { public: int id; void process() {} };
+      class DecoyClass671 { public: int id; void process() {} };
+      class DecoyClass672 { public: int id; void process() {} };
+      class DecoyClass673 { public: int id; void process() {} };
+      class DecoyClass674 { public: int id; void process() {} };
+      class DecoyClass675 { public: int id; void process() {} };
+      class DecoyClass676 { public: int id; void process() {} };
+      class DecoyClass677 { public: int id; void process() {} };
+      class DecoyClass678 { public: int id; void process() {} };
+      class DecoyClass679 { public: int id; void process() {} };
+      class DecoyClass680 { public: int id; void process() {} };
+    }
+
+    namespace CppDecoyClassesBatch35 {
+      class DecoyClass681 { public: int id; void process() {} };
+      class DecoyClass682 { public: int id; void process() {} };
+      class DecoyClass683 { public: int id; void process() {} };
+      class DecoyClass684 { public: int id; void process() {} };
+      class DecoyClass685 { public: int id; void process() {} };
+      class DecoyClass686 { public: int id; void process() {} };
+      class DecoyClass687 { public: int id; void process() {} };
+      class DecoyClass688 { public: int id; void process() {} };
+      class DecoyClass689 { public: int id; void process() {} };
+      class DecoyClass690 { public: int id; void process() {} };
+      class DecoyClass691 { public: int id; void process() {} };
+      class DecoyClass692 { public: int id; void process() {} };
+      class DecoyClass693 { public: int id; void process() {} };
+      class DecoyClass694 { public: int id; void process() {} };
+      class DecoyClass695 { public: int id; void process() {} };
+      class DecoyClass696 { public: int id; void process() {} };
+      class DecoyClass697 { public: int id; void process() {} };
+      class DecoyClass698 { public: int id; void process() {} };
+      class DecoyClass699 { public: int id; void process() {} };
+      class DecoyClass700 { public: int id; void process() {} };
+    }
   -->
 </body>
 </html>
+
