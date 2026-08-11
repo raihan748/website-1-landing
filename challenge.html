@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHALLENGE.HTML - NEXUS CTF STAGE 1 (HARD MODE)</title>
+  <title>CHALLENGE.HTML - NEXUS CTF STAGE 1 (10-STEP EXTREME MODE)</title>
 
-  <!-- STAGE 1 OBFUSCATED META HEADERS -->
-  <meta name="cipher-checksum" content="0x4E45585553">
+  <!-- STAGE 1 META DATA FOR CTF ANALYSTS -->
+  <meta name="cipher-version" content="10.0-EXTREME">
   <meta name="author" content="RAIHAN 9B">
-  <meta name="security-level" content="HARD-V4">
+  <meta name="security-level" content="LEVEL-10-ENCRYPTED">
 
   <style>
     /* 
       ==========================================================================
-      [NEXUS STAGE 1 CORE STYLESHEET - NEO BRUTALISM THEME (HARD MODE)]
+      [NEXUS STAGE 1 CORE STYLESHEET - NEO BRUTALISM THEME (10-STEP EXTREME)]
       ==========================================================================
-      CSS CUSTOM VARIABLE HINT FOR STEP 1:
+      STEP 2 CSS CUSTOM PROPERTY HINT:
+      Hex String: 0x4e455855535f5641554c54 -> Decode to ASCII "NEXUS_VAULT"
     */
     :root {
-      --nexus-target-id: "vault-core-node-99";
+      --stage1-node-hash: "0x4e455855535f5641554c54";
       --bg-dark: #0a0c14;
       --card-bg: #141724;
       --border-black: #000000;
@@ -72,7 +73,7 @@
       position: relative;
       z-index: 10;
       width: 100%;
-      max-width: 760px;
+      max-width: 780px;
     }
 
     .neo-box {
@@ -80,7 +81,7 @@
       border: 4px solid var(--border-black);
       border-radius: 18px;
       padding: 36px;
-      box-shadow: 9px 9px 0px var(--pink-pop);
+      box-shadow: 10px 10px 0px var(--pink-pop);
       margin-bottom: 24px;
     }
 
@@ -167,7 +168,7 @@
     .steps-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 24px;
     }
 
@@ -175,9 +176,9 @@
       background: #090b12;
       border: 3px solid #000;
       border-radius: 10px;
-      padding: 14px 16px;
+      padding: 12px 14px;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       box-shadow: 3px 3px 0px var(--yellow-pop);
     }
 
@@ -207,8 +208,8 @@
       text-transform: uppercase;
     }
 
-    /* HIDDEN VAULT TARGET ELEMENT (STEP 2) */
-    #vault-core-node-99 {
+    /* REAL HIDDEN TARGET NODE (STEP 3) */
+    div[data-cipher-target="NEXUS_VAULT"] {
       display: none !important;
       visibility: hidden !important;
     }
@@ -225,51 +226,76 @@
     ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║   ╚██████╗   ██║   ██║     
     ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    ╚═════╝   ╚═╝   ╚═╝     
     =================================================================================
-    [NEXUS STAGE 1 - HARD MODE ENCRYPTION PROTOCOL v4.2]
+    [NEXUS STAGE 1 - 10-STEP EXTREME PROTOCOL v10.0]
     AUTHOR: RAIHAN 9B
     
     ---------------------------------------------------------------------------------
-    [HARD MODE SOLVING ALGORITHM: 6 STEP CHALLENGE]
+    [10-STEP SEQUENTIAL DECRYPTION ALGORITHM GUIDE]
     ---------------------------------------------------------------------------------
-    STEP 1: Cek CSS Variable di <style>: `:root { --nexus-target-id: "vault-core-node-99"; }`
-    STEP 2: Cari DOM element dengan ID tersebut: `<div id="vault-core-node-99">`
-    STEP 3: Di dalam ID tersebut, terdapat 3 atribut terenkripsi:
-            - data-part-1="=zNzE" (TERBALIK! Balikkan string dulu "=zNzE" -> "E1z=", lalu Base64 Decode -> "O1")
-            - data-part-2="70727074" (HEX STRING! Konversi Hex -> Text "2026")
-            - data-part-3="LU5FWFVTCg==" (Base64 Decode -> "-NEXUS")
-    STEP 4: Susun ketiga hasil dekode: "O1" + "2026" + "-NEXUS" = "O1-2026-NEXUS"
-    STEP 5: Hitung Checksum Sederhana: Jumlahkan angka tahun (2+0+2+6 = 10)
-    STEP 6: Buka Console (F12) dan panggil fungsi solver:
-            solveVaultPass({ token: "O1-2026-NEXUS", checksum: 10 })
-            -> Konsol akan memverifikasi & mengeluarkan URL Website 2 Vercel!
+    STEP 1: Decode Header Binary String:
+            01001110 01000101 01011000 01010101 01010011 -> Binary to Text -> "NEXUS"
+
+    STEP 2: Inspect CSS :root Custom Property in <style>:
+            --stage1-node-hash: "0x4e455855535f5641554c54" -> Hex to Text -> "NEXUS_VAULT"
+
+    STEP 3: Query DOM element matching data attribute found in Step 2:
+            Element: <div data-cipher-target="NEXUS_VAULT">
+
+    STEP 4: Extract data-fragment-a="R4" and apply Caesar Shift (-3):
+            "R" (-3) -> "O"
+            "4" (-3) -> "1"
+            Result A = "O1"
+
+    STEP 5: Extract data-fragment-b="63203232" (Reversed Hex String):
+            Reverse string "63203232" -> "23202363" ? No, reverse char pairs:
+            Original Hex: "32303236" -> Decode Hex -> "2026"
+
+    STEP 6: Extract data-fragment-c="LU5FWFVTCg==" -> Base64 Decode -> "-NEXUS"
+
+    STEP 7: Assemble Master Token:
+            Result A ("O1") + Result B ("2026") + Result C ("-NEXUS") -> "O1-2026-NEXUS"
+
+    STEP 8: Compute Math Checksum:
+            Checksum A = ASCII sum of "O1" (79 + 49 = 128)
+            Checksum B = Digit sum of "2026" (2 + 0 + 2 + 6 = 10)
+            Total Checksum = 128 * 10 = 1280
+
+    STEP 9: Execute Stage-1 Key Generator in Console (F12):
+            const session = decryptNexusKey("O1-2026-NEXUS", 1280);
+            -> Returns session object with sessionKey: "NX-SESSION-882026"
+
+    STEP 10: Final Unlock Call in Console:
+            solveVaultPass("NX-SESSION-882026")
+            -> Console prints Live Vercel Website 2 Gateway URL & Victory Hint!
     ---------------------------------------------------------------------------------
     =================================================================================
   -->
 
-  <!-- FAKE DECOY NODES WITH HONEYPOT TRAPS TO FOOL BLIND AUTO-EXTRACTORS & AI -->
-  <div id="honeypot-node-fake-1" data-part-1="RkFLRV9UT0tFTl8x" data-part-2="46414b45" data-part-3="LUZBS0U=">
-    <!-- HONEYPOT TRAP: If submitted, console will trigger Fake Token alert! -->
-  </div>
-  <div id="honeypot-node-fake-2" data-part-1="WkFMS19UT0tFTl8y" data-part-2="31323334" data-part-3="TFVTRVI="></div>
+  <!-- STEP 1 BINARY STREAM COMMENT -->
+  <!-- CIPHER BINARY HEADER STREAM: 01001110 01000101 01011000 01010101 01010011 -->
 
-  <!-- TARGET HIDDEN VAULT CORE NODE (STEP 2 & 3) -->
-  <div id="vault-core-node-99" 
-       data-part-1="=zNzE" 
-       data-part-2="70727074" 
-       data-part-3="LU5FWFVTCg==">
-    <!-- REAL CIPHER DATA ATTR -->
+  <!-- DECOY HONEYPOT DOM ELEMENTS -->
+  <div data-cipher-target="FAKE_VAULT_1" data-fragment-a="Z9" data-fragment-b="9999" data-fragment-c="RkFLRQ=="></div>
+  <div data-cipher-target="FAKE_VAULT_2" data-fragment-a="X8" data-fragment-b="8888" data-fragment-c="VFJBUA=="></div>
+
+  <!-- TARGET HIDDEN DOM NODE (MATCHING STEP 2 DATA TARGET "NEXUS_VAULT") -->
+  <div data-cipher-target="NEXUS_VAULT"
+       data-fragment-a="R4"
+       data-fragment-b="32303236"
+       data-fragment-c="LU5FWFVTCg==">
+    <!-- REAL 10-STEP CIPHER DATA -->
   </div>
 
   <main class="ctf-container">
     <div class="neo-box">
       <div class="neo-header">
-        <span class="status-badge" style="background: var(--pink-pop); color:#fff;">HARD MODE CTF</span>
-        <span class="status-badge">STAGE 1 ADVANCED</span>
+        <span class="status-badge" style="background: var(--pink-pop); color:#fff;">10-STEP EXTREME</span>
+        <span class="status-badge">STAGE 1 ULTRA</span>
       </div>
 
-      <h1 class="main-title">NEXUS VAULT HARD CIPHER</h1>
+      <h1 class="main-title">NEXUS 10-STEP CIPHER VAULT</h1>
       <p class="sub-title">
-        Tantangan ini membutuhkan analisis CSS Variable, String Reversal, Hex Decoding, & Object Console Execution!
+        Tantangan 10-Langkah beruntun: Binary Decode $\rightarrow$ Hex $\rightarrow$ DOM Query $\rightarrow$ Caesar Shift $\rightarrow$ Hex $\rightarrow$ Base64 $\rightarrow$ Assembly $\rightarrow$ Math Checksum $\rightarrow$ Key Gen $\rightarrow$ Console Unlock!
       </p>
 
       <div class="terminal-window">
@@ -279,39 +305,26 @@
           <div class="dot g"></div>
         </div>
         <div class="code-block">
-          <span class="comment-text">// [NEXUS ADVANCED TERMINAL v4.2]</span><br>
-          <span class="highlight-text">> SYSTEM STATUS:</span> Cipher Vault Locked with Reverse-Base64 & Hex.<br>
-          <span class="highlight-text">> HINT 1:</span> Inspection target defined in CSS <code>:root { --nexus-target-id }</code>.<br>
-          <span class="highlight-text">> HINT 2:</span> <code>data-part-1</code> requires string reversal BEFORE Base64 decode!<br>
-          <span class="highlight-text">> HINT 3:</span> Call <code>solveVaultPass({ token: "...", checksum: 10 })</code> in Console (F12).
+          <span class="comment-text">// [NEXUS 10-STEP EXTREME TERMINAL v10.0]</span><br>
+          <span class="highlight-text">> STATUS:</span> Locked under 10 sequential cipher stages.<br>
+          <span class="highlight-text">> STEP 1:</span> Decode Binary Stream in HTML comment header.<br>
+          <span class="highlight-text">> STEP 2:</span> Hex decode <code>--stage1-node-hash</code> in CSS <code>:root</code>.<br>
+          <span class="highlight-text">> STEP 9:</span> Run <code>decryptNexusKey("O1-2026-NEXUS", 1280)</code> in Console.<br>
+          <span class="highlight-text">> STEP 10:</span> Run <code>solveVaultPass("NX-SESSION-882026")</code>!
         </div>
       </div>
 
       <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-num">STEP 1</div>
-          <div>Cek <code>:root</code> CSS Target ID</div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">STEP 2</div>
-          <div>Find ID <code>vault-core-node-99</code></div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">STEP 3</div>
-          <div>Reverse & Decode <code>data-part-1..3</code></div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">STEP 4</div>
-          <div>Assemble <code>O1-2026-NEXUS</code></div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">STEP 5</div>
-          <div>Calculate Checksum (2+0+2+6=10)</div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">STEP 6</div>
-          <div>Execute Object in Console (F12)</div>
-        </div>
+        <div class="step-card"><div class="step-num">STEP 1</div>Decode Binary Header Stream</div>
+        <div class="step-card"><div class="step-num">STEP 2</div>Hex Decode CSS <code>:root</code> Hash</div>
+        <div class="step-card"><div class="step-num">STEP 3</div>Query DOM <code>data-cipher-target</code></div>
+        <div class="step-card"><div class="step-num">STEP 4</div>Caesar Shift (-3) on Fragment A</div>
+        <div class="step-card"><div class="step-num">STEP 5</div>Hex Decode Fragment B</div>
+        <div class="step-card"><div class="step-num">STEP 6</div>Base64 Decode Fragment C</div>
+        <div class="step-card"><div class="step-num">STEP 7</div>Assemble Master Token</div>
+        <div class="step-card"><div class="step-num">STEP 8</div>Calculate Math Checksum (1280)</div>
+        <div class="step-card"><div class="step-num">STEP 9</div>Generate Session Key in Console</div>
+        <div class="step-card"><div class="step-num">STEP 10</div>Final Unlock Execution</div>
       </div>
     </div>
 
@@ -323,19 +336,60 @@
     </footer>
   </main>
 
-  <!-- OBFUSCATED DECOY SCRIPT BLOCKS (EXTENDING CODE COMPLEXITY & THINKING TIME) -->
+  <!-- OBFUSCATED JAVASCRIPT SOLVER & SESSION KEY GENERATOR (STEPS 8, 9, 10) -->
   <script>
-    /* OBFUSCATED FAKE SOLVER TO CATCH SIMPLE SCRAPERS */
-    window.solveVaultPassFake = function() {
-      console.warn("⚠️ HONEYPOT TRIGGERED: You called the fake solver!");
+    /* OBFUSCATED DECOY FUNCTION */
+    window.solveFakeToken = function() { console.warn("⚠️ HONEYPOT: Fake function called!"); };
+
+    /**
+     * STEP 9: DECRYPT NEXUS SESSION KEY
+     */
+    window.decryptNexusKey = function(masterToken, checksum) {
+      console.log("%c[NEXUS STEP 9] Verifying Master Token & Checksum...", "color:#00f0ff; font-weight:bold;");
+
+      if (masterToken !== "O1-2026-NEXUS") {
+        console.log("%c❌ STEP 7 FAILED: Master Token mismatch! Must be 'O1-2026-NEXUS'", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      if (parseInt(checksum) !== 1280) {
+        console.log("%c❌ STEP 8 FAILED: Math Checksum mismatch! (ASCII 'O1' [79+49=128] * Digit sum '2026' [10] = 1280)", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      console.log("%c✅ STEP 9 COMPLETE! Session Key Generated:", "color:#00ff66; font-weight:bold;");
+      console.log("%c'NX-SESSION-882026'", "color:#ffe600; font-weight:bold; font-size:16px;");
+      console.log("%c➡️ Now proceed to STEP 10: Call solveVaultPass('NX-SESSION-882026')", "color:#00f0ff;");
+
+      return { sessionKey: "NX-SESSION-882026", valid: true };
     };
-    (function() {
-      const _x = [0x41, 0x42, 0x43, 0x44];
-      const _y = _x.map(n => n.toString(16)).join('');
-    })();
+
+    /**
+     * STEP 10: FINAL UNLOCK FUNCTION
+     */
+    window.solveVaultPass = function(sessionKey) {
+      console.log("%c[NEXUS STEP 10] Validating Session Key...", "color:#00f0ff; font-weight:bold;");
+
+      if (sessionKey !== "NX-SESSION-882026") {
+        console.log("%c❌ STEP 10 FAILED: Invalid session key! Complete STEP 9 first.", "color:#ff007a; font-weight:bold;");
+        return "Access Denied.";
+      }
+
+      console.log("%c🎉 10-STEP EXTREME CTF COMPLETE! STAGE 1 DECRYPTED!", "color:#00ff66; font-weight:bold; font-size:15px;");
+      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
+      console.log("%c🔗 LIVE WEBSITE 2 VERCEL GATEWAY URL:", "color:#ffe600; font-weight:bold;");
+      console.log("%chttps://website-2-gateway.vercel.app/", "color:#00f0ff; font-weight:bold; font-size:16px; text-decoration:underline;");
+      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
+      console.log("%c💡 HINT STAGE 2: Buka Inspect Element di Website 2 & olah kata demi kata!", "color:#ffffff; font-weight:bold;");
+
+      return "Stage 1 Solved! Access Website 2 Vercel Gateway.";
+    };
+
+    console.log("%c[NEXUS CTF 10-STEP EXTREME] Loaded. Author: RAIHAN 9B.", "color:#ffe600; font-weight:bold;");
+    console.log("%cFollow the 10 steps in source code comments to solve!", "color:#00f0ff;");
   </script>
 
-  <!-- DECOY BUFFER DUMPS TO EXPAND CODE SIZE TO ~850-900 LINES -->
+  <!-- DECOY BUFFER DUMPS TO REACH ~850-900 LINES -->
   <!-- BUFFER BLOCK 01 -->
   <!--
     [DECOY BUFFER DUMP 01]
@@ -486,9 +540,9 @@
     +-----------------------------------------------------------------------+
     | INDEX | FRAGMENT VALUE | ENCODING TYPE | TARGET LAYER                 |
     +-----------------------------------------------------------------------+
-    | 01    | =zNzE          | REVERSE B64   | data-part-1                  |
-    | 02    | 70727074       | HEX STRING    | data-part-2                  |
-    | 03    | LU5FWFVTCg==   | BASE64        | data-part-3                  |
+    | 01    | R4             | CAESAR SHIFT  | data-fragment-a              |
+    | 02    | 32303236       | HEX ENCODED   | data-fragment-b              |
+    | 03    | LU5FWFVTCg==   | BASE64        | data-fragment-c              |
     +-----------------------------------------------------------------------+
   -->
 
@@ -699,50 +753,5 @@
     LINE_PADDING_174: //////////////////////////////////////////////////
     LINE_PADDING_175: //////////////////////////////////////////////////
   -->
-
-  <!-- REAL JAVASCRIPT CONSOLE SOLVER FUNCTION (STEP 5 & 6) -->
-  <script>
-    /**
-     * =========================================================================
-     * NEXUS STAGE 1 ADVANCED SOLVER FUNCTION (HARD MODE STEP 5 & 6)
-     * =========================================================================
-     * Usage in Browser Developer Console (F12):
-     * solveVaultPass({ token: 'O1-2026-NEXUS', checksum: 10 });
-     */
-    window.solveVaultPass = function(payload) {
-      console.log("%c[NEXUS STAGE 1 HARD] Verifying Object Payload...", "color:#00f0ff; font-weight:bold; font-size:14px;");
-
-      if (!payload || typeof payload !== 'object') {
-        console.log("%c❌ INVALID PARAMETER! Pass an Object: solveVaultPass({ token: '...', checksum: 10 })", "color:#ff007a; font-weight:bold;");
-        return "Access Denied.";
-      }
-
-      const { token, checksum } = payload;
-      const targetToken = "O1-2026-NEXUS";
-      const targetChecksum = 10; // 2+0+2+6
-
-      if (token !== targetToken) {
-        console.log("%c❌ TOKEN INVALID! Follow 6 steps: Reverse Base64 data-part-1 + Hex data-part-2 + Base64 data-part-3", "color:#ff007a; font-weight:bold;");
-        return "Token Error.";
-      }
-
-      if (parseInt(checksum) !== targetChecksum) {
-        console.log("%c❌ CHECKSUM FAILED! Sum the digits of 2026 -> 2+0+2+6 = 10", "color:#ff007a; font-weight:bold;");
-        return "Checksum Error.";
-      }
-
-      console.log("%c✅ HARD MODE VERIFIED! STAGE 1 UNLOCKED!", "color:#00ff66; font-weight:bold; font-size:14px;");
-      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
-      console.log("%c🔗 WEBSITE 2 LIVE VERCEL GATEWAY URL:", "color:#ffe600; font-weight:bold;");
-      console.log("%chttps://website-2-gateway.vercel.app/", "color:#00f0ff; font-weight:bold; font-size:16px; text-decoration:underline;");
-      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
-      console.log("%c💡 HINT STAGE 2: Buka Inspect Element di Website 2 & olah kata demi kata!", "color:#ffffff; font-weight:bold;");
-
-      return "Stage 1 Solved! Access Website 2 Vercel Gateway.";
-    };
-
-    console.log("%c[NEXUS CTF HARD MODE] Challenge loaded. Author: RAIHAN 9B.", "color:#ffe600; font-weight:bold;");
-    console.log("%cExecute solveVaultPass({ token: '...', checksum: 10 }) in Console (F12) after decoding!", "color:#00f0ff;");
-  </script>
 </body>
 </html>
