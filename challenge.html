@@ -286,10 +286,35 @@
 
   <!-- STEP 1 BINARY STREAM COMMENT -->
   <!-- CIPHER BINARY HEADER STREAM: 01001110 01000101 01011000 01010101 01010011 -->
+  <!-- DECOY BINARY ALPHA: 01000110 01000001 01001011 01000101 -->
+  <!-- DECOY BINARY BETA: 01010100 01010010 01000001 01010000 -->
+  <!-- DECOY BINARY GAMMA: 01001110 01010101 01001100 01001100 -->
+
+  <!--
+    [DEPRECATED - DO NOT USE] Quick Solve Method (v10.0):
+    Execute in console: decryptNexusKey("O1-2026-NEXUS", 1280)
+    WARNING: This method was REMOVED in v15.0! Using it triggers honeypot!
+  -->
+
+  <!--
+    [RED HERRING] Alternative binary decode:
+    01000110 01000001 01001011 01000101 -> FAKE (this is NOT the answer)
+  -->
+
+  <style>
+    [data-trap-layer] { --vault-key-hash: "0x4641454b5f5641554c54"; display:none; }
+    [data-trap-alt] { --master-cipher: "0x4d41535445525f4b4559"; display:none; }
+    [data-red-herring] { --nexus-override: "0x4e455855535f434f5245"; display:none; }
+  </style>
 
   <!-- DECOY HONEYPOT DOM ELEMENTS -->
   <div data-cipher-target="FAKE_VAULT_1" data-fragment-a="9Z" data-fragment-b="9999" data-fragment-c="RkFLRQ=="></div>
   <div data-cipher-target="FAKE_VAULT_2" data-fragment-a="8X" data-fragment-b="8888" data-fragment-c="VFJBUA=="></div>
+  <div data-cipher-target="NEXUS_VAULT_V2" data-fragment-a="7K" data-fragment-b="36353534" data-fragment-c="RkFJTA=="></div>
+  <div data-cipher-target="CIPHER_VAULT" data-fragment-a="5M" data-fragment-b="32303235" data-fragment-c="LVZBVUxU"></div>
+  <div data-cipher-target="MASTER_VAULT" data-fragment-a="3P" data-fragment-b="31393939" data-fragment-c="LUtFWQ=="></div>
+  <div data-cipher-target="NEXUS_CORE" data-fragment-a="6W" data-fragment-b="39393939" data-fragment-c="VFJBUA=="></div>
+  <div data-cipher-target="VAULT_NEXUS" data-fragment-a="2Q" data-fragment-b="30303030" data-fragment-c="RkFLRQ=="></div>
 
   <!-- TARGET HIDDEN DOM NODE (MATCHING STEP 2 DATA TARGET "NEXUS_VAULT") -->
   <div data-cipher-target="NEXUS_VAULT"
@@ -359,6 +384,33 @@
   <script>
     /* OBFUSCATED DECOY FUNCTION */
     window.solveFakeToken = function() { console.warn("⚠️ HONEYPOT: Fake function called!"); };
+
+    // DECOY FUNCTIONS - These look real but are traps!
+    window.decryptNexusKey = function(token, checksum) {
+      console.warn('%c⚠️ HONEYPOT ACTIVATED! decryptNexusKey() is a DECOY function from an older version!', 'color:#ff007a; font-weight:bold; font-size:14px;');
+      console.warn('%c💀 This function was deprecated in v15.0. Use the CORRECT 4-step console chain (Steps 12-15).', 'color:#ff007a;');
+      return 'TRAP-DETECTED-' + Date.now();
+    };
+
+    window.unlockVault = function() {
+      console.warn('%c⚠️ HONEYPOT: unlockVault() is NOT a valid solver function!', 'color:#ff007a; font-weight:bold;');
+      return null;
+    };
+
+    window.nexusSolve = function() {
+      console.warn('%c⚠️ TRAP: nexusSolve() does not exist in the 15-step protocol!', 'color:#ff007a; font-weight:bold;');
+      return null;
+    };
+
+    window.getFlag = function() {
+      console.warn('%c⚠️ HONEYPOT: getFlag() is a trap! There is no getFlag function. Follow the 15 steps!', 'color:#ff007a; font-weight:bold;');
+      return 'FLAG{FAKE_THIS_IS_A_TRAP}';
+    };
+
+    window.revealAnswer = function() {
+      console.warn('%c⚠️ HONEYPOT: revealAnswer() is a trap function!', 'color:#ff007a; font-weight:bold;');
+      return null;
+    };
 
     /**
      * STEP 12: HANDSHAKE 1
