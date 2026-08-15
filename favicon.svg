@@ -1,15 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Neo-Brutalism Background Shadow -->
-  <rect x="6" y="6" width="54" height="54" rx="14" fill="#000000"/>
-  <!-- Main Badge Box -->
-  <rect x="4" y="4" width="54" height="54" rx="14" fill="#141724" stroke="#ffe600" stroke-width="4"/>
-  <!-- CTF Flag Pole with Neon Tip -->
-  <line x1="18" y1="12" x2="18" y2="52" stroke="#00f0ff" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="18" cy="12" r="3.5" fill="#ffe600" stroke="#000000" stroke-width="1.5"/>
-  <!-- Cyber Flag Body -->
-  <path d="M20 14 L48 23 L20 33 Z" fill="#ff007a" stroke="#000000" stroke-width="2.5" stroke-linejoin="round"/>
-  <!-- Cyber Lightning Bolt Emblem inside Flag -->
-  <path d="M29 19 L34 19 L31 23 L36 23 L28 29 L30 24 L26 24 Z" fill="#ffe600" stroke="#000000" stroke-width="1"/>
-  <!-- Cyber Terminal Status Glow Dot -->
-  <circle cx="48" cy="48" r="4.5" fill="#00ff66" stroke="#000000" stroke-width="2"/>
+  <!--
+    =============================================================================
+    [NEXUS DUAL-CREST FAVICON: PART 1 (LEFT KEYSTONE NODE)]
+    AUTHOR: RAIHAN 9B
+    SECRET CONNECTION: 
+    This icon is the LEFT HALF of the Nexus Cyber Crest.
+    When placed side-by-side with Website 2 in browser tabs,
+    the two icons visually merge into the COMPLETE MASTER NEXUS SHIELD!
+    Hidden Vector Clue: PART_A = "0x4E" ('N')
+    =============================================================================
+  -->
+  <!-- Neo-Brutalism Shadow Background -->
+  <rect x="4" y="6" width="56" height="54" rx="14" fill="#000000"/>
+  <!-- Main Container -->
+  <rect x="2" y="4" width="56" height="54" rx="14" fill="#0d111e" stroke="#00f0ff" stroke-width="3.5"/>
+  
+  <!-- LEFT SHIELD HALF (CYBER BLUE & CYAN) -->
+  <path d="M 32 10 L 12 18 L 12 38 Q 12 50 32 54 Z" fill="#161b2e" stroke="#00f0ff" stroke-width="3" stroke-linejoin="round"/>
+  
+  <!-- Left Cyber Visor / Core Beam -->
+  <path d="M 16 28 L 32 28" stroke="#ffe600" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Connecting Key Prong (Pointing RIGHT to connect with Website 2) -->
+  <path d="M 24 22 L 32 22 M 22 34 L 32 34 M 26 40 L 32 40" stroke="#ff007a" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Left Binary Connection Dot (PART A: 01) -->
+  <circle cx="18" cy="46" r="3" fill="#00ff66" stroke="#000000" stroke-width="1"/>
+  
+  <!-- Split Connector Line on Right Edge -->
+  <line x1="32" y1="10" x2="32" y2="54" stroke="#ffe600" stroke-width="2" stroke-dasharray="3,2"/>
 </svg>
