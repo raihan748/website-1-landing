@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHALLENGE.HTML - NEXUS CTF STAGE 1 (AI-SOLVABLE 15-STEP CIPHER CHALLENGE)</title>
+
+  <!-- STAGE 1 META DATA FOR CTF ANALYSTS -->
+  <meta name="cipher-version" content="15.0-OPTIMIZED-AI-SOLVABLE">
+  <meta name="author" content="RAIHAN 9B">
+  <meta name="security-level" content="LEVEL-15-DETERMINISTIC-CIPHER">
+
+  <style>
+    /* 
+      ==========================================================================
+      [NEXUS STAGE 1 CORE STYLESHEET - NEO BRUTALISM THEME]
+      ==========================================================================
+      STEP 2 CSS CUSTOM PROPERTY HINT:
+      Hex String: 0x4e455855535f5641554c54 -> Hex to ASCII -> "NEXUS_VAULT"
+    */
+    :root {
+      --cipher-vault-hash: "0x4e455855535f5641554c54";
+      --bg-dark: #0a0c14;
+      --card-bg: #141724;
+      --border-black: #000000;
+      --yellow-pop: #ffe600;
+      --pink-pop: #ff007a;
+      --cyan-pop: #00f0ff;
+      --green-pop: #00ff66;
+      --purple-pop: #a855f7;
+      --text-light: #ffffff;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700;800&family=Plus+Jakarta+Sans:wght@700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-heading);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: 35px 35px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ctf-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    .neo-box {
+      background: var(--card-bg);
+      border: 4px solid var(--border-black);
+      border-radius: 18px;
+      padding: 36px;
+      box-shadow: 10px 10px 0px var(--pink-pop);
+      margin-bottom: 24px;
+    }
+
+    .neo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .status-badge {
+      background: var(--yellow-pop);
+      color: #000;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      border: 3px solid #000;
+      border-radius: 8px;
+      box-shadow: 3px 3px 0px #000;
+    }
+
+    .main-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: #fff;
+      text-shadow: 3px 3px 0px var(--cyan-pop);
+    }
+
+    .sub-title {
+      font-family: var(--font-mono);
+      color: #a1a1aa;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .terminal-window {
+      background: #000;
+      border: 3px solid #000;
+      border-radius: 12px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.6);
+      margin-bottom: 24px;
+    }
+
+    .terminal-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed #222;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #000;
+    }
+
+    .dot.r { background: var(--pink-pop); }
+    .dot.y { background: var(--yellow-pop); }
+    .dot.g { background: var(--green-pop); }
+
+    .code-block {
+      color: var(--cyan-pop);
+      line-height: 1.6;
+    }
+
+    .comment-text {
+      color: #71717a;
+    }
+
+    .highlight-text {
+      color: var(--yellow-pop);
+      font-weight: 700;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .step-card {
+      background: #090b12;
+      border: 3px solid #000;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      box-shadow: 3px 3px 0px var(--yellow-pop);
+    }
+
+    .step-num {
+      color: var(--pink-pop);
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .raihan-footer {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .raihan-badge {
+      display: inline-block;
+      background: var(--pink-pop);
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 10px 24px;
+      border: 3px solid #000000;
+      border-radius: 50px;
+      box-shadow: 4px 4px 0px var(--yellow-pop);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* REAL HIDDEN TARGET NODE (STEP 3) */
+    div[data-cipher-target="NEXUS_VAULT"] {
+      display: none !important;
+      visibility: hidden !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    =================================================================================
+    ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗    ██████╗████████╗██xFFFF╗
+    ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝   ██╔════╝╚══██╔══╝██╔════╝
+    ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗   ██║        ██║   █████╗  
+    ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║   ██║        ██║   ██╔══╝  
+    ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║   ╚██████╗   ██║   ██║     
+    ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    ╚═════╝   ╚═╝   ╚═╝     
+    =================================================================================
+    [NEXUS STAGE 1 - 15-STEP CIPHER CHALLENGE PROTOCOL v15.0]
+    AUTHOR: RAIHAN 9B
+    
+    ---------------------------------------------------------------------------------
+    [15-STEP MASTER DECRYPTION ALGORITHM GUIDE FOR HUMANS & AI AGENTS]
+    ---------------------------------------------------------------------------------
+    STEP 1: Decode Header Binary Stream in comment:
+            01001110 01000101 01011000 01010101 01010011 -> Binary to Text -> "NEXUS"
+
+    STEP 2: Inspect CSS :root Custom Property in <style>:
+            --cipher-vault-hash: "0x4e455855535f5641554c54" -> Hex to ASCII -> "NEXUS_VAULT"
+
+    STEP 3: Query DOM element matching data attribute found in Step 2:
+            Element: <div data-cipher-target="NEXUS_VAULT">
+
+    STEP 4: Extract data-fragment-a="4R" and reverse string:
+            "4R" reversed -> "R4"
+
+    STEP 5: Apply Caesar Shift (-3) on Result 4 ("R4"):
+            "R" (-3) -> "O"
+            "4" (-3) -> "1"
+            Result Step 5 = "O1"
+
+    STEP 6: Extract data-fragment-b="32303236" -> Decode Hex -> "2026"
+
+    STEP 7: Extract data-fragment-c="LU5FWFVTCg==" -> Base64 Decode -> "-NEXUS"
+
+    STEP 8: Assemble Master Token:
+            "O1" + "2026" + "-NEXUS" -> "O1-2026-NEXUS"
+
+    STEP 9: Calculate ASCII Sum Checksum A:
+            ASCII 'O' (79) + ASCII '1' (49) = 128
+
+    STEP 10: Calculate Digit Sum Checksum B:
+             2 + 0 + 2 + 6 = 10
+
+    STEP 11: Multiply Checksum A * Checksum B:
+             128 * 10 = 1280
+
+    STEP 12: Execute Console Handshake 1:
+             const h = initNexusHandshake("NEXUS");
+             -> Returns Handshake Key: "HS-NEXUS-99"
+
+    STEP 13: Execute Console Session Generator 2:
+             const s = generateNexusSession("O1-2026-NEXUS", 1280, "HS-NEXUS-99");
+             -> Returns Session Token: "NX-SESS-882026"
+
+    STEP 14: Execute Console Verification Object 3:
+             const auth = verifyNexusAuth({ session: "NX-SESS-882026", step15Ready: true });
+             -> Returns Auth Key: "AUTH-PASS-2026"
+
+    STEP 15: Final Console Unlock Call 4:
+             solveVaultPass("AUTH-PASS-2026")
+             -> Console prints Live Vercel Website 2 Gateway URL:
+                https://website-2-gateway.vercel.app/
+    ---------------------------------------------------------------------------------
+    =================================================================================
+  -->
+
+  <!-- STEP 1 BINARY STREAM COMMENT -->
+  <!-- CIPHER BINARY HEADER STREAM: 01001110 01000101 01011000 01010101 01010011 -->
+
+  <!-- TARGET HIDDEN DOM NODE (MATCHING STEP 2 DATA TARGET "NEXUS_VAULT") -->
+  <div data-cipher-target="NEXUS_VAULT"
+       data-fragment-a="4R"
+       data-fragment-b="32303236"
+       data-fragment-c="LU5FWFVTCg==">
+    <!-- REAL 15-STEP CIPHER DATA -->
+  </div>
+
+  <main class="ctf-container">
+    <div class="neo-box">
+      <div class="neo-header">
+        <span class="status-badge" style="background: var(--pink-pop); color:#fff;">STAGE 1 ACTIVE</span>
+        <span class="status-badge">15-STEP CIPHER</span>
+      </div>
+
+      <h1 class="main-title">NEXUS 15-STEP CTF CIPHER</h1>
+      <p class="sub-title">
+        Tantangan 15-Langkah Kriptografi Berurutan untuk Membuka Gateway Stage 2!
+      </p>
+
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <div class="dot r"></div>
+          <div class="dot y"></div>
+          <div class="dot g"></div>
+        </div>
+        <div class="code-block">
+          <span class="comment-text">// [NEXUS 15-STEP CIPHER PROTOCOL v15.0]</span><br>
+          <span class="highlight-text">> STATUS:</span> Ready for analytical decryption.<br>
+          <span class="highlight-text">> STEP 1:</span> Decode Binary Stream in HTML comment header.<br>
+          <span class="highlight-text">> STEP 12:</span> <code>initNexusHandshake("NEXUS")</code> $\rightarrow$ "HS-NEXUS-99"<br>
+          <span class="highlight-text">> STEP 13:</span> <code>generateNexusSession("O1-2026-NEXUS", 1280, "HS-NEXUS-99")</code><br>
+          <span class="highlight-text">> STEP 14:</span> <code>verifyNexusAuth({ session: "NX-SESS-882026", step15Ready: true })</code><br>
+          <span class="highlight-text">> STEP 15:</span> <code>solveVaultPass("AUTH-PASS-2026")</code>!
+        </div>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">STEP 1</div>Binary Comment Decode ("NEXUS")</div>
+        <div class="step-card"><div class="step-num">STEP 2</div>CSS <code>:root</code> Hex Hash ("NEXUS_VAULT")</div>
+        <div class="step-card"><div class="step-num">STEP 3</div>DOM Query <code>NEXUS_VAULT</code></div>
+        <div class="step-card"><div class="step-num">STEP 4</div>Reverse Fragment A ("4R" $\rightarrow$ "R4")</div>
+        <div class="step-card"><div class="step-num">STEP 5</div>Caesar Shift (-3) $\rightarrow$ "O1"</div>
+        <div class="step-card"><div class="step-num">STEP 6</div>Hex Decode Fragment B ("2026")</div>
+        <div class="step-card"><div class="step-num">STEP 7</div>Base64 Decode Fragment C ("-NEXUS")</div>
+        <div class="step-card"><div class="step-num">STEP 8</div>Assemble Token ("O1-2026-NEXUS")</div>
+        <div class="step-card"><div class="step-num">STEP 9</div>ASCII Sum Checksum A (128)</div>
+        <div class="step-card"><div class="step-num">STEP 10</div>Digit Sum Checksum B (10)</div>
+        <div class="step-card"><div class="step-num">STEP 11</div>Multiply Checksums (1280)</div>
+        <div class="step-card"><div class="step-num">STEP 12</div>Console Handshake 1</div>
+        <div class="step-card"><div class="step-num">STEP 13</div>Console Session Gen 2</div>
+        <div class="step-card"><div class="step-num">STEP 14</div>Console Auth Object 3</div>
+        <div class="step-card"><div class="step-num">STEP 15</div>Final Unlock Execution</div>
+      </div>
+    </div>
+
+    <!-- FOOTER CENTER: MADE BY RAIHAN, 9B -->
+    <footer class="raihan-footer">
+      <div class="raihan-badge">
+        🚀 Made by RAIHAN, 9B
+      </div>
+    </footer>
+  </main>
+
+  <!-- JAVASCRIPT SOLVER FUNCTIONS (STEPS 12, 13, 14, 15) -->
+  <script>
+    /**
+     * STEP 12: HANDSHAKE 1
+     */
+    window.initNexusHandshake = function(binaryKey) {
+      console.log("%c[NEXUS STEP 12] Handshake Key Initializing...", "color:#00f0ff; font-weight:bold;");
+      if (binaryKey !== "NEXUS") {
+        console.log("%c❌ STEP 1 FAILED! Binary key must be 'NEXUS'", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+      console.log("%c✅ STEP 12 HANDSHAKE OK! Key: 'HS-NEXUS-99'", "color:#00ff66; font-weight:bold;");
+      return "HS-NEXUS-99";
+    };
+
+    /**
+     * STEP 13: SESSION GENERATOR 2
+     */
+    window.generateNexusSession = function(token, checksum, handshake) {
+      console.log("%c[NEXUS STEP 13] Verifying Session Parameters...", "color:#00f0ff; font-weight:bold;");
+
+      if (token !== "O1-2026-NEXUS") {
+        console.log("%c❌ STEP 8 FAILED! Token mismatch. Must be 'O1-2026-NEXUS'", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+      if (parseInt(checksum) !== 1280) {
+        console.log("%c❌ STEP 11 FAILED! Total Checksum mismatch (128 * 10 = 1280)", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+      if (handshake !== "HS-NEXUS-99") {
+        console.log("%c❌ STEP 12 FAILED! Handshake key mismatch. Complete STEP 12 first.", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      console.log("%c✅ STEP 13 SESSION OK! Token: 'NX-SESS-882026'", "color:#00ff66; font-weight:bold;");
+      return "NX-SESS-882026";
+    };
+
+    /**
+     * STEP 14: VERIFY AUTH OBJECT 3
+     */
+    window.verifyNexusAuth = function(authObj) {
+      console.log("%c[NEXUS STEP 14] Validating Auth Payload Object...", "color:#00f0ff; font-weight:bold;");
+
+      if (!authObj || typeof authObj !== 'object') {
+        console.log("%c❌ STEP 14 FAILED! Must pass object: verifyNexusAuth({ session: '...', step15Ready: true })", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      if (authObj.session !== "NX-SESS-882026" || !authObj.step15Ready) {
+        console.log("%c❌ STEP 14 FAILED! Invalid session or step15Ready flag is false.", "color:#ff007a; font-weight:bold;");
+        return null;
+      }
+
+      console.log("%c✅ STEP 14 AUTH OK! Auth Key: 'AUTH-PASS-2026'", "color:#00ff66; font-weight:bold;");
+      return "AUTH-PASS-2026";
+    };
+
+    /**
+     * STEP 15: FINAL UNLOCK FUNCTION 4
+     */
+    window.solveVaultPass = function(authPass) {
+      console.log("%c[NEXUS STEP 15] Executing Final Master Decryption...", "color:#00f0ff; font-weight:bold;");
+
+      if (authPass !== "AUTH-PASS-2026") {
+        console.log("%c❌ STEP 15 FAILED: Invalid auth pass! Complete STEP 14 first.", "color:#ff007a; font-weight:bold;");
+        return "Access Denied.";
+      }
+
+      console.log("%c🎉 15-STEP CTF COMPLETE! STAGE 1 DECRYPTED!", "color:#00ff66; font-weight:bold; font-size:15px;");
+      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
+      console.log("%c🔗 LIVE WEBSITE 2 VERCEL GATEWAY URL:", "color:#ffe600; font-weight:bold;");
+      console.log("%chttps://website-2-gateway.vercel.app/", "color:#00f0ff; font-weight:bold; font-size:16px; text-decoration:underline;");
+      console.log("%c-----------------------------------------------------------------", "color:#ffe600;");
+      console.log("%c💡 HINT STAGE 2: Buka Inspect Element di Website 2 & olah kata demi kata!", "color:#ffffff; font-weight:bold;");
+
+      return "Stage 1 Solved! Access Website 2 Vercel Gateway: https://website-2-gateway.vercel.app/";
+    };
+
+    console.log("%c[NEXUS CTF 15-STEP PROTOCOL] Loaded. Author: RAIHAN 9B.", "color:#ffe600; font-weight:bold;");
+    console.log("%cFollow the 15 steps in source code comments to solve!", "color:#00f0ff;");
+  </script>
+</body>
+</html>
