@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="cyber">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,44 +8,65 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- BACKGROUND CYBER CANVAS -->
+  <!-- CUSTOM CYBER CROSSHAIR CURSOR -->
+  <div id="cyberCursor" class="cyber-cursor"></div>
+  <div id="cursorDot" class="cursor-dot"></div>
+
+  <!-- INTERACTIVE 3D CYBER GRID CANVAS -->
   <canvas id="cyberCanvas"></canvas>
 
-  <!-- SCANLINE OVERLAY EFFECT -->
+  <!-- CRT VIGNETTE & SCANLINE RETRO OVERLAY -->
+  <div class="crt-overlay"></div>
   <div class="scanlines"></div>
 
   <!-- TOP RUNNING MARQUEE TICKER -->
   <div class="marquee-bar top">
     <div class="marquee-content">
       <span>⚡ NEXUS CTF 2026</span>
-      <span>⚡ 15-STEP MASTER CIPHER ACTIVE</span>
-      <span>⚡ TARGET: GEMINI PRO REWARD</span>
-      <span>⚡ STAGE 1 READY</span>
-      <span>⚡ AUTHOR: RAIHAN, 9B</span>
-      <span>⚡ DECRYPT & ACCESS STAGE 2</span>
+      <span>⚡ 15-STEP MASTER CIPHER ENGINE</span>
+      <span>⚡ TARGET REWARD: GEMINI PRO ACCESS</span>
+      <span>⚡ SECURITY STATUS: DEFCON-1</span>
+      <span>⚡ CREATED BY: RAIHAN, 9B</span>
+      <span>⚡ DECRYPT & BREACH STAGE 2</span>
       <span>⚡ NEXUS CTF 2026</span>
-      <span>⚡ 15-STEP MASTER CIPHER ACTIVE</span>
-      <span>⚡ TARGET: GEMINI PRO REWARD</span>
-      <span>⚡ STAGE 1 READY</span>
-      <span>⚡ AUTHOR: RAIHAN, 9B</span>
+      <span>⚡ 15-STEP MASTER CIPHER ENGINE</span>
+      <span>⚡ TARGET REWARD: GEMINI PRO ACCESS</span>
+      <span>⚡ SECURITY STATUS: DEFCON-1</span>
+      <span>⚡ CREATED BY: RAIHAN, 9B</span>
     </div>
   </div>
 
-  <main class="landing-wrapper" id="tiltContainer">
-    <!-- SOUND FX TOGGLE -->
-    <div class="sound-control-wrapper">
-      <button type="button" id="soundToggleBtn" class="sound-btn" title="Toggle 8-bit Audio Synth">
+  <!-- FLOATING CONTROL DOCK (SOUND & THEME SWITCHER) -->
+  <header class="top-dock">
+    <div class="dock-left">
+      <div class="live-clock-badge">
+        <span class="live-blink-dot"></span>
+        <span id="liveClock">00:00:00 UTC</span>
+      </div>
+    </div>
+    <div class="dock-right">
+      <!-- THEME SWITCHER -->
+      <div class="theme-selector">
+        <button type="button" class="theme-btn active" data-theme="cyber" title="Cyber Neon Theme">CYBER</button>
+        <button type="button" class="theme-btn" data-theme="matrix" title="Matrix Green Theme">MATRIX</button>
+        <button type="button" class="theme-btn" data-theme="synth" title="Synth Gold Theme">SYNTH</button>
+      </div>
+      <!-- SOUND FX TOGGLE -->
+      <button type="button" id="soundToggleBtn" class="dock-btn sound-btn" title="Toggle 8-bit Web Audio Synth">
         <span id="soundIcon">🔊</span> <span id="soundLabel">SFX: ON</span>
       </button>
     </div>
+  </header>
 
-    <!-- MAIN NEO-BRUTALISM HERO CARD -->
+  <main class="landing-wrapper" id="tiltContainer">
+    <!-- MAIN HERO NEO-BRUTALISM CARD -->
     <div class="neo-card" id="heroCard">
-      <!-- HEADER BADGES -->
+      <!-- HEADER BADGES WITH GLOW -->
       <div class="badge-container">
-        <span class="neo-badge green pulse-glow">● STAGE 1 ONLINE</span>
+        <span class="neo-badge live pulse-glow">● STAGE 1 ACTIVE</span>
         <span class="neo-badge cyan">CYBER SECURITY CTF</span>
-        <span class="neo-badge pink">v15.0 ENGINE</span>
+        <span class="neo-badge yellow">v15.0 ENGINE</span>
+        <span class="neo-badge pink">2048-BIT CIPHER</span>
       </div>
 
       <!-- GLITCH TITLE -->
@@ -53,29 +74,33 @@
         <h1 class="hero-title glitch" data-text="NEXUS CYBER CTF 2026">
           NEXUS CYBER CTF 2026
         </h1>
-        <div class="title-subline">OFFICIAL HIGH-SECURITY CIPHER CHALLENGE</div>
+        <div class="title-subline">
+          <span class="subline-bolt">⚡</span>
+          <span>HIGH-SECURITY 15-STEP CIPHER DECRYPTION PORTAL</span>
+          <span class="subline-bolt">⚡</span>
+        </div>
       </div>
 
       <p class="hero-desc">
-        Selamat datang di Portal Utama Tantangan Keamanan Siber! Unduh berkas <code>challenge.html</code> di bawah ini, analisa menggunakan <b>Inspect Element / Code Editor</b>, dan selesaikan 15-langkah protokol kriptografi untuk membuka <b>Stage 2 Gateway</b>!
+        Selamat datang di Portal Utama Tantangan Keamanan Siber! Unduh berkas <code>challenge.html</code> di bawah ini, telusuri menggunakan <b>Inspect Element / Code Editor</b>, dan pecahkan 15 langkah protokol kriptografi berantai untuk membuka <b>Stage 2 Gateway</b>!
       </p>
 
       <!-- LIVE SYSTEM TELEMETRY HUD -->
       <div class="telemetry-hud">
         <div class="hud-item">
-          <span class="hud-label">CIPHER PROTOCOL</span>
-          <span class="hud-value neon-cyan">15-STEP AES/RSA</span>
+          <span class="hud-label">CIPHER SUITE</span>
+          <span class="hud-value neon-cyan">15-STEP RSA/AES</span>
         </div>
         <div class="hud-item">
           <span class="hud-label">SECURITY LEVEL</span>
-          <span class="hud-value neon-pink">ULTRA-HIGH</span>
+          <span class="hud-value neon-pink">MILITARY GRADE</span>
         </div>
         <div class="hud-item">
-          <span class="hud-label">ACTIVE NODES</span>
-          <span class="hud-value neon-yellow">4,096 NODES</span>
+          <span class="hud-label">ONLINE AGENTS</span>
+          <span class="hud-value neon-yellow" id="agentCounter">4,096 NODES</span>
         </div>
         <div class="hud-item">
-          <span class="hud-label">TARGET PRIZE</span>
+          <span class="hud-label">REWARD UNLOCKED</span>
           <span class="hud-value neon-green">GEMINI PRO</span>
         </div>
       </div>
@@ -85,6 +110,7 @@
         <div class="rules-header">
           <span class="rules-icon">📋</span>
           <span class="rules-title">PROTOKOL AWAL TANTANGAN:</span>
+          <span class="rules-tag">OFFICIAL GUIDE</span>
         </div>
         <ul class="rules-list">
           <li>
@@ -93,7 +119,7 @@
           </li>
           <li>
             <span class="step-badge">02</span>
-            <span>Buka berkas di Browser & Developer Console (<b>F12 / Inspect Element</b>).</span>
+            <span>Buka berkas di Browser & buka Developer Console (<b>F12 / Inspect Element</b>).</span>
           </li>
           <li>
             <span class="step-badge">03</span>
@@ -101,18 +127,47 @@
           </li>
           <li>
             <span class="step-badge">04</span>
-            <span>Solusi akhir akan mengungkap <b>URL Website 2 Gateway</b> untuk klaim hadiah!</span>
+            <span>Solusi akhir akan mengungkap <b>URL Website 2 Gateway</b> untuk klaim voucher hadiah!</span>
           </li>
         </ul>
       </div>
 
-      <!-- INTERACTIVE DOWNLOAD BUTTON -->
+      <!-- INTERACTIVE QUICK CIPHER HELPER TOOL (MINI-CALCULATOR) -->
+      <div class="cipher-helper-drawer" id="cipherHelper">
+        <div class="helper-header" id="toggleHelperBtn">
+          <span class="helper-icon">🛠️</span>
+          <span class="helper-title">INTERACTIVE CIPHER TESTING CONSOLE</span>
+          <span class="helper-arrow" id="helperArrow">▼</span>
+        </div>
+        <div class="helper-body" id="helperBody">
+          <div class="helper-grid">
+            <div class="helper-col">
+              <label class="helper-label">BINARY TO TEXT (Step 1):</label>
+              <div class="helper-input-row">
+                <input type="text" id="binInput" class="helper-input" value="01001110 01000101 01011000 01010101 01010011" placeholder="Input binary...">
+                <button type="button" id="binBtn" class="helper-btn">DECODE</button>
+              </div>
+              <div class="helper-output" id="binOutput">> RESULT: NEXUS</div>
+            </div>
+            <div class="helper-col">
+              <label class="helper-label">HEX TO TEXT (Step 2):</label>
+              <div class="helper-input-row">
+                <input type="text" id="hexInput" class="helper-input" value="0x4e455855535f5641554c54" placeholder="Input hex...">
+                <button type="button" id="hexBtn" class="helper-btn">DECODE</button>
+              </div>
+              <div class="helper-output" id="hexOutput">> RESULT: NEXUS_VAULT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWNLOAD ACTION AREA -->
       <div class="download-action-area">
         <a href="challenge.html" download="challenge.html" class="download-btn" id="downloadBtn">
           <span class="btn-shine"></span>
           <span class="btn-icon">⚡</span>
           <span class="btn-text">DOWNLOAD CHALLENGE.HTML</span>
-          <svg class="btn-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <svg class="btn-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
           </svg>
         </a>
@@ -133,15 +188,15 @@
   <!-- BOTTOM RUNNING MARQUEE TICKER -->
   <div class="marquee-bar bottom">
     <div class="marquee-content reverse">
-      <span>🔒 ENCRYPTED PIPELINE</span>
-      <span>⭐ NEO BRUTALISM UI</span>
-      <span>💡 AVOID HONEYPOTS</span>
-      <span>🔑 UNLOCK THE VAULT</span>
+      <span>🔒 MILITARY-GRADE CRYPTOGRAPHY</span>
+      <span>⭐ NEO BRUTALISM LUXURY UI</span>
+      <span>💡 AVOID HONEYPOT DECOYS</span>
+      <span>🔑 DUAL-CREST KEYSTONE CONNECTED</span>
       <span>🚀 MADE BY RAIHAN, 9B</span>
-      <span>🔒 ENCRYPTED PIPELINE</span>
-      <span>⭐ NEO BRUTALISM UI</span>
-      <span>💡 AVOID HONEYPOTS</span>
-      <span>🔑 UNLOCK THE VAULT</span>
+      <span>🔒 MILITARY-GRADE CRYPTOGRAPHY</span>
+      <span>⭐ NEO BRUTALISM LUXURY UI</span>
+      <span>💡 AVOID HONEYPOT DECOYS</span>
+      <span>🔑 DUAL-CREST KEYSTONE CONNECTED</span>
       <span>🚀 MADE BY RAIHAN, 9B</span>
     </div>
   </div>
