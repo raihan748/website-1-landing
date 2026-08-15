@@ -3,47 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXUS CTF 2026 - Challenge Portal Stage 1</title>
+  <title>NEXUS CTF 2026 - Master Portal Stage 1</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="landing-wrapper">
-    <div class="neo-card">
+  <!-- BACKGROUND CYBER CANVAS -->
+  <canvas id="cyberCanvas"></canvas>
+
+  <!-- SCANLINE OVERLAY EFFECT -->
+  <div class="scanlines"></div>
+
+  <!-- TOP RUNNING MARQUEE TICKER -->
+  <div class="marquee-bar top">
+    <div class="marquee-content">
+      <span>⚡ NEXUS CTF 2026</span>
+      <span>⚡ 15-STEP MASTER CIPHER ACTIVE</span>
+      <span>⚡ TARGET: GEMINI PRO REWARD</span>
+      <span>⚡ STAGE 1 READY</span>
+      <span>⚡ AUTHOR: RAIHAN, 9B</span>
+      <span>⚡ DECRYPT & ACCESS STAGE 2</span>
+      <span>⚡ NEXUS CTF 2026</span>
+      <span>⚡ 15-STEP MASTER CIPHER ACTIVE</span>
+      <span>⚡ TARGET: GEMINI PRO REWARD</span>
+      <span>⚡ STAGE 1 READY</span>
+      <span>⚡ AUTHOR: RAIHAN, 9B</span>
+    </div>
+  </div>
+
+  <main class="landing-wrapper" id="tiltContainer">
+    <!-- SOUND FX TOGGLE -->
+    <div class="sound-control-wrapper">
+      <button type="button" id="soundToggleBtn" class="sound-btn" title="Toggle 8-bit Audio Synth">
+        <span id="soundIcon">🔊</span> <span id="soundLabel">SFX: ON</span>
+      </button>
+    </div>
+
+    <!-- MAIN NEO-BRUTALISM HERO CARD -->
+    <div class="neo-card" id="heroCard">
+      <!-- HEADER BADGES -->
       <div class="badge-container">
-        <span class="neo-badge green">● STAGE 1 ONLINE</span>
-        <span class="neo-badge">CYBER SECURITY CTF</span>
+        <span class="neo-badge green pulse-glow">● STAGE 1 ONLINE</span>
+        <span class="neo-badge cyan">CYBER SECURITY CTF</span>
+        <span class="neo-badge pink">v15.0 ENGINE</span>
       </div>
 
-      <h1 class="hero-title">NEXUS CYBER CTF 2026</h1>
+      <!-- GLITCH TITLE -->
+      <div class="title-wrapper">
+        <h1 class="hero-title glitch" data-text="NEXUS CYBER CTF 2026">
+          NEXUS CYBER CTF 2026
+        </h1>
+        <div class="title-subline">OFFICIAL HIGH-SECURITY CIPHER CHALLENGE</div>
+      </div>
+
       <p class="hero-desc">
-        Selamat datang di Tantangan Keamanan Siber! Unduh berkas <code>challenge.html</code> di bawah ini, lalu buka di browser/editor milikmu untuk memecahkan sandi 15-langkah menuju Stage 2!
+        Selamat datang di Portal Utama Tantangan Keamanan Siber! Unduh berkas <code>challenge.html</code> di bawah ini, analisa menggunakan <b>Inspect Element / Code Editor</b>, dan selesaikan 15-langkah protokol kriptografi untuk membuka <b>Stage 2 Gateway</b>!
       </p>
 
+      <!-- LIVE SYSTEM TELEMETRY HUD -->
+      <div class="telemetry-hud">
+        <div class="hud-item">
+          <span class="hud-label">CIPHER PROTOCOL</span>
+          <span class="hud-value neon-cyan">15-STEP AES/RSA</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">SECURITY LEVEL</span>
+          <span class="hud-value neon-pink">ULTRA-HIGH</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">ACTIVE NODES</span>
+          <span class="hud-value neon-yellow">4,096 NODES</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">TARGET PRIZE</span>
+          <span class="hud-value neon-green">GEMINI PRO</span>
+        </div>
+      </div>
+
+      <!-- RULES BOX NEO-BRUTALISM -->
       <div class="rules-box">
-        <div class="rules-title">📌 PETUNJUK AWAL TANTANGAN:</div>
+        <div class="rules-header">
+          <span class="rules-icon">📋</span>
+          <span class="rules-title">PROTOKOL AWAL TANTANGAN:</span>
+        </div>
         <ul class="rules-list">
-          <li>🔹 Unduh berkas <code>challenge.html</code> dengan menekan tombol di bawah.</li>
-          <li>🔹 Buka berkas tersebut di Browser dan gunakan <b>Inspect Element (F12) / Code Editor</b>.</li>
-          <li>🔹 Temukan petunjuk tersembunyi dan ikuti 15 langkah dekripsi yang tersedia.</li>
-          <li>🔹 Solusi akhir akan membawamu menuju <b>Website 2 Gateway</b> & Kunci Redeem Hadiah!</li>
+          <li>
+            <span class="step-badge">01</span>
+            <span>Unduh berkas <code>challenge.html</code> dengan menekan tombol neon di bawah.</span>
+          </li>
+          <li>
+            <span class="step-badge">02</span>
+            <span>Buka berkas di Browser & Developer Console (<b>F12 / Inspect Element</b>).</span>
+          </li>
+          <li>
+            <span class="step-badge">03</span>
+            <span>Ikuti 15 langkah dekripsi sekuensial dari Binary Header hingga Unlock Function.</span>
+          </li>
+          <li>
+            <span class="step-badge">04</span>
+            <span>Solusi akhir akan mengungkap <b>URL Website 2 Gateway</b> untuk klaim hadiah!</span>
+          </li>
         </ul>
       </div>
 
-      <a href="challenge.html" download="challenge.html" class="download-btn">
-        <span>📥 DOWNLOAD CHALLENGE.HTML</span>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-        </svg>
-      </a>
+      <!-- INTERACTIVE DOWNLOAD BUTTON -->
+      <div class="download-action-area">
+        <a href="challenge.html" download="challenge.html" class="download-btn" id="downloadBtn">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">⚡</span>
+          <span class="btn-text">DOWNLOAD CHALLENGE.HTML</span>
+          <svg class="btn-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+          </svg>
+        </a>
+        <div id="downloadStatus" class="download-status">✅ Ready to extract challenge bundle</div>
+      </div>
     </div>
 
     <!-- FOOTER CENTER: MADE BY RAIHAN, 9B -->
     <footer class="raihan-footer">
       <div class="raihan-badge">
-        🚀 Made by RAIHAN, 9B
+        <span class="footer-dot"></span>
+        <span>🚀 Made by RAIHAN, 9B</span>
+        <span class="footer-dot"></span>
       </div>
     </footer>
   </main>
+
+  <!-- BOTTOM RUNNING MARQUEE TICKER -->
+  <div class="marquee-bar bottom">
+    <div class="marquee-content reverse">
+      <span>🔒 ENCRYPTED PIPELINE</span>
+      <span>⭐ NEO BRUTALISM UI</span>
+      <span>💡 AVOID HONEYPOTS</span>
+      <span>🔑 UNLOCK THE VAULT</span>
+      <span>🚀 MADE BY RAIHAN, 9B</span>
+      <span>🔒 ENCRYPTED PIPELINE</span>
+      <span>⭐ NEO BRUTALISM UI</span>
+      <span>💡 AVOID HONEYPOTS</span>
+      <span>🔑 UNLOCK THE VAULT</span>
+      <span>🚀 MADE BY RAIHAN, 9B</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
