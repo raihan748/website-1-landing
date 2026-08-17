@@ -3,70 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXUS CTF 2026 - Master Portal Stage 1</title>
+  <title>NEXUS CYBER CTF 2026 - Master Decryption Portal</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- CUSTOM CYBER CROSSHAIR CURSOR -->
+  <!-- CUSTOM CYBER CROSSHAIR RETICLE CURSOR -->
   <div id="cyberCursor" class="cyber-cursor"></div>
   <div id="cursorDot" class="cursor-dot"></div>
 
-  <!-- INTERACTIVE 3D CYBER GRID CANVAS -->
+  <!-- 3D INTERACTIVE PARTICLE & WIREFRAME CANVAS -->
   <canvas id="cyberCanvas"></canvas>
 
-  <!-- CRT VIGNETTE & SCANLINE RETRO OVERLAY -->
+  <!-- CRT SCREEN VIGNETTE & SCANLINES SHADER -->
   <div class="crt-overlay"></div>
   <div class="scanlines"></div>
 
-  <!-- TOP RUNNING MARQUEE TICKER -->
+  <!-- TOP RUNNING MARQUEE TICKER (HD NEO-BRUTALISM) -->
   <div class="marquee-bar top">
     <div class="marquee-content">
-      <span>⚡ NEXUS CTF 2026</span>
-      <span>⚡ 15-STEP MASTER CIPHER ENGINE</span>
-      <span>⚡ TARGET REWARD: GEMINI PRO ACCESS</span>
-      <span>⚡ SECURITY STATUS: DEFCON-1</span>
-      <span>⚡ CREATED BY: RAIHAN, 9B</span>
-      <span>⚡ DECRYPT & BREACH STAGE 2</span>
-      <span>⚡ NEXUS CTF 2026</span>
-      <span>⚡ 15-STEP MASTER CIPHER ENGINE</span>
-      <span>⚡ TARGET REWARD: GEMINI PRO ACCESS</span>
-      <span>⚡ SECURITY STATUS: DEFCON-1</span>
-      <span>⚡ CREATED BY: RAIHAN, 9B</span>
+      <span>⚡ NEXUS CYBER CTF 2026</span>
+      <span>🔒 15-STEP DETERMINISTIC CIPHER PROTOCOL</span>
+      <span>💎 REWARD: GEMINI PRO SUBSCRIPTION</span>
+      <span>🛡️ DUAL-CREST KEYSTONE: LEFT BLADE</span>
+      <span>🚀 MADE BY RAIHAN, 9B</span>
+      <span>⚡ NEXUS CYBER CTF 2026</span>
+      <span>🔒 15-STEP DETERMINISTIC CIPHER PROTOCOL</span>
+      <span>💎 REWARD: GEMINI PRO SUBSCRIPTION</span>
+      <span>🛡️ DUAL-CREST KEYSTONE: LEFT BLADE</span>
+      <span>🚀 MADE BY RAIHAN, 9B</span>
     </div>
   </div>
 
-  <!-- FLOATING CONTROL DOCK (SOUND & THEME SWITCHER) -->
+  <!-- FLOATING CONTROL DOCK (UTC CLOCK, LATENCY, THEME SWITCHER & SFX TOGGLE) -->
   <header class="top-dock">
     <div class="dock-left">
       <div class="live-clock-badge">
         <span class="live-blink-dot"></span>
-        <span id="liveClock">00:00:00 UTC</span>
+        <span id="liveUtcClock">UTC 00:00:00</span>
+      </div>
+      <div class="ping-badge">
+        <span class="ping-dot"></span>
+        <span id="pingCounter">PING: 14ms</span>
       </div>
     </div>
     <div class="dock-right">
-      <!-- THEME SWITCHER -->
+      <!-- 3-STATE THEME ENGINE SWITCHER -->
       <div class="theme-selector">
-        <button type="button" class="theme-btn active" data-theme="cyber" title="Cyber Neon Theme">CYBER</button>
-        <button type="button" class="theme-btn" data-theme="matrix" title="Matrix Green Theme">MATRIX</button>
-        <button type="button" class="theme-btn" data-theme="synth" title="Synth Gold Theme">SYNTH</button>
+        <button type="button" class="theme-btn active" data-theme="cyber" title="Electric Cyber Neon">CYBER</button>
+        <button type="button" class="theme-btn" data-theme="matrix" title="Matrix Phantom Green">MATRIX</button>
+        <button type="button" class="theme-btn" data-theme="synth" title="Retro Synth Gold">SYNTH</button>
       </div>
-      <!-- SOUND FX TOGGLE -->
-      <button type="button" id="soundToggleBtn" class="dock-btn sound-btn" title="Toggle 8-bit Web Audio Synth">
+      <!-- WEB AUDIO SYNTH SFX TOGGLE -->
+      <button type="button" id="soundToggleBtn" class="dock-btn sound-btn" title="Toggle 8-bit Polyphonic Synthesizer">
         <span id="soundIcon">🔊</span> <span id="soundLabel">SFX: ON</span>
       </button>
     </div>
   </header>
 
+  <!-- MAIN WRAPPER CONTAINER (3D PARALLAX TILT) -->
   <main class="landing-wrapper" id="tiltContainer">
-    <!-- MAIN HERO NEO-BRUTALISM CARD -->
     <div class="neo-card" id="heroCard">
-      <!-- HEADER BADGES WITH GLOW -->
+      <!-- SPECULAR GLARE SHINE -->
+      <div class="card-glare" id="cardGlare"></div>
+
+      <!-- BADGE CLUSTER -->
       <div class="badge-container">
         <span class="neo-badge live pulse-glow">● STAGE 1 ACTIVE</span>
-        <span class="neo-badge cyan">CYBER SECURITY CTF</span>
-        <span class="neo-badge yellow">v15.0 ENGINE</span>
-        <span class="neo-badge pink">2048-BIT CIPHER</span>
+        <span class="neo-badge cyan">CTF 2026</span>
+        <span class="neo-badge yellow">AI-SOLVABLE 15-STEP</span>
+        <span class="neo-badge pink">KEYSTONE: LEFT</span>
       </div>
 
       <!-- GLITCH TITLE -->
@@ -85,7 +91,7 @@
         Selamat datang di Portal Utama Tantangan Keamanan Siber! Unduh berkas <code>challenge.html</code> di bawah ini, telusuri menggunakan <b>Inspect Element / Code Editor</b>, dan pecahkan 15 langkah protokol kriptografi berantai untuk membuka <b>Stage 2 Gateway</b>!
       </p>
 
-      <!-- LIVE SYSTEM TELEMETRY HUD -->
+      <!-- LIVE SYSTEM TELEMETRY HUD (ULTRA-HD CONTRAST) -->
       <div class="telemetry-hud">
         <div class="hud-item">
           <span class="hud-label">CIPHER SUITE</span>
@@ -132,46 +138,95 @@
         </ul>
       </div>
 
-      <!-- INTERACTIVE QUICK CIPHER HELPER TOOL (MINI-CALCULATOR) -->
+      <!-- INTERACTIVE MULTI-TAB CIPHER TESTING TOOLKIT -->
       <div class="cipher-helper-drawer" id="cipherHelper">
         <div class="helper-header" id="toggleHelperBtn">
-          <span class="helper-icon">🛠️</span>
-          <span class="helper-title">INTERACTIVE CIPHER TESTING CONSOLE</span>
+          <div class="helper-header-left">
+            <span class="helper-icon">🛠️</span>
+            <span class="helper-title">INTERACTIVE CIPHER TESTING TOOLKIT</span>
+          </div>
           <span class="helper-arrow" id="helperArrow">▼</span>
         </div>
         <div class="helper-body" id="helperBody">
-          <div class="helper-grid">
-            <div class="helper-col">
-              <label class="helper-label">BINARY TO TEXT (Step 1):</label>
-              <div class="helper-input-row">
-                <input type="text" id="binInput" class="helper-input" value="01001110 01000101 01011000 01010101 01010011" placeholder="Input binary...">
-                <button type="button" id="binBtn" class="helper-btn">DECODE</button>
-              </div>
-              <div class="helper-output" id="binOutput">> RESULT: NEXUS</div>
+          <!-- TOOLKIT TABS -->
+          <div class="toolkit-tabs">
+            <button type="button" class="tab-btn active" data-tab="tab-bin">BINARY DECODER</button>
+            <button type="button" class="tab-btn" data-tab="tab-hex">HEX DECODER</button>
+            <button type="button" class="tab-btn" data-tab="tab-rot">CAESAR SHIFTER</button>
+            <button type="button" class="tab-btn" data-tab="tab-sum">CHECKSUM MATH</button>
+          </div>
+
+          <!-- TAB 1: BINARY DECODER -->
+          <div class="tab-content active" id="tab-bin">
+            <label class="helper-label" for="binInput">⚡ STEP 1: BINARY TO ASCII TESTER</label>
+            <div class="helper-input-row">
+              <input type="text" id="binInput" class="helper-input" value="01001110 01000101 01011000 01010101 01010011" placeholder="Masukkan 8-bit biner...">
+              <button type="button" id="binDecodeBtn" class="helper-btn">DECODE</button>
             </div>
-            <div class="helper-col">
-              <label class="helper-label">HEX TO TEXT (Step 2):</label>
-              <div class="helper-input-row">
-                <input type="text" id="hexInput" class="helper-input" value="0x4e455855535f5641554c54" placeholder="Input hex...">
-                <button type="button" id="hexBtn" class="helper-btn">DECODE</button>
-              </div>
-              <div class="helper-output" id="hexOutput">> RESULT: NEXUS_VAULT</div>
+            <div class="helper-output-box">
+              <span class="output-prefix">RESULT:</span>
+              <span id="binOutput" class="helper-output">NEXUS</span>
+            </div>
+          </div>
+
+          <!-- TAB 2: HEX DECODER -->
+          <div class="tab-content" id="tab-hex">
+            <label class="helper-label" for="hexInput">⚡ STEP 2: HEX STRING TO ASCII</label>
+            <div class="helper-input-row">
+              <input type="text" id="hexInput" class="helper-input" value="0x4e455855535f5641554c54" placeholder="0x...">
+              <button type="button" id="hexDecodeBtn" class="helper-btn">DECODE</button>
+            </div>
+            <div class="helper-output-box">
+              <span class="output-prefix">RESULT:</span>
+              <span id="hexOutput" class="helper-output">NEXUS_VAULT</span>
+            </div>
+          </div>
+
+          <!-- TAB 3: CAESAR SHIFTER -->
+          <div class="tab-content" id="tab-rot">
+            <label class="helper-label" for="rotInput">⚡ STEP 7: CAESAR SHIFT TESTER (+4 / -4)</label>
+            <div class="helper-input-row">
+              <input type="text" id="rotInput" class="helper-input" value="K1" placeholder="Teks...">
+              <input type="number" id="rotShift" class="helper-input" value="4" style="max-width: 70px;">
+              <button type="button" id="rotDecodeBtn" class="helper-btn">SHIFT</button>
+            </div>
+            <div class="helper-output-box">
+              <span class="output-prefix">RESULT:</span>
+              <span id="rotOutput" class="helper-output">O1</span>
+            </div>
+          </div>
+
+          <!-- TAB 4: CHECKSUM MATH -->
+          <div class="tab-content" id="tab-sum">
+            <label class="helper-label" for="sumInput">⚡ STEP 11: CHECKSUM MULTIPLIER (Base * Multiplier)</label>
+            <div class="helper-input-row">
+              <input type="number" id="sumBase" class="helper-input" value="128" placeholder="Base Sum">
+              <input type="number" id="sumMult" class="helper-input" value="10" placeholder="Multiplier">
+              <button type="button" id="sumCalcBtn" class="helper-btn">CALCULATE</button>
+            </div>
+            <div class="helper-output-box">
+              <span class="output-prefix">TOTAL CHECKSUM:</span>
+              <span id="sumOutput" class="helper-output">1280</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- DOWNLOAD ACTION AREA -->
+      <!-- MAIN DOWNLOAD CTA BUTTON -->
       <div class="download-action-area">
-        <a href="challenge.html" download="challenge.html" class="download-btn" id="downloadBtn">
+        <a href="challenge.html" download="challenge.html" class="download-btn" id="dlBtn">
           <span class="btn-shine"></span>
-          <span class="btn-icon">⚡</span>
+          <span class="btn-bolt">⚡</span>
           <span class="btn-text">DOWNLOAD CHALLENGE.HTML</span>
           <svg class="btn-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
           </svg>
         </a>
-        <div id="downloadStatus" class="download-status">✅ Ready to extract challenge bundle</div>
+        <div class="download-status">
+          <span>📦 Package Size: 16.3 KB</span> • 
+          <span>🔒 SHA-256 Verified</span> • 
+          <span>🌐 15-Step Solvable</span>
+        </div>
       </div>
     </div>
 
@@ -185,7 +240,7 @@
     </footer>
   </main>
 
-  <!-- BOTTOM RUNNING MARQUEE TICKER -->
+  <!-- BOTTOM RUNNING MARQUEE TICKER (HD NEO-BRUTALISM) -->
   <div class="marquee-bar bottom">
     <div class="marquee-content reverse">
       <span>🔒 ULTRA-SECURE CRYPTOGRAPHY</span>

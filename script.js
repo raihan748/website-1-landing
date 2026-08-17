@@ -1,14 +1,14 @@
 /**
  * ====================================================================
- * SCRIPT.JS - NEXUS CTF 1000x INTERACTIVE GAME ENGINE
+ * SCRIPT.JS - NEXUS CYBER CTF 100.000x GAME ENGINE v6.0
  * ====================================================================
  * Features:
- * 1. 3D Cyber Wireframe Grid & Starfield with Shockwave Ripples
- * 2. Cyber Reticle Custom Cursor with Spark Particle Trail
- * 3. 3-State Theme Engine (Cyber / Matrix / Synth)
- * 4. Polyphonic Web Audio API Synthesizer (Chords, sweeps, clicks)
- * 5. Interactive Cipher Testing Console (Live Decoder)
- * 6. 3D Card Tilt Physics & Download Celebration
+ * 1. 3D Gravitational Particle Constellation & Shockwave Ripple Canvas
+ * 2. Polyphonic Web Audio API Synthesizer (Chords, sweeps & clicks)
+ * 3. 3-State Dynamic Theme Engine (Cyber / Matrix / Synth)
+ * 4. Specular Card Glare & 3D Magnetic Parallax Tilt
+ * 5. Interactive Multi-Tab Cipher Testing Toolkit
+ * 6. Live UTC Clock & Dynamic Latency Ping Monitor
  * ====================================================================
  */
 
@@ -51,9 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       osc.start();
       osc.stop(audioCtx.currentTime + duration);
-    } catch (e) {
-      // Audio fallback
-    }
+    } catch (e) {}
+  }
+
+  function playKeyClick() {
+    playTone(1300 + Math.random() * 500, 'triangle', 0.02, 0.08);
   }
 
   function playLaserSweep() {
@@ -64,8 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(1800, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.12);
+      osc.frequency.setValueAtTime(1600, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(250, audioCtx.currentTime + 0.12);
       gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
       osc.connect(gain);
@@ -76,14 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function playCyberChord() {
-    const chord = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98];
-    chord.forEach((freq, idx) => {
-      setTimeout(() => playTone(freq, 'triangle', 0.3, 0.08), idx * 60);
+    const freqs = [440, 554.37, 659.25, 880];
+    freqs.forEach((f, i) => {
+      setTimeout(() => playTone(f, 'sine', 0.2, 0.08), i * 35);
     });
-  }
-
-  function playBlip() {
-    playTone(920 + Math.random() * 200, 'square', 0.03, 0.07);
   }
 
   // Sound Toggle
@@ -106,12 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Attach hover sounds
-  document.querySelectorAll('button, a, .hud-item, .helper-header').forEach(el => {
-    el.addEventListener('mouseenter', () => playTone(1200, 'sine', 0.02, 0.05));
-  });
-
-  // 2. THEME SWITCHER (CYBER / MATRIX / SYNTH)
+  // 2. THEME SWITCHER
   const themeButtons = document.querySelectorAll('.theme-btn');
   themeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -123,24 +116,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 3. LIVE CLOCK & NODE COUNTER
-  const liveClock = document.getElementById('liveClock');
+  // 3. LIVE UTC CLOCK & PING COUNTER
+  const liveUtcClock = document.getElementById('liveUtcClock');
+  const pingCounter = document.getElementById('pingCounter');
+
   function updateClock() {
     const now = new Date();
-    liveClock.textContent = now.toUTCString().split(' ')[4] + ' UTC';
+    const utcHours = String(now.getUTCHours()).padStart(2, '0');
+    const utcMinutes = String(now.getUTCMinutes()).padStart(2, '0');
+    const utcSeconds = String(now.getUTCSeconds()).padStart(2, '0');
+    liveUtcClock.textContent = `UTC ${utcHours}:${utcMinutes}:${utcSeconds}`;
   }
   setInterval(updateClock, 1000);
   updateClock();
 
-  const agentCounter = document.getElementById('agentCounter');
   setInterval(() => {
-    const delta = Math.floor(Math.random() * 5) - 2;
-    let curr = parseInt(agentCounter.textContent.replace(/\D/g, '')) || 4096;
-    curr = Math.max(4000, Math.min(4200, curr + delta));
-    agentCounter.textContent = curr.toLocaleString() + ' NODES';
-  }, 2500);
+    const ping = Math.floor(Math.random() * 6) + 11;
+    pingCounter.textContent = `PING: ${ping}ms`;
+  }, 3500);
 
-  // 4. CUSTOM CYBER CURSOR WITH SPARK TRAIL
+  // 4. CUSTOM CYBER CURSOR
   const cursor = document.getElementById('cyberCursor');
   const cursorDot = document.getElementById('cursorDot');
 
@@ -165,19 +160,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   renderCursor();
 
-  document.querySelectorAll('a, button, input, .helper-header').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+  document.querySelectorAll('a, button, input, .helper-header, .tab-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('hovered');
+      playTone(1200, 'sine', 0.02, 0.03);
+    });
     el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
   });
 
-  // 5. 3D CARD TILT PHYSICS
+  // 5. 3D SPECULAR GLARE & PARALLAX TILT
   const heroCard = document.getElementById('heroCard');
-  if (window.innerWidth > 768) {
+  const cardGlare = document.getElementById('cardGlare');
+
+  if (window.innerWidth > 768 && heroCard) {
     document.addEventListener('mousemove', (e) => {
       const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 16;
-      const y = (e.clientY / innerHeight - 0.5) * 16;
+      const x = (e.clientX / innerWidth - 0.5) * 14;
+      const y = (e.clientY / innerHeight - 0.5) * 14;
       heroCard.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+
+      const rect = heroCard.getBoundingClientRect();
+      const glareX = ((e.clientX - rect.left) / rect.width) * 100;
+      const glareY = ((e.clientY - rect.top) / rect.height) * 100;
+      heroCard.style.setProperty('--glare-x', `${glareX}%`);
+      heroCard.style.setProperty('--glare-y', `${glareY}%`);
     });
 
     document.addEventListener('mouseleave', () => {
@@ -185,223 +191,215 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. INTERACTIVE CIPHER HELPER DRAWER
+  // 6. MULTI-TAB CIPHER TESTING TOOLKIT
   const toggleHelperBtn = document.getElementById('toggleHelperBtn');
   const helperBody = document.getElementById('helperBody');
   const helperArrow = document.getElementById('helperArrow');
 
-  toggleHelperBtn.addEventListener('click', () => {
-    const isHidden = helperBody.style.display === 'none' || !helperBody.style.display;
-    helperBody.style.display = isHidden ? 'block' : 'none';
-    helperArrow.classList.toggle('open', isHidden);
-    playBlip();
+  if (toggleHelperBtn && helperBody && helperArrow) {
+    toggleHelperBtn.addEventListener('click', () => {
+      const isOpen = helperBody.style.display === 'block';
+      helperBody.style.display = isOpen ? 'none' : 'block';
+      helperArrow.classList.toggle('open', !isOpen);
+      playKeyClick();
+    });
+  }
+
+  // Tab Switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      const targetId = btn.getAttribute('data-tab');
+      document.getElementById(targetId).classList.add('active');
+      playKeyClick();
+    });
   });
 
-  // Binary Decoder in Helper
+  // TAB 1: Binary Decoder
   const binInput = document.getElementById('binInput');
-  const binBtn = document.getElementById('binBtn');
+  const binDecodeBtn = document.getElementById('binDecodeBtn');
   const binOutput = document.getElementById('binOutput');
 
-  binBtn.addEventListener('click', () => {
-    playBlip();
-    const raw = binInput.value.trim().split(/\s+/);
+  binDecodeBtn.addEventListener('click', () => {
+    playKeyClick();
     try {
-      const decoded = raw.map(b => String.fromCharCode(parseInt(b, 2))).join('');
-      binOutput.textContent = `> RESULT: ${decoded}`;
-      binOutput.style.color = 'var(--green-pop)';
+      const cleaned = binInput.value.trim().split(/\s+/);
+      const text = cleaned.map(b => String.fromCharCode(parseInt(b, 2))).join('');
+      binOutput.textContent = text || 'N/A';
     } catch (e) {
-      binOutput.textContent = '> ERROR: Invalid Binary Format';
-      binOutput.style.color = 'var(--pink-pop)';
+      binOutput.textContent = 'Error parsing binary';
     }
   });
 
-  // Hex Decoder in Helper
+  // TAB 2: Hex Decoder
   const hexInput = document.getElementById('hexInput');
-  const hexBtn = document.getElementById('hexBtn');
+  const hexDecodeBtn = document.getElementById('hexDecodeBtn');
   const hexOutput = document.getElementById('hexOutput');
 
-  hexBtn.addEventListener('click', () => {
-    playBlip();
-    let raw = hexInput.value.trim().replace(/^0x/i, '');
+  hexDecodeBtn.addEventListener('click', () => {
+    playKeyClick();
     try {
+      let raw = hexInput.value.trim().replace(/^0x/i, '');
       let str = '';
       for (let i = 0; i < raw.length; i += 2) {
         str += String.fromCharCode(parseInt(raw.substr(i, 2), 16));
       }
-      hexOutput.textContent = `> RESULT: ${str}`;
-      hexOutput.style.color = 'var(--green-pop)';
+      hexOutput.textContent = str || 'N/A';
     } catch (e) {
-      hexOutput.textContent = '> ERROR: Invalid Hex String';
-      hexOutput.style.color = 'var(--pink-pop)';
+      hexOutput.textContent = 'Error parsing hex';
     }
   });
 
-  // 7. DOWNLOAD BUTTON CELEBRATION
-  const downloadBtn = document.getElementById('downloadBtn');
-  const downloadStatus = document.getElementById('downloadStatus');
+  // TAB 3: Caesar Shifter
+  const rotInput = document.getElementById('rotInput');
+  const rotShift = document.getElementById('rotShift');
+  const rotDecodeBtn = document.getElementById('rotDecodeBtn');
+  const rotOutput = document.getElementById('rotOutput');
 
-  downloadBtn.addEventListener('click', () => {
-    playCyberChord();
-    downloadStatus.textContent = '⚡ Download initiated! Extracting 15-step cipher bundle...';
-    downloadStatus.style.color = 'var(--green-pop)';
-    downloadStatus.style.fontWeight = '800';
-
-    triggerParticleBurst();
-
-    setTimeout(() => {
-      downloadStatus.textContent = '💡 Tip: Buka Developer Console (F12) untuk memulai dekripsi!';
-      downloadStatus.style.color = 'var(--cyan-pop)';
-    }, 2800);
-  });
-
-  function triggerParticleBurst() {
-    const colors = ['#00f0ff', '#ff007a', '#ffe600', '#00ff66', '#ffffff', '#ffbe0b'];
-    for (let i = 0; i < 45; i++) {
-      const p = document.createElement('div');
-      p.style.position = 'fixed';
-      p.style.left = '50%';
-      p.style.top = '65%';
-      p.style.width = Math.random() * 8 + 4 + 'px';
-      p.style.height = Math.random() * 8 + 4 + 'px';
-      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      p.style.border = '2px solid #000';
-      p.style.borderRadius = '2px';
-      p.style.zIndex = '9999';
-      p.style.pointerEvents = 'none';
-
-      const angle = Math.random() * Math.PI * 2;
-      const velocity = Math.random() * 280 + 120;
-      const vx = Math.cos(angle) * velocity;
-      const vy = Math.sin(angle) * velocity - 120;
-
-      document.body.appendChild(p);
-
-      let posX = window.innerWidth / 2;
-      let posY = window.innerHeight * 0.65;
-      let opacity = 1;
-
-      const anim = setInterval(() => {
-        posX += vx * 0.02;
-        posY += vy * 0.02 + 3.5;
-        opacity -= 0.028;
-
-        p.style.left = posX + 'px';
-        p.style.top = posY + 'px';
-        p.style.opacity = opacity;
-
-        if (opacity <= 0) {
-          clearInterval(anim);
-          p.remove();
+  rotDecodeBtn.addEventListener('click', () => {
+    playKeyClick();
+    try {
+      const text = rotInput.value;
+      const shift = parseInt(rotShift.value) || 0;
+      const shifted = text.split('').map(char => {
+        const code = char.charCodeAt(0);
+        if (code >= 65 && code <= 90) {
+          return String.fromCharCode(((code - 65 + shift) % 26 + 26) % 26 + 65);
         }
-      }, 20);
+        if (code >= 97 && code <= 122) {
+          return String.fromCharCode(((code - 97 + shift) % 26 + 26) % 26 + 97);
+        }
+        return char;
+      }).join('');
+      rotOutput.textContent = shifted;
+    } catch (e) {
+      rotOutput.textContent = 'Error shifting';
     }
-  }
+  });
 
-  // 8. 3D CYBER CANVAS WIREFRAME & RIPPLE SHOCKWAVE
+  // TAB 4: Checksum Math
+  const sumBase = document.getElementById('sumBase');
+  const sumMult = document.getElementById('sumMult');
+  const sumCalcBtn = document.getElementById('sumCalcBtn');
+  const sumOutput = document.getElementById('sumOutput');
+
+  sumCalcBtn.addEventListener('click', () => {
+    playKeyClick();
+    const base = parseFloat(sumBase.value) || 0;
+    const mult = parseFloat(sumMult.value) || 0;
+    sumOutput.textContent = (base * mult).toString();
+  });
+
+  // 7. 3D PARTICLE CONSTELLATION & SHOCKWAVE CANVAS
   const canvas = document.getElementById('cyberCanvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    const ripples = [];
-    document.addEventListener('click', (e) => {
-      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, opacity: 1 });
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     });
 
     const particles = [];
-    for (let i = 0; i < 55; i++) {
+    const numParticles = Math.min(65, Math.floor((width * height) / 18000));
+
+    for (let i = 0; i < numParticles; i++) {
       particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        size: Math.random() * 2.5 + 1.5,
-        color: ['#00f0ff', '#ff007a', '#ffe600', '#00ff66'][Math.floor(Math.random() * 4)]
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.9,
+        vy: (Math.random() - 0.5) * 0.9,
+        radius: Math.random() * 2 + 1.2
       });
     }
 
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const ripples = [];
+    window.addEventListener('click', (e) => {
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 5,
+        maxRadius: 180,
+        opacity: 0.9
+      });
+    });
 
-      // Draw Grid
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw Perspective Grid
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.04)';
       ctx.lineWidth = 1;
       const gridSize = 45;
-      for (let x = 0; x < canvas.width; x += gridSize) {
+      for (let x = 0; x < width; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
+        ctx.lineTo(x, height);
         ctx.stroke();
       }
-      for (let y = 0; y < canvas.height; y += gridSize) {
+      for (let y = 0; y < height; y += gridSize) {
         ctx.beginPath();
         ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
+        ctx.lineTo(width, y);
         ctx.stroke();
       }
 
-      // Draw Ripples
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const r = ripples[i];
-        r.radius += 5;
-        r.opacity -= 0.02;
-        if (r.opacity <= 0) {
-          ripples.splice(i, 1);
-          continue;
-        }
-        ctx.strokeStyle = `rgba(0, 240, 255, ${r.opacity})`;
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      // Draw Particles & Connections
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+      // Update & Draw Particles
+      particles.forEach((p, i) => {
         p.x += p.vx;
         p.y += p.vy;
 
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
 
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(0, 240, 255, 0.6)' : 'rgba(255, 0, 122, 0.6)';
+        ctx.fill();
+
+        // Connect lines
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 130) {
-            ctx.strokeStyle = `rgba(0, 240, 255, ${0.16 * (1 - dist / 130)})`;
-            ctx.lineWidth = 1;
+          if (dist < 110) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(0, 240, 255, ${0.18 * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
+      });
 
-        const mouseDist = Math.hypot(p.x - mouseX, p.y - mouseY);
-        if (mouseDist < 170) {
-          ctx.strokeStyle = `rgba(255, 0, 122, ${0.35 * (1 - mouseDist / 170)})`;
-          ctx.lineWidth = 1.5;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouseX, mouseY);
-          ctx.stroke();
+      // Update & Draw Ripples
+      for (let r = ripples.length - 1; r >= 0; r--) {
+        const rip = ripples[r];
+        rip.radius += 4.5;
+        rip.opacity -= 0.022;
+
+        if (rip.opacity <= 0 || rip.radius >= rip.maxRadius) {
+          ripples.splice(r, 1);
+          continue;
         }
 
-        ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 230, 0, ${rip.opacity})`;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
       }
 
       requestAnimationFrame(draw);
     }
+
     draw();
   }
 });

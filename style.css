@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@600;700;800&family=Plus+Jakarta+Sans:wght@700;800;900&family=Space+Grotesk:wght@700;800;900&family=Syne:wght@700;800;900&display=swap');
 
 /* ==========================================================================
-   ULTRA-HD NEO-BRUTALISM THEME ENGINE (VECTOR SHARP & CRISP TYPOGRAPHY)
+   100.000x ULTRA-HD NEO-BRUTALISM THEME ENGINE (WEBSITE 1 LANDING)
    ========================================================================== */
 
 /* THEME 1: CYBER NEON (DEFAULT) */
@@ -102,10 +102,10 @@ body {
 }
 
 .cyber-cursor.hovered {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-color: var(--pink-pop);
-  background: rgba(255, 0, 122, 0.12);
+  background: rgba(255, 0, 122, 0.14);
   border-width: 3px;
 }
 
@@ -120,7 +120,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* INTERACTIVE CANVAS BACKGROUND */
+/* INTERACTIVE 3D CANVAS */
 #cyberCanvas {
   position: fixed;
   top: 0;
@@ -131,7 +131,7 @@ body {
   pointer-events: none;
 }
 
-/* CRISP VECTOR SCANLINE EFFECT */
+/* CRT VIGNETTE & SCANLINES */
 .crt-overlay {
   position: fixed;
   top: 0;
@@ -159,7 +159,7 @@ body {
   opacity: 0.35;
 }
 
-/* MARQUEE TICKER BARS - HD NEO BRUTALISM */
+/* MARQUEE TICKER BARS */
 .marquee-bar {
   position: fixed;
   left: 0;
@@ -215,28 +215,43 @@ body {
   z-index: 40;
 }
 
-.live-clock-badge {
+.dock-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-clock-badge, .ping-badge {
   background: #000000;
   color: var(--green-pop);
   font-family: var(--font-mono);
   font-weight: 800;
-  font-size: 0.78rem;
-  padding: 6px 16px;
+  font-size: 0.76rem;
+  padding: 6px 14px;
   border: 3px solid #000000;
   border-radius: 50px;
-  box-shadow: 4px 4px 0px var(--cyan-pop);
+  box-shadow: 3.5px 3.5px 0px var(--cyan-pop);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.live-blink-dot {
+.ping-badge {
+  color: var(--yellow-pop);
+  box-shadow: 3.5px 3.5px 0px var(--pink-pop);
+}
+
+.live-blink-dot, .ping-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--green-pop);
   border: 1.5px solid #000;
   animation: blink 1s infinite;
+}
+
+.ping-dot {
+  background: var(--yellow-pop);
 }
 
 @keyframes blink {
@@ -250,7 +265,6 @@ body {
   gap: 12px;
 }
 
-/* THEME SELECTOR */
 .theme-selector {
   display: flex;
   background: #000000;
@@ -279,7 +293,6 @@ body {
   box-shadow: 2px 2px 0px #000000;
 }
 
-/* SOUND BUTTON */
 .dock-btn {
   background: #000000;
   color: var(--cyan-pop);
@@ -307,12 +320,12 @@ body {
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 740px;
+  max-width: 760px;
   margin: 32px auto 0 auto;
-  perspective: 1200px;
+  perspective: 1400px;
 }
 
-/* HERO NEO-BRUTALISM CARD (HD VECTOR STYLING) */
+/* HERO NEO-BRUTALISM CARD */
 .neo-card {
   background: var(--card-bg);
   border: 4.5px solid var(--neo-border);
@@ -320,6 +333,7 @@ body {
   padding: 44px 36px;
   box-shadow: 14px 14px 0px var(--yellow-pop);
   position: relative;
+  overflow: hidden;
   transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.25s ease;
 }
 
@@ -327,7 +341,18 @@ body {
   box-shadow: 16px 16px 0px var(--cyan-pop);
 }
 
-/* BADGES - CRISP VECTOR SHADOW */
+.card-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* BADGES */
 .badge-container {
   display: flex;
   flex-wrap: wrap;
@@ -362,7 +387,7 @@ body {
   50% { box-shadow: 3.5px 3.5px 0px #000, 0 0 16px rgba(0, 255, 102, 0.7); }
 }
 
-/* HERO TITLE - HD NEO BRUTALISM WITH DUAL HARD SHADOW */
+/* HERO TITLE */
 .title-wrapper {
   margin-bottom: 18px;
 }
@@ -416,7 +441,7 @@ body {
   box-shadow: 2px 2px 0px var(--cyan-pop);
 }
 
-/* TELEMETRY HUD - HD CONTRAST */
+/* TELEMETRY HUD */
 .telemetry-hud {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -466,7 +491,7 @@ body {
 .neon-yellow { color: var(--yellow-pop); }
 .neon-green { color: var(--green-pop); }
 
-/* RULES BOX - HD TACTILE */
+/* RULES BOX */
 .rules-box {
   background: #070914;
   border: 3.5px solid #000000;
@@ -535,7 +560,7 @@ body {
   flex-shrink: 0;
 }
 
-/* INTERACTIVE CIPHER HELPER DRAWER */
+/* INTERACTIVE CIPHER TESTING TOOLKIT (MULTI-TAB) */
 .cipher-helper-drawer {
   background: #060913;
   border: 3.5px solid #000000;
@@ -558,6 +583,12 @@ body {
 
 .helper-header:hover {
   background: #172038;
+}
+
+.helper-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .helper-title {
@@ -585,25 +616,54 @@ body {
   border-top: 2.5px solid #000000;
 }
 
-.helper-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+.toolkit-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.tab-btn {
+  background: #12182b;
+  color: #94a3b8;
+  border: 2px solid #000;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px #000;
+  transition: all 0.15s ease;
+}
+
+.tab-btn.active {
+  background: var(--yellow-pop);
+  color: #000;
+  box-shadow: 3px 3px 0px #000;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
 }
 
 .helper-label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.74rem;
   font-weight: 900;
   color: var(--yellow-pop);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .helper-input-row {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .helper-input {
@@ -613,9 +673,9 @@ body {
   border: 2.5px solid #000000;
   border-radius: 8px;
   font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  padding: 8px 10px;
+  padding: 10px 12px;
   outline: none;
 }
 
@@ -630,11 +690,12 @@ body {
   border-radius: 8px;
   font-family: var(--font-mono);
   font-weight: 900;
-  font-size: 0.72rem;
-  padding: 8px 14px;
+  font-size: 0.76rem;
+  padding: 10px 16px;
   cursor: pointer;
   box-shadow: 3px 3px 0px #000000;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .helper-btn:hover {
@@ -643,14 +704,32 @@ body {
   box-shadow: 4px 4px 0px #000000;
 }
 
-.helper-output {
+.helper-output-box {
+  background: #000000;
+  border: 2px solid #1a2238;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.output-prefix {
   font-family: var(--font-mono);
-  font-size: 0.76rem;
-  color: var(--green-pop);
+  font-size: 0.72rem;
+  color: #64748b;
   font-weight: 800;
 }
 
-/* DOWNLOAD BUTTON - HD 3D NEO BRUTALISM */
+.helper-output {
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--green-pop);
+  font-weight: 900;
+  word-break: break-all;
+}
+
+/* DOWNLOAD BUTTON */
 .download-action-area {
   display: flex;
   flex-direction: column;
@@ -721,7 +800,7 @@ body {
   color: #94a3b8;
 }
 
-/* FOOTER RAIHAN 9B - HD VECTOR BADGE */
+/* FOOTER RAIHAN 9B */
 .raihan-footer {
   text-align: center;
   margin-top: 28px;
@@ -758,14 +837,14 @@ body {
   border: 2px solid #000;
 }
 
-/* RESPONSIVE BREAKPOINTS */
+/* RESPONSIVE */
 @media (max-width: 680px) {
   body { padding: 60px 14px; }
   .hero-title { font-size: 2.1rem; }
   .neo-card { padding: 30px 22px; }
   .telemetry-hud { grid-template-columns: 1fr 1fr; gap: 8px; }
   .hud-item:nth-child(2) { border-right: none; }
-  .helper-grid { grid-template-columns: 1fr; }
+  .toolkit-tabs { flex-direction: column; }
   .download-btn { font-size: 1.05rem; padding: 18px 22px; }
   .top-dock { position: static; width: 100%; margin-bottom: 14px; }
 }
