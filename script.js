@@ -381,4 +381,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
     draw();
   }
+
+  // 8. SUPABASE REALTIME LOBBY & ADMIN TRIGGER ENGINE
+  const dlBtn = document.getElementById('dlBtn');
+  const dlBtnText = document.getElementById('dlBtnText');
+  const lobbyNotice = document.getElementById('lobbyNotice');
+  const lobbyStatusText = document.getElementById('lobbyStatusText');
+  const adminDock = document.getElementById('adminDock');
+  const adminStartBtn = document.getElementById('adminStartBtn');
+  const adminResetBtn = document.getElementById('adminResetBtn');
+  const adminSessionLabel = document.getElementById('adminSessionLabel');
+
+  function updateLobbyUI(state) {
+    if (!state) return;
+
+    if (adminSessionLabel) {
+      adminSessionLabel.textContent = `SESI: ${state.session_title || 'Sesi 9B'}`;
+    }
+
+    if (state.is_started) {
+      // Free / Unlocked state
+      if (dlBtn) {
+        dlBtn.classList.remove('disabled');
+        dlBtn.style.pointerEvents = 'auto';
+        dlBtn.removeAttribute('tabindex');
+      }
+      if (dlBtnText) {
+        dlBtnText.textContent = 'DOWNLOAD CHALLENGE.HTML';
+      }
+      if (lobbyNotice) {
+        lobbyNotice.className = 'lobby-notice active';
+      }
+      if (lobbyStatusText) {
+        lobbyStatusText.textContent = 'STATUS: KOMPETISI TELAH DIMULAI! SILAKAN UNDUH';
+      }
+      if (adminStartBtn) {
+        adminStartBtn.textContent = '✅ KOMPETISI SEDANG BERJALAN';
+        adminStartBtn.style.background = '#059669';
+      }
+    } else {
+      // Locked / Waiting state
+      if (dlBtn) {
+        dlBtn.classList.add('disabled');
+        dlBtn.style.pointerEvents = 'none';
+      }
+      if (dlBtnText) {
+        dlBtnText.textContent = 'TERKUNCI (MENUNGGU GURU)';
+      }
+      if (lobbyNotice) {
+        lobbyNotice.className = 'lobby-notice locked';
+      }
+      if (lobbyStatusText) {
+        lobbyStatusText.textContent = 'STATUS: MENUNGGU SINYAL MULAI DARI GURU...';
+      }
+      if (adminStartBtn) {
+        adminStartBtn.textContent = '⚡ START COMPETITION (RELEASE SISWA)';
+        adminStartBtn.style.background = '#10b981';
+      }
+    }
+  }
+
+  // Initialize Backend Connection
+  if (window.CTF_BACKEND) {
+    // Check if Admin
+    if (window.CTF_BACKEND.isAdmin() && adminDock) {
+      adminDock.style.display = 'block';
+    }
+
+    // Fetch Initial State
+    window.CTF_BACKEND.fetchState().then(state => {
+      updateLobbyUI(state);
+    });
+
+    // Realtime Listener
+    window.CTF_BACKEND.subscribeToState(newState => {
+      updateLobbyUI(newState);
+      playLaserSweep();
+    });
+
+    // Admin Start Action
+    if (adminStartBtn) {
+      adminStartBtn.addEventListener('click', async () => {
+        playKeyClick();
+        adminStartBtn.disabled = true;
+        adminStartBtn.textContent = '⏳ Memproses Start...';
+        const res = await window.CTF_BACKEND.startCompetition();
+        adminStartBtn.disabled = false;
+        if (res.success) {
+          playCyberChord();
+          alert('🚀 Sukses! Tantangan Stage 1 telah dibuka untuk seluruh siswa!');
+        } else {
+          alert('Gagal memulai: ' + (res.error || 'Unknown error'));
+        }
+      });
+    }
+
+    // Admin Reset Action
+    if (adminResetBtn) {
+      adminResetBtn.addEventListener('click', async () => {
+        const confirmReset = confirm('Apakah Anda yakin ingin me-reset sesi (membuka ban dan mengunci kembali lobby untuk sesi berikutnya)?');
+        if (!confirmReset) return;
+
+        const newTitle = prompt('Masukkan Judul Sesi Baru:', 'Sesi Putri 9B') || 'Sesi Putri 9B';
+        adminResetBtn.disabled = true;
+        const res = await window.CTF_BACKEND.resetSession(newTitle);
+        adminResetBtn.disabled = false;
+        if (res.success) {
+          alert('✅ Sesi berhasil di-reset menjadi: ' + newTitle + '. Seluruh IP Ban telah diangkat!');
+        } else {
+          alert('Gagal reset: ' + (res.error || 'Kunci Admin salah'));
+        }
+      });
+    }
+  }
 });

@@ -41,6 +41,24 @@
     </div>
   </header>
 
+  <!-- ADMIN CONTROL PANEL (TRIGGER VIA ?admin=NEXUS_ADMIN_2026) -->
+  <div id="adminDock" class="admin-dock" style="display: none;">
+    <div class="admin-dock-inner">
+      <div class="admin-info">
+        <span class="admin-badge">👑 ADMIN CONTROL</span>
+        <span id="adminSessionLabel">SESI: Sesi Putra 9B</span>
+      </div>
+      <div class="admin-actions">
+        <button type="button" id="adminStartBtn" class="admin-btn start">
+          ⚡ START COMPETITION (RELEASE SISWA)
+        </button>
+        <button type="button" id="adminResetBtn" class="admin-btn reset">
+          🔄 RESET SESI (UNBAN ALL UNTUK BESOK)
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- MAIN WRAPPER CONTAINER (3D PARALLAX TILT) -->
   <main class="landing-wrapper" id="tiltContainer">
     <div class="neo-card" id="heroCard">
@@ -192,12 +210,17 @@
         </div>
       </div>
 
-      <!-- MAIN DOWNLOAD CTA BUTTON -->
+      <!-- MAIN DOWNLOAD CTA BUTTON (REALTIME LOBBY CONTROLLED) -->
       <div class="download-action-area">
-        <a href="challenge.html" download="challenge.html" class="download-btn" id="dlBtn">
+        <div id="lobbyNotice" class="lobby-notice locked">
+          <span class="lobby-icon">⏳</span>
+          <span id="lobbyStatusText">STATUS: MENUNGGU SINYAL MULAI DARI GURU...</span>
+        </div>
+
+        <a href="challenge.html" download="challenge.html" class="download-btn disabled" id="dlBtn">
           <span class="btn-shine"></span>
-          <span class="btn-bolt">⚡</span>
-          <span class="btn-text">DOWNLOAD CHALLENGE.HTML</span>
+          <span class="btn-bolt">🔒</span>
+          <span class="btn-text" id="dlBtnText">TERKUNCI (MENUNGGU GURU)</span>
           <svg class="btn-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
           </svg>
@@ -219,6 +242,9 @@
     </footer>
   </main>
 
+  <!-- Supabase CDN & Backend Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
