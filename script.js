@@ -443,10 +443,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize Backend Connection
   if (window.CTF_BACKEND) {
-    // Check if Admin
-    if (window.CTF_BACKEND.isAdmin() && adminDock) {
-      adminDock.style.display = 'block';
-    }
+    // Check if Admin asynchronously via SHA-256
+    window.CTF_BACKEND.isAdmin().then(isAdminUser => {
+      if (isAdminUser && adminDock) {
+        adminDock.style.display = 'block';
+      }
+    });
 
     // Fetch Initial State
     window.CTF_BACKEND.fetchState().then(state => {
