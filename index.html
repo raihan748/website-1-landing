@@ -53,7 +53,114 @@
           ⚡ START COMPETITION (RELEASE SISWA)
         </button>
         <button type="button" id="adminResetBtn" class="admin-btn reset">
-          🔄 RESET SESI (UNBAN ALL UNTUK BESOK)
+          🔄 RESET SESI
+        </button>
+        <button type="button" id="adminSealBtn" class="admin-btn seal" title="Keluar dari sesi Admin & Kunci Token">
+          🔒 SEAL / KELUAR ADMIN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP PILIH KELAS PESERTA (MANDATORY SAAT PERTAMA KALI MASUK) -->
+  <div id="classModal" class="class-modal-overlay" style="display: none;">
+    <div class="class-modal-card">
+      <div class="class-modal-header">
+        <div class="class-modal-icon">🏫</div>
+        <h2 class="class-modal-title">IDENTIFIKASI KELAS PESERTA</h2>
+        <p class="class-modal-desc">
+          Selamat datang di NEXUS CYBER CTF 2026! Silakan pilih jenjang dan kelas Anda untuk mendaftar ke server kompetisi:
+        </p>
+      </div>
+
+      <!-- GENDER / CATEGORY TABS -->
+      <div class="class-tabs">
+        <button type="button" class="class-tab-btn active" id="tabIkhwan" data-gender="ikhwan">
+          👦 IKHWAN (PUTRA)
+        </button>
+        <button type="button" class="class-tab-btn" id="tabAkhwat" data-gender="akhwat">
+          👧 AKHWAT (PUTRI)
+        </button>
+      </div>
+
+      <!-- IKHWAN CLASSES GRID -->
+      <div id="gridIkhwan" class="class-grid-container">
+        <!-- KELAS 7 IKHWAN: 7A, 7B, 7C -->
+        <div class="grade-section">
+          <div class="grade-label">JENJANG KELAS 7 (PUTRA):</div>
+          <div class="class-buttons-row">
+            <button type="button" class="class-btn" data-class="7A">7A</button>
+            <button type="button" class="class-btn" data-class="7B">7B</button>
+            <button type="button" class="class-btn" data-class="7C">7C</button>
+          </div>
+        </div>
+
+        <!-- KELAS 8 IKHWAN: 8A, 8B -->
+        <div class="grade-section">
+          <div class="grade-label">JENJANG KELAS 8 (PUTRA):</div>
+          <div class="class-buttons-row">
+            <button type="button" class="class-btn" data-class="8A">8A</button>
+            <button type="button" class="class-btn" data-class="8B">8B</button>
+          </div>
+        </div>
+
+        <!-- KELAS 9 IKHWAN: 9A, 9B -->
+        <div class="grade-section">
+          <div class="grade-label">JENJANG KELAS 9 (PUTRA):</div>
+          <div class="class-buttons-row">
+            <button type="button" class="class-btn" data-class="9A">9A</button>
+            <button type="button" class="class-btn" data-class="9B">9B</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AKHWAT CLASSES GRID -->
+      <div id="gridAkhwat" class="class-grid-container" style="display: none;">
+        <!-- KELAS 7 AKHWAT: 7D, 7E, 7F -->
+        <div class="grade-section">
+          <div class="grade-label">JENJANG KELAS 7 (PUTRI):</div>
+          <div class="class-buttons-row">
+            <button type="button" class="class-btn" data-class="7D">7D</button>
+            <button type="button" class="class-btn" data-class="7E">7E</button>
+            <button type="button" class="class-btn" data-class="7F">7F</button>
+          </div>
+        </div>
+
+        <!-- KELAS 8 AKHWAT: 8C, 8D, 8E, 8F -->
+        <div class="grade-section">
+          <div class="grade-label">JENJANG KELAS 8 (PUTRI):</div>
+          <div class="class-buttons-row">
+            <button type="button" class="class-btn" data-class="8C">8C</button>
+            <button type="button" class="class-btn" data-class="8D">8D</button>
+            <button type="button" class="class-btn" data-class="8E">8E</button>
+            <button type="button" class="class-btn" data-class="8F">8F</button>
+          </div>
+        </div>
+
+        <!-- KELAS 9 AKHWAT: 9C, 9D, 9E, 9F -->
+        <div class="grade-section">
+          <div class="grade-label">JENJANG KELAS 9 (PUTRI):</div>
+          <div class="class-buttons-row">
+            <button type="button" class="class-btn" data-class="9C">9C</button>
+            <button type="button" class="class-btn" data-class="9D">9D</button>
+            <button type="button" class="class-btn" data-class="9E">9E</button>
+            <button type="button" class="class-btn" data-class="9F">9F</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELECTED CLASS PREVIEW & CONFIRM -->
+      <div class="class-confirm-box">
+        <div class="selected-class-indicator">
+          <span>KELAS TERPILIH: </span>
+          <b id="selectedClassBadge">BELUM DIPILIH</b>
+        </div>
+        <button type="button" id="confirmClassBtn" class="neo-btn class-confirm-btn" disabled>
+          <span class="btn-shine"></span>
+          <span>SIMPAN & MASUK LOBBY</span>
+          <svg class="btn-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -68,7 +175,7 @@
       <!-- BADGE CLUSTER -->
       <div class="badge-container">
         <span class="neo-badge live pulse-glow">● STAGE 1 ACTIVE</span>
-        <span class="neo-badge cyan">CTF 2026</span>
+        <span class="neo-badge cyan" id="userClassBadge" style="display: none; cursor: pointer;" title="Klik untuk mengubah kelas">KELAS: -</span>
         <span class="neo-badge yellow">AI-SOLVABLE 15-STEP</span>
         <span class="neo-badge pink">KEYSTONE: LEFT</span>
       </div>

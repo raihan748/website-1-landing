@@ -461,6 +461,17 @@ document.addEventListener('DOMContentLoaded', () => {
       playLaserSweep();
     });
 
+    // Admin Seal Token Action
+    const adminSealBtn = document.getElementById('adminSealBtn');
+    if (adminSealBtn) {
+      adminSealBtn.addEventListener('click', () => {
+        playKeyClick();
+        if (confirm('Apakah Anda ingin keluar dari mode Admin dan mengunci kembali token sesi ini?')) {
+          window.CTF_BACKEND.sealAdmin();
+        }
+      });
+    }
+
     // Admin Start Action
     if (adminStartBtn) {
       adminStartBtn.addEventListener('click', async () => {
@@ -495,5 +506,102 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
+  }
+
+  // =========================================================================
+  // MANDATORY STUDENT CLASS SELECTION MODAL
+  // =========================================================================
+  const classModal = document.getElementById('classModal');
+  const tabIkhwan = document.getElementById('tabIkhwan');
+  const tabAkhwat = document.getElementById('tabAkhwat');
+  const gridIkhwan = document.getElementById('gridIkhwan');
+  const gridAkhwat = document.getElementById('gridAkhwat');
+  const selectedClassBadge = document.getElementById('selectedClassBadge');
+  const confirmClassBtn = document.getElementById('confirmClassBtn');
+  const userClassBadge = document.getElementById('userClassBadge');
+
+  let currentSelectedClass = localStorage.getItem('nexus_student_class') || null;
+
+  function updateClassBadgeUI(cls) {
+    if (userClassBadge && cls) {
+      userClassBadge.textContent = `KELAS: ${cls}`;
+      userClassBadge.style.display = 'inline-flex';
+    }
+  }
+
+  if (currentSelectedClass) {
+    updateClassBadgeUI(currentSelectedClass);
+    if (window.CTF_BACKEND) {
+      window.CTF_BACKEND.registerStudentClass(currentSelectedClass);
+    }
+  } else {
+    // Show modal if not selected yet
+    if (classModal) {
+      classModal.style.display = 'flex';
+    }
+  }
+
+  // Toggle Tabs (Ikhwan / Akhwat)
+  if (tabIkhwan && tabAkhwat) {
+    tabIkhwan.addEventListener('click', () => {
+      playKeyClick();
+      tabIkhwan.classList.add('active');
+      tabAkhwat.classList.remove('active');
+      if (gridIkhwan) gridIkhwan.style.display = 'flex';
+      if (gridAkhwat) gridAkhwat.style.display = 'none';
+    });
+
+    tabAkhwat.addEventListener('click', () => {
+      playKeyClick();
+      tabAkhwat.classList.add('active');
+      tabIkhwan.classList.remove('active');
+      if (gridAkhwat) gridAkhwat.style.display = 'flex';
+      if (gridIkhwan) gridIkhwan.style.display = 'none';
+    });
+  }
+
+  // Class Buttons Selection
+  const allClassBtns = document.querySelectorAll('.class-btn');
+  allClassBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      playKeyClick();
+      allClassBtns.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      const cls = btn.getAttribute('data-class');
+      currentSelectedClass = cls;
+      if (selectedClassBadge) {
+        selectedClassBadge.textContent = cls;
+      }
+      if (confirmClassBtn) {
+        confirmClassBtn.disabled = false;
+      }
+    });
+  });
+
+  // Confirm Class Button
+  if (confirmClassBtn) {
+    confirmClassBtn.addEventListener('click', () => {
+      if (!currentSelectedClass) return;
+      playCyberChord();
+      localStorage.setItem('nexus_student_class', currentSelectedClass);
+      updateClassBadgeUI(currentSelectedClass);
+
+      if (window.CTF_BACKEND) {
+        window.CTF_BACKEND.registerStudentClass(currentSelectedClass);
+      }
+
+      if (classModal) {
+        classModal.style.display = 'none';
+      }
+    });
+  }
+
+  // Allow clicking badge to change class if needed before competition
+  if (userClassBadge) {
+    userClassBadge.addEventListener('click', () => {
+      if (classModal) {
+        classModal.style.display = 'flex';
+      }
+    });
   }
 });

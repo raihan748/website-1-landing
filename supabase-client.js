@@ -1,6 +1,6 @@
 /**
  * SUPABASE-CLIENT.JS - NEXUS CTF STAGE 1 (LANDING)
- * Real-time state synchronization, encrypted endpoints & secure hash-based admin verification
+ * Encrypted endpoints, SHA-256 Admin verification, Session Sealing & Student Class Registration
  */
 
 (function () {
@@ -46,30 +46,84 @@
       }
       return this._client;
     },
+    cachedIP: null,
 
     // Get Current Client Public IP Address
     async getClientIP() {
+      if (this.cachedIP) return this.cachedIP;
       try {
         const res = await fetch("https://api.ipify.org?format=json");
         const data = await res.json();
-        return data.ip || "127.0.0.1";
+        this.cachedIP = data.ip || "127.0.0.1";
+        return this.cachedIP;
       } catch (e) {
-        return "127.0.0.1";
+        this.cachedIP = "127.0.0.1";
+        return this.cachedIP;
       }
     },
 
     // Check if Current User is Admin via Hash Comparison
+    // Uses URL query or temporary sessionStorage (Seals out persistent localStorage)
     async isAdmin() {
       const urlParams = new URLSearchParams(window.location.search);
-      const inputSecret = urlParams.get("admin") || localStorage.getItem("nexus_admin_token");
+      const inputSecret = urlParams.get("admin") || sessionStorage.getItem("nexus_admin_session");
+      
+      // Clean persistent storage to keep token sealed
+      localStorage.removeItem("nexus_admin_token");
+
       if (!inputSecret) return false;
 
       const inputHash = await _sha256(inputSecret.trim());
       const isValid = (inputHash === _ADMIN_HASH);
       if (isValid) {
-        localStorage.setItem("nexus_admin_token", inputSecret.trim());
+        sessionStorage.setItem("nexus_admin_session", inputSecret.trim());
+      } else {
+        sessionStorage.removeItem("nexus_admin_session");
       }
       return isValid;
+    },
+
+    // Seal Token & Exit Admin Mode
+    sealAdmin() {
+      sessionStorage.removeItem("nexus_admin_session");
+      localStorage.removeItem("nexus_admin_token");
+      // Strip ?admin= parameter and reload clean
+      window.location.href = window.location.pathname;
+    },
+
+    // Register Student Class to IP in Database
+    async registerStudentClass(studentClass) {
+      if (!studentClass) return;
+      localStorage.setItem("nexus_student_class", studentClass);
+
+      const sb = this.client;
+      if (!sb) return;
+
+      const ip = await this.getClientIP();
+      const ua = `[CLASS:${studentClass}] ` + (navigator.userAgent || "Unknown Device");
+
+      try {
+        // Attempt with student_class column
+        const { error } = await sb
+          .from("ctf_participants")
+          .upsert({
+            ip_address: ip,
+            student_class: studentClass,
+            user_agent: ua
+          }, { onConflict: "ip_address" });
+
+        if (error) {
+          // Fallback if student_class column not added yet
+          await sb
+            .from("ctf_participants")
+            .upsert({
+              ip_address: ip,
+              user_agent: ua
+            }, { onConflict: "ip_address" });
+        }
+      } catch (err) {
+        console.warn("Class registration notice:", err);
+      }
     },
 
     // Fetch Current CTF State
@@ -88,7 +142,7 @@
       return data;
     },
 
-    // Admin Trigger: Start Competition (Free Students)
+    // Admin Trigger: Start Competition (Release Students)
     async startCompetition() {
       const isAuth = await this.isAdmin();
       if (!isAuth) return { success: false, error: "Unauthorized" };
@@ -105,8 +159,8 @@
       return { success: true, data };
     },
 
-    // Admin Trigger: Reset Session for Next Day
-    async resetSession(newTitle = "Sesi Putri 9B") {
+    // Admin Trigger: Reset Session
+    async resetSession(newTitle = "Sesi Putra 9B") {
       const isAuth = await this.isAdmin();
       if (!isAuth) return { success: false, error: "Unauthorized" };
 
