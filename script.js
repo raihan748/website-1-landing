@@ -620,6 +620,8 @@ document.addEventListener('DOMContentLoaded', () => {
             banExp.toISOString()
           );
         }
+      } else if (state && !state.ban_triggered_at) {
+        hideBannedScreen();
       }
     });
 
