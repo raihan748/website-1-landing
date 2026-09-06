@@ -48,6 +48,7 @@
         <div class="admin-info">
           <span class="admin-badge">👑 ADMIN CONTROL</span>
           <span id="adminSessionLabel">SESI: Sesi Putra (Kelas 7, 8, 9)</span>
+          <span id="adminSessionTypeBadge" class="admin-session-badge">👦 IKHWAN</span>
         </div>
         <div class="admin-right-controls">
           <div class="admin-total-badge">
@@ -124,6 +125,9 @@
           <button type="button" id="adminStartBtn" class="admin-btn start">
             ⚡ START COMPETITION (RELEASE SISWA)
           </button>
+          <button type="button" id="adminSwitchSessionBtn" class="admin-btn switch-session" title="Beralih antara Sesi Ikhwan & Sesi Akhwat">
+            🔀 SWITCH KE SESI AKHWAT
+          </button>
           <button type="button" id="adminRefreshRosterBtn" class="admin-btn refresh" title="Muat ulang data peserta">
             🔄 REFRESH ROSTER
           </button>
@@ -149,21 +153,11 @@
         </p>
       </div>
 
-      <!-- GENDER / CATEGORY TABS -->
-      <div class="class-tabs">
-        <button type="button" class="class-tab-btn active" id="tabIkhwan" data-gender="ikhwan">
-          👦 IKHWAN (PUTRA)
-        </button>
-        <button type="button" class="class-tab-btn" id="tabAkhwat" data-gender="akhwat">
-          👧 AKHWAT (PUTRI)
-        </button>
-      </div>
-
-      <!-- IKHWAN CLASSES GRID -->
+      <!-- IKHWAN CLASSES GRID (ACTIVE ON IKHWAN SESSION) -->
       <div id="gridIkhwan" class="class-grid-container">
-        <!-- KELAS 7 IKHWAN: 7A, 7B, 7C -->
+        <!-- KELAS 7: 7A, 7B, 7C -->
         <div class="grade-section">
-          <div class="grade-label">JENJANG KELAS 7 (PUTRA):</div>
+          <div class="grade-label">JENJANG KELAS 7:</div>
           <div class="class-buttons-row">
             <button type="button" class="class-btn" data-class="7A">7A</button>
             <button type="button" class="class-btn" data-class="7B">7B</button>
@@ -171,18 +165,18 @@
           </div>
         </div>
 
-        <!-- KELAS 8 IKHWAN: 8A, 8B -->
+        <!-- KELAS 8: 8A, 8B -->
         <div class="grade-section">
-          <div class="grade-label">JENJANG KELAS 8 (PUTRA):</div>
+          <div class="grade-label">JENJANG KELAS 8:</div>
           <div class="class-buttons-row">
             <button type="button" class="class-btn" data-class="8A">8A</button>
             <button type="button" class="class-btn" data-class="8B">8B</button>
           </div>
         </div>
 
-        <!-- KELAS 9 IKHWAN: 9A, 9B -->
+        <!-- KELAS 9: 9A, 9B -->
         <div class="grade-section">
-          <div class="grade-label">JENJANG KELAS 9 (PUTRA):</div>
+          <div class="grade-label">JENJANG KELAS 9:</div>
           <div class="class-buttons-row">
             <button type="button" class="class-btn" data-class="9A">9A</button>
             <button type="button" class="class-btn" data-class="9B">9B</button>
@@ -190,11 +184,11 @@
         </div>
       </div>
 
-      <!-- AKHWAT CLASSES GRID -->
+      <!-- AKHWAT CLASSES GRID (ACTIVE ON AKHWAT SESSION) -->
       <div id="gridAkhwat" class="class-grid-container" style="display: none;">
-        <!-- KELAS 7 AKHWAT: 7D, 7E, 7F -->
+        <!-- KELAS 7: 7D, 7E, 7F -->
         <div class="grade-section">
-          <div class="grade-label">JENJANG KELAS 7 (PUTRI):</div>
+          <div class="grade-label">JENJANG KELAS 7:</div>
           <div class="class-buttons-row">
             <button type="button" class="class-btn" data-class="7D">7D</button>
             <button type="button" class="class-btn" data-class="7E">7E</button>
@@ -202,9 +196,9 @@
           </div>
         </div>
 
-        <!-- KELAS 8 AKHWAT: 8C, 8D, 8E, 8F -->
+        <!-- KELAS 8: 8C, 8D, 8E, 8F -->
         <div class="grade-section">
-          <div class="grade-label">JENJANG KELAS 8 (PUTRI):</div>
+          <div class="grade-label">JENJANG KELAS 8:</div>
           <div class="class-buttons-row">
             <button type="button" class="class-btn" data-class="8C">8C</button>
             <button type="button" class="class-btn" data-class="8D">8D</button>
@@ -213,9 +207,9 @@
           </div>
         </div>
 
-        <!-- KELAS 9 AKHWAT: 9C, 9D, 9E, 9F -->
+        <!-- KELAS 9: 9C, 9D, 9E, 9F -->
         <div class="grade-section">
-          <div class="grade-label">JENJANG KELAS 9 (PUTRI):</div>
+          <div class="grade-label">JENJANG KELAS 9:</div>
           <div class="class-buttons-row">
             <button type="button" class="class-btn" data-class="9C">9C</button>
             <button type="button" class="class-btn" data-class="9D">9D</button>
@@ -425,16 +419,16 @@
     </footer>
   </main>
 
-  <!-- BANNED IP OVERLAY (FULL SCREEN LOCKOUT WITH 1-WEEK LIVE STOPWATCH) -->
+  <!-- BANNED LOCKOUT OVERLAY (WITH 1-WEEK LIVE STOPWATCH) -->
   <div id="bannedOverlay" class="banned-overlay" style="display: none;">
     <div class="banned-modal neo-card">
       <div class="banned-icon">🔒</div>
-      <h2 class="banned-title glitch" data-text="AKSES DITOLAK">AKSES DITOLAK • IP TERBLOKIR</h2>
+      <h2 class="banned-title glitch" data-text="AKSES DITOLAK">AKSES DITOLAK • ANDA DI-BAN 1 MINGGU</h2>
       <p class="banned-desc" id="bannedReason">
-        Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).
+        Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses Anda telah di-ban selama 1 minggu. Silakan coba kembali di kompetisi berikutnya.
       </p>
       <div class="banned-timer-box">
-        <span class="timer-label">⏱️ SISA WAKTU BLOKIR IP (1 MINGGU):</span>
+        <span class="timer-label">⏱️ SISA MASA BAN (1 MINGGU):</span>
         <span class="timer-value stopwatch-live" id="bannedStopwatch">6 Hari, 23 Jam, 59 Menit, 59 Detik</span>
         <span class="timer-sublabel" id="bannedExpiry">Berlaku hingga: -</span>
       </div>

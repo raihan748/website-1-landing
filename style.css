@@ -1076,6 +1076,35 @@ body::before {
   border-color: rgba(239, 68, 68, 0.3);
 }
 
+.admin-btn.switch-session {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(236, 72, 153, 0.25) 100%);
+  color: #e879f9;
+  border: 1px solid rgba(236, 72, 153, 0.4);
+  font-weight: 800;
+}
+
+.admin-btn.switch-session:hover {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.35);
+}
+
+.admin-session-badge {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.admin-session-badge.akhwat {
+  background: rgba(236, 72, 153, 0.2);
+  color: #f472b6;
+  border-color: rgba(236, 72, 153, 0.4);
+}
+
 .admin-btn.seal {
   background: rgba(239, 68, 68, 0.15);
   color: #f87171;

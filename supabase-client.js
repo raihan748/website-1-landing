@@ -172,7 +172,7 @@
           const banExpiry = new Date(new Date(stateData.ban_triggered_at).getTime() + 7 * 24 * 60 * 60 * 1000);
           if (Date.now() < banExpiry.getTime()) {
             isBanned = true;
-            banReason = "Sesi kompetisi telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).";
+            banReason = "Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses Anda telah di-ban selama 1 minggu. Silakan coba kembali di kompetisi berikutnya.";
             bannedUntil = banExpiry.toISOString();
           }
         }
@@ -187,6 +187,59 @@
       } catch (err) {
         console.error("Failed to scan visitor on Website 1:", err);
         return { banned: false };
+      }
+    },
+
+    // Helper to resolve session type: 'ikhwan' vs 'akhwat'
+    getSessionType(state) {
+      const title = (state?.session_title || '').toLowerCase();
+      if (title.includes('putri') || title.includes('akhwat')) return 'akhwat';
+      return 'ikhwan';
+    },
+
+    // Switch Session Type between Ikhwan and Akhwat (Admin Only)
+    async switchSession(targetType = 'akhwat') {
+      const isAuth = await this.isAdmin();
+      if (!isAuth) return { success: false, error: "Unauthorized" };
+
+      const sb = this.client;
+      if (!sb) return { success: false, error: "No DB connection" };
+
+      const isAkhwat = targetType === 'akhwat';
+      const newTitle = isAkhwat ? 'Sesi Putri (Kelas 7, 8, 9)' : 'Sesi Putra (Kelas 7, 8, 9)';
+
+      try {
+        // 1. Reset and update ctf_state
+        const { error: stateErr } = await sb
+          .from("ctf_state")
+          .update({
+            is_started: false,
+            winner_name: null,
+            winner_ip: null,
+            winner_class: null,
+            winner_claimed: false,
+            ban_triggered_at: null,
+            session_title: newTitle,
+            updated_at: new Date().toISOString()
+          })
+          .eq("id", 1);
+
+        if (stateErr) return { success: false, error: stateErr.message };
+
+        // 2. Unban All Participants for the new session
+        await sb
+          .from("ctf_participants")
+          .update({
+            is_banned: false,
+            banned_until: null,
+            ban_reason: null,
+            is_winner: false
+          })
+          .neq("ip_address", "PLACEHOLDER_NEVER_MATCH");
+
+        return { success: true, session_type: targetType, session_title: newTitle };
+      } catch (err) {
+        return { success: false, error: err.message };
       }
     },
 

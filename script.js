@@ -391,6 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminStartBtn = document.getElementById('adminStartBtn');
   const adminResetBtn = document.getElementById('adminResetBtn');
   const adminSessionLabel = document.getElementById('adminSessionLabel');
+  const adminSessionTypeBadge = document.getElementById('adminSessionTypeBadge');
+  const adminSwitchSessionBtn = document.getElementById('adminSwitchSessionBtn');
   const adminTotalStudents = document.getElementById('adminTotalStudents');
   const toggleAdminDockBtn = document.getElementById('toggleAdminDockBtn');
   const adminDockBody = document.getElementById('adminDockBody');
@@ -440,8 +442,55 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateLobbyUI(state) {
     if (!state) return;
 
+    const sessionType = window.CTF_BACKEND ? window.CTF_BACKEND.getSessionType(state) : 'ikhwan';
+    const isAkhwat = sessionType === 'akhwat';
+
     if (adminSessionLabel) {
-      adminSessionLabel.textContent = `SESI: ${state.session_title || 'Sesi 9B'}`;
+      adminSessionLabel.textContent = `SESI: ${state.session_title || (isAkhwat ? 'Sesi Putri' : 'Sesi Putra')}`;
+    }
+
+    if (adminSessionTypeBadge) {
+      if (isAkhwat) {
+        adminSessionTypeBadge.textContent = '👧 AKHWAT';
+        adminSessionTypeBadge.className = 'admin-session-badge akhwat';
+      } else {
+        adminSessionTypeBadge.textContent = '👦 IKHWAN';
+        adminSessionTypeBadge.className = 'admin-session-badge';
+      }
+    }
+
+    if (adminSwitchSessionBtn) {
+      if (isAkhwat) {
+        adminSwitchSessionBtn.innerHTML = '🔀 SWITCH KE SESI IKHWAN';
+        adminSwitchSessionBtn.style.borderColor = 'rgba(0, 240, 255, 0.4)';
+        adminSwitchSessionBtn.style.color = '#00f0ff';
+      } else {
+        adminSwitchSessionBtn.innerHTML = '🔀 SWITCH KE SESI AKHWAT';
+        adminSwitchSessionBtn.style.borderColor = 'rgba(236, 72, 153, 0.4)';
+        adminSwitchSessionBtn.style.color = '#f472b6';
+      }
+    }
+
+    // Toggle Class Grids based on Active Session
+    const gIkhwan = document.getElementById('gridIkhwan');
+    const gAkhwat = document.getElementById('gridAkhwat');
+    if (gIkhwan && gAkhwat) {
+      if (isAkhwat) {
+        gIkhwan.style.display = 'none';
+        gAkhwat.style.display = 'flex';
+      } else {
+        gIkhwan.style.display = 'flex';
+        gAkhwat.style.display = 'none';
+      }
+    }
+
+    // Update Download Target File
+    const targetChallengeFile = isAkhwat ? 'challenge-akhwat.html' : 'challenge.html';
+    const targetChallengeLabel = isAkhwat ? 'DOWNLOAD CHALLENGE (AKHWAT)' : 'DOWNLOAD CHALLENGE.HTML';
+
+    if (dlBtn) {
+      dlBtn.setAttribute('href', targetChallengeFile);
+      dlBtn.setAttribute('download', targetChallengeFile);
     }
 
     if (state.is_started) {
@@ -452,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dlBtn.removeAttribute('tabindex');
       }
       if (dlBtnText) {
-        dlBtnText.textContent = 'DOWNLOAD CHALLENGE.HTML';
+        dlBtnText.textContent = targetChallengeLabel;
       }
       if (lobbyNotice) {
         lobbyNotice.className = 'lobby-notice active';
@@ -567,7 +616,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const banExp = new Date(new Date(state.ban_triggered_at).getTime() + 7 * 24 * 60 * 60 * 1000);
         if (Date.now() < banExp.getTime()) {
           showBannedScreen(
-            "Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).",
+            "Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses Anda telah di-ban selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).",
             banExp.toISOString()
           );
         }
@@ -583,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const banExp = new Date(new Date(newState.ban_triggered_at).getTime() + 7 * 24 * 60 * 60 * 1000);
           if (Date.now() < banExp.getTime()) {
             showBannedScreen(
-              "Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).",
+              "Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses Anda telah di-ban selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).",
               banExp.toISOString()
             );
           }
@@ -609,6 +658,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     );
+
+    // Switch Session Button Action
+    if (adminSwitchSessionBtn) {
+      adminSwitchSessionBtn.addEventListener('click', async () => {
+        playKeyClick();
+        const currentState = await window.CTF_BACKEND.fetchState();
+        const currentType = window.CTF_BACKEND.getSessionType(currentState);
+        const targetType = currentType === 'ikhwan' ? 'akhwat' : 'ikhwan';
+        const targetLabel = targetType === 'akhwat' ? 'AKHWAT (PUTRI)' : 'IKHWAN (PUTRA)';
+
+        const confirmSwitch = confirm(
+          `Apakah Anda yakin ingin switch ke ${targetLabel}?\n\n` +
+          `Sistem akan mengalihkan daftar kelas, mengubah file challenge, dan mereset status ban untuk sesi ${targetLabel}.`
+        );
+        if (!confirmSwitch) return;
+
+        adminSwitchSessionBtn.disabled = true;
+        adminSwitchSessionBtn.textContent = '⏳ Mengalihkan Sesi...';
+        const res = await window.CTF_BACKEND.switchSession(targetType);
+        adminSwitchSessionBtn.disabled = false;
+
+        if (res.success) {
+          playCyberChord();
+          hideBannedScreen();
+          alert(`✅ Berhasil beralih ke ${targetLabel}!\nLobby sekarang aktif untuk ${targetLabel}.`);
+          updateLobbyUI({ ...currentState, session_title: res.session_title, is_started: false, ban_triggered_at: null });
+          updateClassRosterCounts();
+        } else {
+          alert('Gagal switch sesi: ' + (res.error || 'Terjadi kesalahan'));
+        }
+      });
+    }
 
     // Refresh Roster Button
     if (adminRefreshRosterBtn) {
@@ -658,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
         adminResetBtn.disabled = false;
         if (res.success) {
           hideBannedScreen();
-          alert('✅ Sesi berhasil di-reset menjadi: ' + newTitle + '. Seluruh IP Ban telah diangkat!');
+          alert('✅ Sesi berhasil di-reset menjadi: ' + newTitle + '. Seluruh Ban telah diangkat!');
           updateClassRosterCounts();
         } else {
           alert('Gagal reset: ' + (res.error || 'Kunci Admin salah'));
