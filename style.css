@@ -509,6 +509,12 @@ body::before {
   color: var(--text-main);
 }
 
+.highlight-green, .rules-list li b.highlight-green {
+  color: #10b981 !important;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+}
+
 .step-badge {
   background: rgba(59, 130, 246, 0.12);
   color: var(--accent-primary-light);
