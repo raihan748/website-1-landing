@@ -838,18 +838,26 @@ body::before {
 }
 
 .admin-dock-inner {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15);
-  border-radius: 14px;
-  padding: 14px 20px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 14px 30px -5px rgba(245, 158, 11, 0.18);
+  border-radius: 16px;
+  padding: 16px 20px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-header-row {
+  display: flex;
   justify-content: space-between;
-  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
 }
 
 .admin-info {
@@ -872,6 +880,151 @@ body::before {
   font-weight: 700;
 }
 
+.admin-right-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-total-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.admin-total-badge b {
+  color: #10b981;
+  font-size: 0.9rem;
+}
+
+.admin-mini-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.admin-mini-toggle:hover {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+.admin-collapsible-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ROSTER BOX */
+.admin-roster-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.roster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.roster-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fbbf24;
+  letter-spacing: 0.5px;
+}
+
+.roster-sub {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.roster-category {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roster-cat-title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+.akhwat-section .roster-cat-title {
+  color: #f472b6;
+}
+
+.roster-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
+  gap: 8px;
+}
+
+.roster-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 8px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.roster-card.has-students {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+}
+
+.rc-class {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.roster-card.has-students .rc-class {
+  color: #34d399;
+}
+
+.rc-count {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-dim);
+}
+
+.roster-card.has-students .rc-count {
+  color: #ffffff;
+}
+
 .admin-actions {
   display: flex;
   gap: 8px;
@@ -882,7 +1035,7 @@ body::before {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
-  padding: 8px 14px;
+  padding: 9px 15px;
   border-radius: 8px;
   cursor: pointer;
   border: none;
@@ -892,10 +1045,23 @@ body::before {
 .admin-btn.start {
   background: #10b981;
   color: #ffffff;
+  flex: 2;
+  min-width: 180px;
 }
 
 .admin-btn.start:hover {
   background: #059669;
+}
+
+.admin-btn.refresh {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.admin-btn.refresh:hover {
+  background: #3b82f6;
+  color: #ffffff;
 }
 
 .admin-btn.reset {

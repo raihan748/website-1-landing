@@ -201,17 +201,72 @@
       }
     },
 
-    // Subscribe to Realtime Updates
-    subscribeToState(callback) {
+    // Fetch Count of Participants Grouped by Class
+    async fetchClassCounts() {
+      const sb = this.client;
+      if (!sb) return null;
+
+      try {
+        const { data, error } = await sb
+          .from("ctf_participants")
+          .select("ip_address, student_class, user_agent");
+
+        if (error) {
+          console.error("Error fetching class counts:", error);
+          return null;
+        }
+
+        const counts = {
+          "7A": 0, "7B": 0, "7C": 0,
+          "8A": 0, "8B": 0,
+          "9A": 0, "9B": 0,
+          "7D": 0, "7E": 0, "7F": 0,
+          "8C": 0, "8D": 0, "8E": 0, "8F": 0,
+          "9C": 0, "9D": 0, "9E": 0, "9F": 0,
+          total: 0
+        };
+
+        (data || []).forEach(p => {
+          let cls = p.student_class;
+          if (!cls && p.user_agent && p.user_agent.includes("[CLASS:")) {
+            const m = p.user_agent.match(/\[CLASS:(.*?)\]/);
+            if (m && m[1]) cls = m[1];
+          }
+
+          if (cls) {
+            cls = cls.toUpperCase().trim();
+            if (counts[cls] !== undefined) {
+              counts[cls]++;
+            }
+            counts.total++;
+          }
+        });
+
+        return counts;
+      } catch (err) {
+        console.error("Class count error:", err);
+        return null;
+      }
+    },
+
+    // Subscribe to Realtime Updates (State & Participants)
+    subscribeToState(onStateChange, onParticipantChange) {
       const sb = this.client;
       if (!sb) return null;
       const channel = sb
-        .channel("public:ctf_state_stage1")
+        .channel("public:ctf_landing_channel")
         .on(
           "postgres_changes",
           { event: "*", schema: "public", table: "ctf_state", filter: "id=eq.1" },
           (payload) => {
-            if (callback) callback(payload.new);
+            if (onStateChange) onStateChange(payload.new);
+          }
+        )
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "ctf_participants" },
+          (payload) => {
+            if (onParticipantChange) onParticipantChange(payload);
           }
         )
         .subscribe();

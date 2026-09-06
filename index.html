@@ -44,20 +44,96 @@
   <!-- ADMIN CONTROL PANEL (TRIGGER VIA ?admin=NEXUS_ADMIN_2026) -->
   <div id="adminDock" class="admin-dock" style="display: none;">
     <div class="admin-dock-inner">
-      <div class="admin-info">
-        <span class="admin-badge">👑 ADMIN CONTROL</span>
-        <span id="adminSessionLabel">SESI: Sesi Putra 9B</span>
+      <div class="admin-header-row">
+        <div class="admin-info">
+          <span class="admin-badge">👑 ADMIN CONTROL</span>
+          <span id="adminSessionLabel">SESI: Sesi Putra (Kelas 7, 8, 9)</span>
+        </div>
+        <div class="admin-right-controls">
+          <div class="admin-total-badge">
+            <span>TOTAL SISWA: </span><b id="adminTotalStudents">0</b>
+          </div>
+          <button type="button" id="toggleAdminDockBtn" class="admin-mini-toggle" title="Minimize/Maximize Box">−</button>
+        </div>
       </div>
-      <div class="admin-actions">
-        <button type="button" id="adminStartBtn" class="admin-btn start">
-          ⚡ START COMPETITION (RELEASE SISWA)
-        </button>
-        <button type="button" id="adminResetBtn" class="admin-btn reset">
-          🔄 RESET SESI
-        </button>
-        <button type="button" id="adminSealBtn" class="admin-btn seal" title="Keluar dari sesi Admin & Kunci Token">
-          🔒 SEAL / KELUAR ADMIN
-        </button>
+
+      <!-- COLLAPSIBLE BODY -->
+      <div id="adminDockBody" class="admin-collapsible-body">
+        <!-- LIVE CLASS ROSTER COUNTER -->
+        <div class="admin-roster-box">
+          <div class="roster-header">
+            <span class="roster-title">📊 DATA SISWA TERDAFTAR PER KELAS (REALTIME):</span>
+            <span class="roster-sub">Terdata otomatis dari IP & Pemilihan Kelas Siswa</span>
+          </div>
+
+          <!-- IKHWAN SECTION (PUTRA: 7A, 7B, 7C, 8A, 8B, 9A, 9B) -->
+          <div class="roster-category">
+            <span class="roster-cat-title">👦 IKHWAN (PUTRA):</span>
+            <div class="roster-cards-grid">
+              <div class="roster-card" id="card-7A">
+                <span class="rc-class">7A</span>
+                <span class="rc-count" id="count-7A">0</span>
+              </div>
+              <div class="roster-card" id="card-7B">
+                <span class="rc-class">7B</span>
+                <span class="rc-count" id="count-7B">0</span>
+              </div>
+              <div class="roster-card" id="card-7C">
+                <span class="rc-class">7C</span>
+                <span class="rc-count" id="count-7C">0</span>
+              </div>
+              <div class="roster-card" id="card-8A">
+                <span class="rc-class">8A</span>
+                <span class="rc-count" id="count-8A">0</span>
+              </div>
+              <div class="roster-card" id="card-8B">
+                <span class="rc-class">8B</span>
+                <span class="rc-count" id="count-8B">0</span>
+              </div>
+              <div class="roster-card" id="card-9A">
+                <span class="rc-class">9A</span>
+                <span class="rc-count" id="count-9A">0</span>
+              </div>
+              <div class="roster-card" id="card-9B">
+                <span class="rc-class">9B</span>
+                <span class="rc-count" id="count-9B">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AKHWAT SECTION (PUTRI: 7D-F, 8C-F, 9C-F) -->
+          <div class="roster-category akhwat-section">
+            <span class="roster-cat-title">👧 AKHWAT (PUTRI):</span>
+            <div class="roster-cards-grid akhwat-grid">
+              <div class="roster-card" id="card-7D"><span class="rc-class">7D</span><span class="rc-count" id="count-7D">0</span></div>
+              <div class="roster-card" id="card-7E"><span class="rc-class">7E</span><span class="rc-count" id="count-7E">0</span></div>
+              <div class="roster-card" id="card-7F"><span class="rc-class">7F</span><span class="rc-count" id="count-7F">0</span></div>
+              <div class="roster-card" id="card-8C"><span class="rc-class">8C</span><span class="rc-count" id="count-8C">0</span></div>
+              <div class="roster-card" id="card-8D"><span class="rc-class">8D</span><span class="rc-count" id="count-8D">0</span></div>
+              <div class="roster-card" id="card-8E"><span class="rc-class">8E</span><span class="rc-count" id="count-8E">0</span></div>
+              <div class="roster-card" id="card-8F"><span class="rc-class">8F</span><span class="rc-count" id="count-8F">0</span></div>
+              <div class="roster-card" id="card-9C"><span class="rc-class">9C</span><span class="rc-count" id="count-9C">0</span></div>
+              <div class="roster-card" id="card-9D"><span class="rc-class">9D</span><span class="rc-count" id="count-9D">0</span></div>
+              <div class="roster-card" id="card-9E"><span class="rc-class">9E</span><span class="rc-count" id="count-9E">0</span></div>
+              <div class="roster-card" id="card-9F"><span class="rc-class">9F</span><span class="rc-count" id="count-9F">0</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-actions">
+          <button type="button" id="adminStartBtn" class="admin-btn start">
+            ⚡ START COMPETITION (RELEASE SISWA)
+          </button>
+          <button type="button" id="adminRefreshRosterBtn" class="admin-btn refresh" title="Muat ulang data peserta">
+            🔄 REFRESH ROSTER
+          </button>
+          <button type="button" id="adminResetBtn" class="admin-btn reset">
+            🔄 RESET SESI
+          </button>
+          <button type="button" id="adminSealBtn" class="admin-btn seal" title="Keluar dari sesi Admin & Kunci Token">
+            🔒 SEAL / KELUAR ADMIN
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -391,6 +391,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminStartBtn = document.getElementById('adminStartBtn');
   const adminResetBtn = document.getElementById('adminResetBtn');
   const adminSessionLabel = document.getElementById('adminSessionLabel');
+  const adminTotalStudents = document.getElementById('adminTotalStudents');
+  const toggleAdminDockBtn = document.getElementById('toggleAdminDockBtn');
+  const adminDockBody = document.getElementById('adminDockBody');
+  const adminRefreshRosterBtn = document.getElementById('adminRefreshRosterBtn');
+
+  const ALL_CLASSES = [
+    '7A', '7B', '7C', '8A', '8B', '9A', '9B',
+    '7D', '7E', '7F', '8C', '8D', '8E', '8F', '9C', '9D', '9E', '9F'
+  ];
+
+  async function updateClassRosterCounts() {
+    if (!window.CTF_BACKEND) return;
+    const data = await window.CTF_BACKEND.fetchClassCounts();
+    if (!data) return;
+
+    if (adminTotalStudents) {
+      adminTotalStudents.textContent = `${data.total} SISWA`;
+    }
+
+    ALL_CLASSES.forEach(cls => {
+      const countEl = document.getElementById('count-' + cls);
+      const cardEl = document.getElementById('card-' + cls);
+      const count = data[cls] || 0;
+
+      if (countEl) countEl.textContent = count;
+      if (cardEl) {
+        if (count > 0) {
+          cardEl.classList.add('has-students');
+        } else {
+          cardEl.classList.remove('has-students');
+        }
+      }
+    });
+  }
+
+  // Toggle Minimize / Expand Admin Dock
+  if (toggleAdminDockBtn && adminDockBody) {
+    toggleAdminDockBtn.addEventListener('click', () => {
+      playKeyClick();
+      const isCollapsed = adminDockBody.style.display === 'none';
+      adminDockBody.style.display = isCollapsed ? 'flex' : 'none';
+      toggleAdminDockBtn.textContent = isCollapsed ? '−' : '+';
+      toggleAdminDockBtn.title = isCollapsed ? 'Minimize Box' : 'Expand Box';
+    });
+  }
 
   function updateLobbyUI(state) {
     if (!state) return;
@@ -447,6 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.CTF_BACKEND.isAdmin().then(isAdminUser => {
       if (isAdminUser && adminDock) {
         adminDock.style.display = 'block';
+        updateClassRosterCounts();
       }
     });
 
@@ -455,11 +501,25 @@ document.addEventListener('DOMContentLoaded', () => {
       updateLobbyUI(state);
     });
 
-    // Realtime Listener
-    window.CTF_BACKEND.subscribeToState(newState => {
-      updateLobbyUI(newState);
-      playLaserSweep();
-    });
+    // Realtime Listener for State and Class Registrations
+    window.CTF_BACKEND.subscribeToState(
+      newState => {
+        updateLobbyUI(newState);
+        playLaserSweep();
+      },
+      () => {
+        // Participant updated/registered
+        updateClassRosterCounts();
+      }
+    );
+
+    // Refresh Roster Button
+    if (adminRefreshRosterBtn) {
+      adminRefreshRosterBtn.addEventListener('click', () => {
+        playKeyClick();
+        updateClassRosterCounts();
+      });
+    }
 
     // Admin Seal Token Action
     const adminSealBtn = document.getElementById('adminSealBtn');
@@ -495,12 +555,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmReset = confirm('Apakah Anda yakin ingin me-reset sesi (membuka ban dan mengunci kembali lobby untuk sesi berikutnya)?');
         if (!confirmReset) return;
 
-        const newTitle = prompt('Masukkan Judul Sesi Baru:', 'Sesi Putri 9B') || 'Sesi Putri 9B';
+        const newTitle = prompt('Masukkan Judul Sesi Baru:', 'Sesi Putra 9B') || 'Sesi Putra 9B';
         adminResetBtn.disabled = true;
         const res = await window.CTF_BACKEND.resetSession(newTitle);
         adminResetBtn.disabled = false;
         if (res.success) {
           alert('✅ Sesi berhasil di-reset menjadi: ' + newTitle + '. Seluruh IP Ban telah diangkat!');
+          updateClassRosterCounts();
         } else {
           alert('Gagal reset: ' + (res.error || 'Kunci Admin salah'));
         }
