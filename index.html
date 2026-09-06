@@ -425,6 +425,25 @@
     </footer>
   </main>
 
+  <!-- BANNED IP OVERLAY (FULL SCREEN LOCKOUT WITH 1-WEEK LIVE STOPWATCH) -->
+  <div id="bannedOverlay" class="banned-overlay" style="display: none;">
+    <div class="banned-modal neo-card">
+      <div class="banned-icon">🔒</div>
+      <h2 class="banned-title glitch" data-text="AKSES DITOLAK">AKSES DITOLAK • IP TERBLOKIR</h2>
+      <p class="banned-desc" id="bannedReason">
+        Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).
+      </p>
+      <div class="banned-timer-box">
+        <span class="timer-label">⏱️ SISA WAKTU BLOKIR IP (1 MINGGU):</span>
+        <span class="timer-value stopwatch-live" id="bannedStopwatch">6 Hari, 23 Jam, 59 Menit, 59 Detik</span>
+        <span class="timer-sublabel" id="bannedExpiry">Berlaku hingga: -</span>
+      </div>
+      <div class="banned-footer-badge">
+        <span>🛡️ NEXUS SECURITY ENFORCEMENT</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Supabase CDN & Backend Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js"></script>

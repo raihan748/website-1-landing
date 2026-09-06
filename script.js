@@ -486,30 +486,127 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // =========================================================================
+  // IP BAN ENFORCEMENT & 1-WEEK LIVE STOPWATCH (WEBSITE 1)
+  // =========================================================================
+  const bannedOverlay = document.getElementById('bannedOverlay');
+  const bannedReason = document.getElementById('bannedReason');
+  const bannedExpiry = document.getElementById('bannedExpiry');
+  const bannedStopwatch = document.getElementById('bannedStopwatch');
+  let stopwatchInterval = null;
+
+  function startLiveStopwatch(expiryIso) {
+    if (stopwatchInterval) clearInterval(stopwatchInterval);
+
+    const targetDate = expiryIso ? new Date(expiryIso) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+    if (bannedExpiry) {
+      bannedExpiry.textContent = "Berlaku hingga: " + targetDate.toLocaleString('id-ID');
+    }
+
+    function tick() {
+      const now = Date.now();
+      const diff = Math.max(0, targetDate.getTime() - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      if (bannedStopwatch) {
+        bannedStopwatch.textContent = `${days} Hari, ${hours} Jam, ${minutes} Menit, ${seconds} Detik`;
+      }
+    }
+
+    tick();
+    stopwatchInterval = setInterval(tick, 1000);
+  }
+
+  function showBannedScreen(reason = null, expiry = null) {
+    if (classModal) classModal.style.display = 'none';
+    if (bannedOverlay) {
+      bannedOverlay.style.display = 'flex';
+      if (bannedReason && reason) {
+        bannedReason.textContent = reason;
+      }
+      startLiveStopwatch(expiry);
+    }
+  }
+
+  function hideBannedScreen() {
+    if (stopwatchInterval) clearInterval(stopwatchInterval);
+    if (bannedOverlay) {
+      bannedOverlay.style.display = 'none';
+    }
+  }
+
   // Initialize Backend Connection
   if (window.CTF_BACKEND) {
-    // Check if Admin asynchronously via SHA-256
+    let isUserAdmin = false;
+
+    // 1. Check if Admin asynchronously via SHA-256
     window.CTF_BACKEND.isAdmin().then(isAdminUser => {
+      isUserAdmin = isAdminUser;
       if (isAdminUser && adminDock) {
         adminDock.style.display = 'block';
         updateClassRosterCounts();
       }
     });
 
-    // Fetch Initial State
-    window.CTF_BACKEND.fetchState().then(state => {
-      updateLobbyUI(state);
+    // 2. Scan Visitor IP and enforce 1-Week Ban Status
+    window.CTF_BACKEND.scanVisitor().then(res => {
+      if (res && res.banned && !isUserAdmin) {
+        showBannedScreen(res.ban_reason, res.banned_until);
+      }
     });
 
-    // Realtime Listener for State and Class Registrations
+    // 3. Fetch Initial State
+    window.CTF_BACKEND.fetchState().then(state => {
+      updateLobbyUI(state);
+      if (state && state.ban_triggered_at && !isUserAdmin) {
+        const banExp = new Date(new Date(state.ban_triggered_at).getTime() + 7 * 24 * 60 * 60 * 1000);
+        if (Date.now() < banExp.getTime()) {
+          showBannedScreen(
+            "Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).",
+            banExp.toISOString()
+          );
+        }
+      }
+    });
+
+    // 4. Realtime Listener for State, Participants, and Bans
     window.CTF_BACKEND.subscribeToState(
       newState => {
         updateLobbyUI(newState);
         playLaserSweep();
+        if (newState && newState.ban_triggered_at && !isUserAdmin) {
+          const banExp = new Date(new Date(newState.ban_triggered_at).getTime() + 7 * 24 * 60 * 60 * 1000);
+          if (Date.now() < banExp.getTime()) {
+            showBannedScreen(
+              "Sesi kompetisi ini telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).",
+              banExp.toISOString()
+            );
+          }
+        } else if (newState && !newState.ban_triggered_at) {
+          // Admin me-reset sesi -> Buka kembali akses
+          hideBannedScreen();
+        }
       },
-      () => {
+      (participantPayload) => {
         // Participant updated/registered
         updateClassRosterCounts();
+        if (participantPayload && participantPayload.new && !isUserAdmin) {
+          const record = participantPayload.new;
+          window.CTF_BACKEND.getClientIP().then(myIp => {
+            if (record.ip_address === myIp) {
+              if (record.is_banned) {
+                showBannedScreen(record.ban_reason, record.banned_until);
+              } else {
+                hideBannedScreen();
+              }
+            }
+          });
+        }
       }
     );
 
@@ -560,6 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await window.CTF_BACKEND.resetSession(newTitle);
         adminResetBtn.disabled = false;
         if (res.success) {
+          hideBannedScreen();
           alert('✅ Sesi berhasil di-reset menjadi: ' + newTitle + '. Seluruh IP Ban telah diangkat!');
           updateClassRosterCounts();
         } else {

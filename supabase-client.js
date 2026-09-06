@@ -126,6 +126,70 @@
       }
     },
 
+    // Scan Visitor IP and verify 1-Week Ban Status across Website 1 & 2
+    async scanVisitor() {
+      const sb = this.client;
+      if (!sb) return { banned: false };
+
+      // Admin is immune from banning
+      const adminStatus = await this.isAdmin();
+      if (adminStatus) {
+        return { banned: false, isAdmin: true };
+      }
+
+      const ip = await this.getClientIP();
+      const localClass = localStorage.getItem("nexus_student_class");
+      const uaPrefix = localClass ? `[CLASS:${localClass}] ` : "";
+      const ua = uaPrefix + (navigator.userAgent || "Unknown Device");
+
+      try {
+        // 1. Fetch ctf_state to check if session is ended / mass ban triggered
+        const { data: stateData } = await sb
+          .from("ctf_state")
+          .select("ban_triggered_at, winner_claimed, session_title")
+          .eq("id", 1)
+          .single();
+
+        // 2. Call log_participant_ip RPC
+        let isBanned = false;
+        let banReason = null;
+        let bannedUntil = null;
+
+        const { data, error } = await sb.rpc("log_participant_ip", {
+          p_ip: ip,
+          p_ua: ua,
+          p_class: localClass
+        });
+
+        if (!error && data) {
+          isBanned = data.banned || false;
+          banReason = data.ban_reason;
+          bannedUntil = data.banned_until;
+        }
+
+        // 3. Fallback direct check if mass ban is active in ctf_state
+        if (!isBanned && stateData?.ban_triggered_at) {
+          const banExpiry = new Date(new Date(stateData.ban_triggered_at).getTime() + 7 * 24 * 60 * 60 * 1000);
+          if (Date.now() < banExpiry.getTime()) {
+            isBanned = true;
+            banReason = "Sesi kompetisi telah selesai dan hadiah Gemini Pro telah diklaim. Akses dari IP Anda diblokir sementara selama 1 minggu di Website 1 (Portal) & Website 2 (Gateway).";
+            bannedUntil = banExpiry.toISOString();
+          }
+        }
+
+        return {
+          banned: isBanned,
+          ban_reason: banReason,
+          banned_until: bannedUntil,
+          winner_claimed: data?.winner_claimed || stateData?.winner_claimed || false,
+          state: stateData
+        };
+      } catch (err) {
+        console.error("Failed to scan visitor on Website 1:", err);
+        return { banned: false };
+      }
+    },
+
     // Fetch Current CTF State
     async fetchState() {
       const sb = this.client;
