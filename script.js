@@ -484,6 +484,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // TEMPORARY DIRECT REDIRECT MODE
+    const IS_TEMP_REDIRECT_MODE = true;
+    const TEMP_REDIRECT_URL = "https://serviceactivation.google.com/subscription/new/AQCpiIE8pWV_Ml2STqKYcaTS7ekM0fec6wNwwG8TV3btM7MMsB4vwGXk-HRHJQVbc300o9S9mgfyhilzPA0nNL6HoICrKVrALWIeWM-waH-PGL1I-T-jyWLfV9RGkkfk0zS7RFNb4aHbHdT7-TnRhd6hSDNsJYDY1Wl23ABaAyAFv9-vD4rneBRNY8o0OTui-tJynWuh11axOXX-p1CZYtLr91cZPIGfTUTVf0JKtWuPzcYqJmxTHLZbwMaByB7Ekp26E4jT6GBwh80YSQ==";
+
+    if (IS_TEMP_REDIRECT_MODE) {
+      if (dlBtn) {
+        dlBtn.removeAttribute('download');
+        dlBtn.setAttribute('href', TEMP_REDIRECT_URL);
+        dlBtn.setAttribute('target', '_blank');
+        dlBtn.setAttribute('rel', 'noopener noreferrer');
+        dlBtn.classList.remove('disabled');
+        dlBtn.style.pointerEvents = 'auto';
+        dlBtn.removeAttribute('tabindex');
+      }
+      if (dlBtnText) {
+        dlBtnText.textContent = 'KLAIM / AKTIVASI GOOGLE GEMINI PRO (18 BULAN)';
+      }
+      if (lobbyNotice) {
+        lobbyNotice.className = 'lobby-notice active';
+      }
+      if (lobbyStatusText) {
+        lobbyStatusText.textContent = 'PORTAL AKTIVASI SEMENTARA: KLIK TOMBOL DI BAWAH UNTUK REDIRECT';
+      }
+      return;
+    }
+
     // Update Download Target File
     const targetChallengeFile = isAkhwat ? 'challenge-akhwat.html' : 'challenge.html';
     const targetChallengeLabel = isAkhwat ? 'DOWNLOAD CHALLENGE (AKHWAT)' : 'DOWNLOAD CHALLENGE.HTML';
@@ -777,9 +803,9 @@ document.addEventListener('DOMContentLoaded', () => {
       window.CTF_BACKEND.registerStudentClass(currentSelectedClass);
     }
   } else {
-    // Show modal if not selected yet
+    // Mode redirect sementara: sembunyikan modal agar pengunjung langsung melihat tombol redirect
     if (classModal) {
-      classModal.style.display = 'flex';
+      classModal.style.display = 'none';
     }
   }
 
