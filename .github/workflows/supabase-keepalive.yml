@@ -1,0 +1,48 @@
+name: Supabase Database Keep-Alive Bot
+
+on:
+  schedule:
+    # Berjalan otomatis setiap hari pada pukul 06:00 UTC (13:00 WIB)
+    # Supabase Free Tier otomatis ter-pause jika tidak ada aktivitas selama 7 hari.
+    # Bot ini mengirim query ringan setiap hari agar database TIDAK PERNAH TERPAUSE SELAMANYA!
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Tombol manual "Run workflow" di tab GitHub Actions
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    name: Ping Supabase Database
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          node -e "
+            const SUPABASE_URL = 'https://zzpnqmghzkaqwpkphvpz.supabase.co';
+            const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_RY_e_q6UIZVwr2i88AbBFA_-cLDRgUn';
+
+            async function keepAlive() {
+              console.log('⏰ Waktu Ping UTC :', new Date().toISOString());
+              try {
+                const res = await fetch(SUPABASE_URL + '/rest/v1/ctf_state?select=id&limit=1', {
+                  headers: {
+                    apikey: SUPABASE_KEY,
+                    Authorization: 'Bearer ' + SUPABASE_KEY
+                  }
+                });
+                console.log('📡 HTTP Status    :', res.status, res.statusText);
+                const data = await res.json();
+                console.log('📦 Data Respons   :', JSON.stringify(data));
+                if (res.ok) {
+                  console.log('✅ BERHASIL: Database Supabase aktif, hidup, dan tidak akan ter-pause selamanya!');
+                } else {
+                  console.error('❌ Gagal ping database:', data);
+                  process.exit(1);
+                }
+              } catch (err) {
+                console.error('❌ Network Error:', err);
+                process.exit(1);
+              }
+            }
+            keepAlive();
+          "
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
